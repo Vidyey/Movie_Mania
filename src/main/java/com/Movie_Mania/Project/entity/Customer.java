@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.*;
-import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

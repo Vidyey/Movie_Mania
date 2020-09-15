@@ -6,19 +6,38 @@ package com.Movie_Mania.Project.entity;
 import java.time.LocalDate;
 import java.util.Arrays;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.*;
+
 /**
  * @author PDGadge
  *
  */
+@Entity
+@Table(name = "Movie_Details")
 public class Movie {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="movie_id")
 	private Integer movieId;
+	@Column(name="booking_id")
 	private Integer	bookingId;
+	@Column(name="Movie_name")
 	private String movieName;
-	private Show[]	movieGenre; 
-	private LocalDate movieDirector;
+	
+	private String	movieGenre; 
+	@Column(name="movie_Director")
+	private String movieDirector;
+	@Column(name="movie_Length")
 	private Integer movieLength;
-	private String[] languages; 
+	@Column(name="movie_langauges")
+	private String[] languages;
+	@Column(name="movie_releaseDate")
 	private LocalDate movieReleaseDate;
 	/**
 	 * @param movieId
@@ -30,7 +49,7 @@ public class Movie {
 	 * @param languages
 	 * @param movieReleaseDate
 	 */
-	public Movie(Integer movieId, Integer bookingId, String movieName, Show[] movieGenre, LocalDate movieDirector,
+	public Movie(Integer movieId, Integer bookingId, String movieName, String movieGenre, String movieDirector,
 			Integer movieLength, String[] languages, LocalDate movieReleaseDate) {
 		super();
 		this.movieId = movieId;
@@ -49,12 +68,7 @@ public class Movie {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	@Override
-	public String toString() {
-		return "Movie [movieId=" + movieId + ", bookingId=" + bookingId + ", movieName=" + movieName + ", movieGenre="
-				+ Arrays.toString(movieGenre) + ", movieDirector=" + movieDirector + ", movieLength=" + movieLength
-				+ ", languages=" + Arrays.toString(languages) + ", movieReleaseDate=" + movieReleaseDate + "]";
-	}
+
 	/**
 	 * @return the movieId
 	 */
@@ -94,25 +108,25 @@ public class Movie {
 	/**
 	 * @return the movieGenre
 	 */
-	public Show[] getMovieGenre() {
+	public String getMovieGenre() {
 		return movieGenre;
 	}
 	/**
 	 * @param movieGenre the movieGenre to set
 	 */
-	public void setMovieGenre(Show[] movieGenre) {
+	public void setMovieGenre(String movieGenre) {
 		this.movieGenre = movieGenre;
 	}
 	/**
 	 * @return the movieDirector
 	 */
-	public LocalDate getMovieDirector() {
+	public String getMovieDirector() {
 		return movieDirector;
 	}
 	/**
 	 * @param movieDirector the movieDirector to set
 	 */
-	public void setMovieDirector(LocalDate movieDirector) {
+	public void setMovieDirector(String movieDirector) {
 		this.movieDirector = movieDirector;
 	}
 	/**
@@ -150,6 +164,12 @@ public class Movie {
 	 */
 	public void setMovieReleaseDate(LocalDate movieReleaseDate) {
 		this.movieReleaseDate = movieReleaseDate;
+	}
+	@Override
+	public String toString() {
+		return "Movie [movieId=" + movieId + ", bookingId=" + bookingId + ", movieName=" + movieName + ", movieGenre="
+				+ movieGenre + ", movieDirector=" + movieDirector + ", movieLength=" + movieLength + ", languages="
+				+ Arrays.toString(languages) + ", movieReleaseDate=" + movieReleaseDate + "]";
 	}
 	
 	
