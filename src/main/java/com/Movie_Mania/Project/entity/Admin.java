@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package com.Movie_Mania.Project.entity;
 
 import java.time.LocalDate;
