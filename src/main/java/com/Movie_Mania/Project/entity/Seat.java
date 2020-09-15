@@ -3,14 +3,23 @@
  */
 package com.Movie_Mania.Project.entity;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  * @author Administrator
  *
  */
 public class Seat {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="seat_id")
 	private Integer seatId; 
+	@Column(name="seat_Status")
 	private  Enum<BookingState> seatStatus;
-	
+	@Column(name="seat_Price")
 	private  Double seatPrice;
 
 	public Enum<BookingState> getSeatStatus() {
