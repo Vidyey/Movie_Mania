@@ -3,22 +3,48 @@
  */
 package com.Movie_Mania.Project.entity;
 
-import java.util.Arrays;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 
 /**
  * @author PDGadge
  *
  */
+@Entity
+@Table(name = "Theater_Details")
 public class Theater {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="theater_id")
 	private Integer theaterId;
+	@Column(name="theater_Name")
 	private String theaterName;
+	@Column(name="theater_city")
 	private String theaterCity;
-	private Movie[] movies;
+	
+	// mapping remaining
 	
 	
-	private Screen[] listOfScreens;
+	@OneToMany(targetEntity = Movie.class, cascade = CascadeType.ALL)
+	private List<Movie> movies;
+	  // adding extra col 
+	
+	@OneToMany(targetEntity = Screen.class, cascade = CascadeType.ALL)
+	private List<Screen> screens;
+	
+	@Column(name="Manager_Name")
 	private String managerName;
+	@Column(name="Manager_Contact")
 	private String managerContact;
 	/**
 	 * @param theaterId
@@ -29,14 +55,14 @@ public class Theater {
 	 * @param managerName
 	 * @param managerContact
 	 */
-	public Theater(Integer theaterId, String theaterName, String theaterCity, Movie[] movies, Screen[] listOfScreens,
+	public Theater(Integer theaterId, String theaterName, String theaterCity, List<Movie> movies, List<Screen> listOfScreens,
 			String managerName, String managerContact) {
 		super();
 		this.theaterId = theaterId;
 		this.theaterName = theaterName;
 		this.theaterCity = theaterCity;
 		this.movies = movies;
-		this.listOfScreens = listOfScreens;
+		this.screens = listOfScreens;
 		this.managerName = managerName;
 		this.managerContact = managerContact;
 	}
@@ -47,12 +73,7 @@ public class Theater {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	@Override
-	public String toString() {
-		return "Theater [theaterId=" + theaterId + ", theaterName=" + theaterName + ", theaterCity=" + theaterCity
-				+ ", movies=" + Arrays.toString(movies) + ", listOfScreens=" + Arrays.toString(listOfScreens)
-				+ ", managerName=" + managerName + ", managerContact=" + managerContact + "]";
-	}
+	
 	/**
 	 * @return the theaterId
 	 */
@@ -92,26 +113,26 @@ public class Theater {
 	/**
 	 * @return the movies
 	 */
-	public Movie[] getMovies() {
+	public List<Movie> getMovies() {
 		return movies;
 	}
 	/**
 	 * @param movies the movies to set
 	 */
-	public void setMovies(Movie[] movies) {
+	public void setMovies(List<Movie> movies) {
 		this.movies = movies;
 	}
 	/**
 	 * @return the listOfScreens
 	 */
-	public Screen[] getListOfScreens() {
-		return listOfScreens;
+	public List<Screen> getListOfScreens() {
+		return screens;
 	}
 	/**
 	 * @param listOfScreens the listOfScreens to set
 	 */
-	public void setListOfScreens(Screen[] listOfScreens) {
-		this.listOfScreens = listOfScreens;
+	public void setListOfScreens(List<Screen> listOfScreens) {
+		this.screens = listOfScreens;
 	}
 	/**
 	 * @return the managerName
@@ -136,6 +157,12 @@ public class Theater {
 	 */
 	public void setManagerContact(String managerContact) {
 		this.managerContact = managerContact;
+	}
+	@Override
+	public String toString() {
+		return "Theater [theaterId=" + theaterId + ", theaterName=" + theaterName + ", theaterCity=" + theaterCity
+				+ ", movies=" + movies + ", listOfScreens=" + screens + ", managerName=" + managerName
+				+ ", managerContact=" + managerContact + "]";
 	}
 	
 	

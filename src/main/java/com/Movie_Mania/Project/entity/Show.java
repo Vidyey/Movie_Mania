@@ -4,20 +4,44 @@
 package com.Movie_Mania.Project.entity;
 
 import java.sql.Time;
-import java.util.Arrays;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 /**
  * @author PDGadge
  *
  */
+@Entity
+@Table(name = "Show_Details")
 public class Show {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="show_id")
 	private Integer showId;
+	@Column(name="show_StartTime")
 	private Time showStartTime;
+	@Column(name="show_EndTime")
 	private Time showEndTime;
-	private Seat[] seats;
+	
+	@OneToMany(targetEntity = Seat.class)										//mappimg remaining
+	private List<Seat> seats;
+	
 	private String showName;
+	@OneToOne(targetEntity=Movie.class,cascade=CascadeType.ALL) 
 	private Movie movieName;
+	@Column(name="screen_id")
 	private Integer screenId;
+	@Column(name="theater_id")
 	private Integer theaterId;
 	/**
 	 * @param showId
@@ -29,7 +53,7 @@ public class Show {
 	 * @param screenId
 	 * @param theaterId
 	 */
-	public Show(Integer showId, Time showStartTime, Time showEndTime, Seat[] seats, String showName, Movie movieName,
+	public Show(Integer showId, Time showStartTime, Time showEndTime, List<Seat> seats, String showName, Movie movieName,
 			Integer screenId, Integer theaterId) {
 		super();
 		this.showId = showId;
@@ -48,12 +72,7 @@ public class Show {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	@Override
-	public String toString() {
-		return "Show [showId=" + showId + ", showStartTime=" + showStartTime + ", showEndTime=" + showEndTime
-				+ ", seats=" + Arrays.toString(seats) + ", showName=" + showName + ", movieName=" + movieName
-				+ ", screenId=" + screenId + ", theaterId=" + theaterId + "]";
-	}
+
 	/**
 	 * @return the showId
 	 */
@@ -93,13 +112,13 @@ public class Show {
 	/**
 	 * @return the seats
 	 */
-	public Seat[] getSeats() {
+	public List<Seat> getSeats() {
 		return seats;
 	}
 	/**
 	 * @param seats the seats to set
 	 */
-	public void setSeats(Seat[] seats) {
+	public void setSeats(List<Seat> seats) {
 		this.seats = seats;
 	}
 	/**
@@ -149,6 +168,12 @@ public class Show {
 	 */
 	public void setTheaterId(Integer theaterId) {
 		this.theaterId = theaterId;
+	}
+	@Override
+	public String toString() {
+		return "Show [showId=" + showId + ", showStartTime=" + showStartTime + ", showEndTime=" + showEndTime
+				+ ", seats=" + seats + ", showName=" + showName + ", movieName=" + movieName + ", screenId=" + screenId
+				+ ", theaterId=" + theaterId + "]";
 	}
 	
 	

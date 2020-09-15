@@ -23,8 +23,11 @@ public class Ticket {
 	private Integer	noOfSeats;
 	@Column(name = "SeatName")
 	private String[] seatName; 
+	
 	@OneToOne(targetEntity=Booking.class,cascade=CascadeType.ALL) 
 	private Booking	bookingRef;
+	
+	
 	@Column(name = "Ticket_Status")
 	private Boolean	ticketStatus;
 	@Column(name = "ScreenName")

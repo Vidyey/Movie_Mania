@@ -4,7 +4,7 @@
 package com.Movie_Mania.Project.entity;
 
 import java.time.LocalDate;
-import java.util.Arrays;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -25,6 +25,7 @@ public class Booking {
 	@Column(name="show_id")
 	private Integer	showId;
 	
+	@OneToOne(targetEntity=Show.class,cascade=CascadeType.ALL)
 	private Show showRef;
 	@Column(name="booking_date")
 	private LocalDate bookingDate;
@@ -33,7 +34,8 @@ public class Booking {
 	@Column(name="Total_Cost")
 	private Double totalCost;
 	
-	private Seat[] seatList;
+	@OneToMany(targetEntity = Seat.class)
+	private List<Seat> seatList;
 	@OneToOne(targetEntity=Ticket.class) 
 	private Ticket ticket;
 	/**
@@ -48,7 +50,7 @@ public class Booking {
 	 * @param ticket
 	 */
 	public Booking(Integer bookingId, Integer movieId, Integer showId, Show showRef, LocalDate bookingDate,
-			Integer transactionId, Double totalCost, Seat[] seatList, Ticket ticket) {
+			Integer transactionId, Double totalCost, List<Seat> seatList, Ticket ticket) {
 		super();
 		this.bookingId = bookingId;
 		this.movieId = movieId;
@@ -67,12 +69,7 @@ public class Booking {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	@Override
-	public String toString() {
-		return "Booking [bookingId=" + bookingId + ", movieId=" + movieId + ", showId=" + showId + ", showRef="
-				+ showRef + ", bookingDate=" + bookingDate + ", transactionId=" + transactionId + ", totalCost="
-				+ totalCost + ", seatList=" + Arrays.toString(seatList) + ", ticket=" + ticket + "]";
-	}
+	
 	/**
 	 * @return the bookingId
 	 */
@@ -160,13 +157,13 @@ public class Booking {
 	/**
 	 * @return the seatList
 	 */
-	public Seat[] getSeatList() {
+	public List<Seat> getSeatList() {
 		return seatList;
 	}
 	/**
 	 * @param seatList the seatList to set
 	 */
-	public void setSeatList(Seat[] seatList) {
+	public void setSeatList(List<Seat> seatList) {
 		this.seatList = seatList;
 	}
 	/**
@@ -180,6 +177,12 @@ public class Booking {
 	 */
 	public void setTicket(Ticket ticket) {
 		this.ticket = ticket;
+	}
+	@Override
+	public String toString() {
+		return "Booking [bookingId=" + bookingId + ", movieId=" + movieId + ", showId=" + showId + ", showRef="
+				+ showRef + ", bookingDate=" + bookingDate + ", transactionId=" + transactionId + ", totalCost="
+				+ totalCost + ", seatList=" + seatList + ", ticket=" + ticket + "]";
 	}
 	
 	
