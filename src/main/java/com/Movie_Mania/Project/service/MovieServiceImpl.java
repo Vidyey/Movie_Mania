@@ -5,51 +5,49 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.Movie_Mania.Project.Dao.IMovieDaoImpl;
 import com.Movie_Mania.Project.entity.Movie;
-import com.Movie_Mania.Project.entity.Screen;
 import com.Movie_Mania.Project.entity.Show;
 import com.Movie_Mania.Project.entity.Theater;
-import com.Movie_Mania.Project.repo.MovieRepo;
-import com.Movie_Mania.Project.repo.ScreenRepo;
-import com.Movie_Mania.Project.repo.ShowRepo;
-import com.Movie_Mania.Project.repo.TheatreRepo;
-
 @Service
-public class MovieServiceImpl implements MovieService{
-	
+public class MovieServiceImpl implements IMovieService
+{
 	@Autowired
-	MovieRepo mrepo;
-	
-	@Autowired
-	TheatreRepo trepo;
-	
-	@Autowired
-	ShowRepo srepo;
-	
-	@Autowired
-	ScreenRepo screpo;
-	
-	@Override
-	public List<Movie> searchMovie(String movieName) {
+	private IMovieDaoImpl dao;
 
-		return mrepo.findByMovieName(movieName);
+	@Override
+	public void addMovie(Movie movie) {
+		// TODO Auto-generated method stub
+		dao.addMovie(movie);
+
 	}
 
 	@Override
+	public void deleteMovie(int movieId) {
+		// TODO Auto-generated method stub
+        dao.deleteMovie(movieId);
+	}
+
+	@Override
+	public List<Movie> getAllMovies() {
+		// TODO Auto-generated method stub
+		return dao.getAllMovies();
+
+	}
+
+	public List<Movie> searchMovie(String movieName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	public List<Theater> searchTheatre(String theatreName) {
 		// TODO Auto-generated method stub
-		return trepo.findByTheaterName(theatreName);
-	}
-	
-	@Override
-	public List<Show> searchShow(String showName) {
-		return srepo.findByShowName(showName);
+		return null;
 	}
 
-	@Override
 	public List<Show> showShows(Integer screenId) {
-		Screen screen=screpo.getOne(screenId) ;
-		return screen.getShowList();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
