@@ -1,23 +1,19 @@
-/**
- * 
- */
+
 package com.Movie_Mania.Project.entity;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.*;
 
-/**
- * @author PDGadge
- *
- */
 @Entity
 @Table(name = "Booking_Details")
-public class Booking {
+public class Booking implements Serializable{
 
+	
+	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="booking_id")
 	private Integer	bookingId;
 	@Column(name="movie_id")
@@ -25,7 +21,7 @@ public class Booking {
 	@Column(name="show_id")
 	private Integer	showId;
 	
-	@OneToOne(targetEntity=Show.class,cascade=CascadeType.ALL)
+	@OneToOne(mappedBy = "booking",targetEntity=Show.class,cascade=CascadeType.ALL)
 	private Show showRef;
 	@Column(name="booking_date")
 	private LocalDate bookingDate;
@@ -34,21 +30,14 @@ public class Booking {
 	@Column(name="Total_Cost")
 	private Double totalCost;
 	
-	@OneToMany(targetEntity = Seat.class)
+	@OneToMany(mappedBy = "booking",targetEntity = Seat.class,cascade=CascadeType.ALL)
 	private List<Seat> seatList;
+	
 	@OneToOne(targetEntity=Ticket.class) 
 	private Ticket ticket;
-	/**
-	 * @param bookingId
-	 * @param movieId
-	 * @param showId
-	 * @param showRef
-	 * @param bookingDate
-	 * @param transactionId
-	 * @param totalCost
-	 * @param seatList
-	 * @param ticket
-	 */
+
+	
+	
 	public Booking(Integer bookingId, Integer movieId, Integer showId, Show showRef, LocalDate bookingDate,
 			Integer transactionId, Double totalCost, List<Seat> seatList, Ticket ticket) {
 		super();
@@ -62,9 +51,7 @@ public class Booking {
 		this.seatList = seatList;
 		this.ticket = ticket;
 	}
-	/**
-	 * 
-	 */
+
 	public Booking() {
 		super();
 		// TODO Auto-generated constructor stub

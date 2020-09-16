@@ -3,6 +3,7 @@
  */
 package com.Movie_Mania.Project.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -21,10 +22,13 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "Theater_Details")
-public class Theater {
+public class Theater implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="theater_id")
 	private Integer theaterId;
 	@Column(name="theater_Name")
@@ -35,11 +39,11 @@ public class Theater {
 	// mapping remaining
 	
 	
-	@OneToMany(targetEntity = Movie.class, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "theatre",targetEntity = Movie.class, cascade = CascadeType.ALL)
 	private List<Movie> movies;
 	  // adding extra col 
 	
-	@OneToMany(targetEntity = Screen.class, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "theatre",targetEntity = Screen.class, cascade = CascadeType.ALL)
 	private List<Screen> screens;
 	
 	@Column(name="Manager_Name")
