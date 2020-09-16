@@ -5,9 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Movie_Mania.Project.entity.Movie;
@@ -23,8 +24,35 @@ import com.Movie_Mania.Project.service.MovieServiceImpl;
 @RestController
 public class Movie_Mania_Controller {
 	
+	
+	
+	
+	@Autowired
+	private MovieServiceImpl ser;
+	
 	@Autowired
 	MovieService mserv;
+	
+	
+	
+	@GetMapping(value="/hellooo")
+	public String poo()
+	{
+		return "hii";
+	}
+	@PostMapping(value="/addMovie")
+	public void addMovie(@RequestBody Movie movie)
+	{
+		ser.addMovie(movie);
+	}
+
+	
+	
+	@GetMapping(value="/getMovies")
+	public List<Movie> GetAllTopics()
+	{
+	return ser.getAllMovies();
+	}
 	
 	@GetMapping(path="/searchMovie/{movieName}")
 	public List<Movie> searchMovie(@PathVariable("movieName") String movieName)

@@ -22,6 +22,9 @@ public interface MovieService {
 	Ticket bookSeat();
 	
 	Boolean bloackSeat();
+	public void addMovie(Movie movie);
+	public void deleteMovie(int movieId);
+	public List<Movie> getAllMovies();
 	
 }
 

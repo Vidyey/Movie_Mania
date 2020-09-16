@@ -1,4 +1,3 @@
-
 package com.Movie_Mania.Project.entity;
 
 
@@ -57,4 +56,3 @@ public class Admin extends User{
 	
 
 }
-

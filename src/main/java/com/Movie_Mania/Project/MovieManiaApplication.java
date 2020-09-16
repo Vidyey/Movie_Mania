@@ -52,68 +52,58 @@ public class MovieManiaApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 		
-		/*
-		String[] stringArray = {"t","s"};
 		
-		Movie m1=new Movie(1, 11, "Ragnarok", "", "", 50, stringArray, LocalDate.now());
-		
-		
-		Movie m2=new Movie(2, 22, "Orphan", "", "", 60, stringArray, LocalDate.now());
-		
-		
-		
-		List<Movie> movielist1 =new ArrayList<Movie>();
-		movielist1.add(m1);
-	
-		
-		
-		
-		
-		
-		
-		
-		Theater t1 = new Theater(101, "PVR", "Pune", movielist1, null, "", "");
-		
-		
-		trepo.save(t1);
-		
-		
-		
-	
-		long milli = 123456789999l;
-		java.sql.Time time = new java.sql.Time(milli);
-		
-		Show s1 = new Show(null,time, time, null, "Alpha", m1, 501, 101);     //Theatre 1 Screen 1 show 1
-		Show s2 = new Show(null,time, time, null, "Alpha", m1, 501, 101);
-		
-		 
-		 		
-		List<Show> showlist1=new ArrayList<Show>();
-		showlist1.add(s1);
-	
-		
-		
-	
-		Screen sc1=new Screen(501, 101, "A", showlist1, LocalDate.now(),10 , 20);
-		
-		
-		
-		
-		
-		List<Screen> screenlist1 = new ArrayList<Screen>();
-		screenlist1.add(sc1);
-		
-		
-		
-		
-		
-		
-		
-	*/
-		
-		
-		
-		
+//		String[] stringArray = {"t","s"};
+//		
+//		Movie m1=new Movie(1, "Ragnarok", "", "", 50, stringArray, LocalDate.now());
+//		
+//		
+//		Movie m2=new Movie(2, "Orphan", "", "", 60, stringArray, LocalDate.now());
+//		
+//		
+//		
+//		List<Movie> movielist1 =new ArrayList<Movie>();
+//		movielist1.add(m1);
+//	
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//		Theater t1 = new Theater(101, "PVR", "Pune", movielist1, null, "", "");
+//		
+//		
+//		trepo.save(t1);
+//		
+//		
+//		
+//	
+//		long milli = 123456789999l;
+//		java.sql.Time time = new java.sql.Time(milli);
+//		
+//		Show s1 = new Show(null,time, time, null, "Alpha", m1, 501, 101);     //Theatre 1 Screen 1 show 1
+//		Show s2 = new Show(null,time, time, null, "Alpha", m1, 501, 101);
+//		
+//		 
+//		 		
+//		List<Show> showlist1=new ArrayList<Show>();
+//		showlist1.add(s1);
+//	
+//		
+//		
+//	
+//		Screen sc1=new Screen(501, 101, "A", showlist1, LocalDate.now(),10 , 20);
+//		
+//		
+//		
+//		
+//		
+//		List<Screen> screenlist1 = new ArrayList<Screen>();
+//		screenlist1.add(sc1);
+//		
+
 		
 	}
 

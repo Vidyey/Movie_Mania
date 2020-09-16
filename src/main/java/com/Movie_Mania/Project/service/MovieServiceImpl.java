@@ -5,38 +5,36 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+
 import com.Movie_Mania.Project.Dao.IMovieDao;
+
 import com.Movie_Mania.Project.entity.Movie;
-import com.Movie_Mania.Project.entity.Screen;
 import com.Movie_Mania.Project.entity.Show;
 import com.Movie_Mania.Project.entity.Theater;
+
 import com.Movie_Mania.Project.entity.Ticket;
-import com.Movie_Mania.Project.repo.MovieRepo;
 import com.Movie_Mania.Project.repo.ScreenRepo;
 import com.Movie_Mania.Project.repo.ShowRepo;
-import com.Movie_Mania.Project.repo.TheatreRepo;
+
 
 @Service
-public class MovieServiceImpl implements MovieService{
-	
-	@Autowired
-	MovieRepo mrepo;
-	
-	@Autowired
-	TheatreRepo trepo;
-	
-	@Autowired
+public class MovieServiceImpl implements MovieService
+{
+
+
+
 	ShowRepo srepo;
 	
 	@Autowired
 	ScreenRepo screpo;
 	
 	@Autowired
-	private IMovieDao bookDao;
+	private IMovieDao dao;
 	
 	@Override
 	public List<Ticket> showTickets(int customerId) {
-		return bookDao.showTickets(customerId);
+		return dao.showTickets(customerId);
 	}
 
 	@Override
@@ -58,26 +56,45 @@ public class MovieServiceImpl implements MovieService{
 	}
 	
 	@Override
-	public List<Movie> searchMovie(String movieName) {
+	public void addMovie(Movie movie) {
+		// TODO Auto-generated method stub
+		dao.addMovie(movie);
 
-		return mrepo.findByMovieName(movieName);
 	}
 
 	@Override
+	public void deleteMovie(int movieId) {
+		// TODO Auto-generated method stub
+        dao.deleteMovie(movieId);
+	}
+
+	@Override
+	public List<Movie> getAllMovies() {
+		// TODO Auto-generated method stub
+		return dao.getAllMovies();
+
+	}
+
+
+	public List<Movie> searchMovie(String movieName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	public List<Theater> searchTheatre(String theatreName) {
 		// TODO Auto-generated method stub
-		return trepo.findByTheaterName(theatreName);
+		return null;
 	}
-	
-	@Override
-	public List<Show> searchShow(String showName) {
-		return srepo.findByShowName(showName);
+
+	public List<Show> showShows(Integer screenId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public List<Show> showShows(Integer screenId) {
-		Screen screen=screpo.getOne(screenId) ;
-		return screen.getShowList();
+	public List<Show> searchShow(String movieName) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
