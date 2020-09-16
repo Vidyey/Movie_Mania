@@ -68,12 +68,6 @@ public class Movie_Mania_Controller {
 		
 	}
 	
-	@GetMapping(path="/searchShow/{showName}")
-	public List<Theater> searchShow(@PathVariable("showName") String showName)
-	{
-		return mserv.searchTheatre(showName);
-		
-	}
 	
 	
 	@GetMapping(path="/showShows/{screenId}")
