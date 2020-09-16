@@ -42,6 +42,7 @@ public class MovieManiaApplication implements CommandLineRunner {
 		
 		SpringApplication.run(MovieManiaApplication.class, args);
 		System.out.println("lets start");
+		System.out.println("yash");
 		
 	}
 
