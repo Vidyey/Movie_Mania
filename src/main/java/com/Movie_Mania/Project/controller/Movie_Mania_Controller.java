@@ -28,39 +28,41 @@ import com.Movie_Mania.Project.service.MovieServiceImpl;
 public class Movie_Mania_Controller {
 	
 	@Autowired
-	MovieService movieService;
+	MovieService mserv;
 	
-	/*
-	 * @GetMapping(path="/searchMovie/{movieName}") public List<Movie>
-	 * searchMovie(@PathVariable("movieName") String movieName) { return
-	 * mserv.searchMovie(movieName); }
-	 * 
-	 * @GetMapping(path="/searchTheatre/{theatreName}") public List<Theater>
-	 * searchTheatre(@PathVariable("theatreName") String theatreName) { return
-	 * mserv.searchTheatre(theatreName);
-	 * 
-	 * }
-	 * 
-	 * @GetMapping(path="/searchShow/{showName}") public List<Theater>
-	 * searchShow(@PathVariable("showName") String showName) { return
-	 * mserv.searchTheatre(showName);
-	 * 
-	 * }
-	 * 
-	 * 
-	 * @GetMapping(path="/showShows/{screenId}") public List<Show>
-	 * showShows(@PathVariable("screenId") Integer screenId) { return
-	 * mserv.showShows(screenId); }
-	 */
+	
+	  @GetMapping(path="/searchMovie/{movieName}") public List<Movie>
+	  searchMovie(@PathVariable("movieName") String movieName) { return
+	  mserv.searchMovie(movieName); }
+	  
+	  @GetMapping(path="/searchTheatre/{theatreName}") public List<Theater>
+	  searchTheatre(@PathVariable("theatreName") String theatreName) { return
+	  mserv.searchTheatre(theatreName);
+	  
+	  }
+	  
+	  @GetMapping(path="/searchShow/{showName}") public List<Theater>
+	  searchShow(@PathVariable("showName") String showName) { return
+	  mserv.searchTheatre(showName);
+	  
+	  }
+	  
+	  
+	  @GetMapping(path="/showShows/{screenId}") public List<Show>
+	  showShows(@PathVariable("screenId") Integer screenId) { return
+	  mserv.showShows(screenId); }
+	 
 	@PostMapping(value ="/regCust")
 	public Customer registerCustomer(@RequestBody Customer customer) {
-		return movieService.registerCustomer(customer);
+		return mserv.registerCustomer(customer);
 	}
 	
 	@PostMapping(value ="/regAdmin")
 	public Admin registerAdmin(@RequestBody Admin admin) {
-		return movieService.registerAdmin(admin);
+		return mserv.registerAdmin(admin);
 	}
+	
+	
 	
 	
 }

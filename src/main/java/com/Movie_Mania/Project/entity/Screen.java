@@ -3,14 +3,15 @@
  */
 package com.Movie_Mania.Project.entity;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -20,9 +21,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "Screen_Details")
-public class Screen {
+public class Screen implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="screen_id")
 	private Integer screenId;
 	@Column(name="theater_id")
@@ -30,9 +34,10 @@ public class Screen {
 	@Column(name="screen_Name")
 	String screenName;
 	
+	@ManyToOne
+	Theater theatre;
 	
-	
-	@OneToMany(targetEntity = Show.class)
+	@OneToMany(mappedBy = "screen",targetEntity = Show.class,cascade = CascadeType.ALL)
 	private List<Show> showList;
 	@Column(name="movieEndDate")
 	private LocalDate movieEndDate;
@@ -152,12 +157,26 @@ public class Screen {
 	public void setColumns(Integer columns) {
 		this.columns = columns;
 	}
+	public Integer getTheaterId() {
+		return theaterId;
+	}
+	public void setTheaterId(Integer theaterId) {
+		this.theaterId = theaterId;
+	}
 	@Override
 	public String toString() {
 		return "Screen [screenId=" + screenId + ", theaterId=" + theaterId + ", screenName=" + screenName
 				+ ", showList=" + showList + ", movieEndDate=" + movieEndDate + ", rows=" + rows + ", columns="
 				+ columns + "]";
 	}
+	public Theater getTheatre() {
+		return theatre;
+	}
+	public void setTheatre(Theater theatre) {
+		this.theatre = theatre;
+	}
+	
+	
 
 	
 
