@@ -52,13 +52,13 @@ public class MovieManiaApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 		
-		/*
+		
 		String[] stringArray = {"t","s"};
 		
-		Movie m1=new Movie(1, 11, "Ragnarok", "", "", 50, stringArray, LocalDate.now());
+		Movie m1=new Movie(1, "Ragnarok", "", "", 50, stringArray, LocalDate.now());
 		
 		
-		Movie m2=new Movie(2, 22, "Orphan", "", "", 60, stringArray, LocalDate.now());
+		Movie m2=new Movie(2, "Orphan", "", "", 60, stringArray, LocalDate.now());
 		
 		
 		
@@ -78,7 +78,7 @@ public class MovieManiaApplication implements CommandLineRunner {
 		trepo.save(t1);
 		
 		
-		
+		/*
 	
 		long milli = 123456789999l;
 		java.sql.Time time = new java.sql.Time(milli);

@@ -8,11 +8,16 @@ import org.springframework.stereotype.Repository;
 
 import com.Movie_Mania.Project.entity.Customer;
 import com.Movie_Mania.Project.entity.Movie;
+import com.Movie_Mania.Project.entity.Screen;
+import com.Movie_Mania.Project.entity.Show;
+import com.Movie_Mania.Project.entity.Theater;
 import com.Movie_Mania.Project.entity.Ticket;
 import com.Movie_Mania.Project.repo.BookingRepository;
 import com.Movie_Mania.Project.repo.CustomerRepository;
 import com.Movie_Mania.Project.repo.MovieRepository;
+import com.Movie_Mania.Project.repo.ScreenRepo;
 import com.Movie_Mania.Project.repo.ShowRepo;
+import com.Movie_Mania.Project.repo.TheatreRepo;
 import com.Movie_Mania.Project.repo.TicketRepository;
 
 @Repository
@@ -31,7 +36,14 @@ public class MovieDaoImpl implements IMovieDao {
 	TicketRepository ticketRepository;
 	
 	@Autowired
-	 MovieRepository repo;
+	MovieRepository repo;
+	
+	@Autowired
+	ScreenRepo screenRepo;
+	
+	@Autowired
+	TheatreRepo trepo;
+	
 	private Customer customer;
 	
 	@Override
@@ -97,6 +109,22 @@ public class MovieDaoImpl implements IMovieDao {
 //		System.out.println(movies);
        return repo.findAll();
 		
+	}
+
+	@Override
+	public List<Movie> searchMovie(String movieName) {
+		return repo.findByMovieName(movieName);
+	}
+
+	@Override
+	public List<Theater> searchTheatre(String theatreName) {
+		return trepo.findByTheaterName(theatreName);
+	}
+
+	@Override
+	public List<Show> showShows(Integer screenId) {
+		Screen screen =screenRepo.getOne(screenId);
+		return screen.getShowList();
 	}
 
 
