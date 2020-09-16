@@ -3,17 +3,16 @@
  */
 package com.Movie_Mania.Project.entity;
 
+import java.io.Serializable;
 import java.sql.Time;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -24,10 +23,14 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "Show_Details")
-public class Show {
+public class Show implements Serializable{
 	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="show_id")
 	private Integer showId;
 	@Column(name="show_StartTime")
@@ -35,17 +38,23 @@ public class Show {
 	@Column(name="show_EndTime")
 	private Time showEndTime;
 	
-	@OneToMany(targetEntity = Seat.class)										//mappimg remaining
+	@OneToMany(mappedBy = "show",targetEntity = Seat.class,cascade=CascadeType.ALL)										//mappimg remaining
 	private List<Seat> seats;
-	@Column(name="showName")
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	Booking booking;
+	
 	private String showName;
-	@Column(name="movieName")
+	@JoinColumn(name="movie_name")
 	@OneToOne(targetEntity=Movie.class,cascade=CascadeType.ALL) 
 	private Movie movieName;
 	@Column(name="screen_id")
 	private Integer screenId;
 	@Column(name="theater_id")
 	private Integer theaterId;
+	
+	@ManyToOne
+	Screen screen;
 	/**
 	 * @param showId
 	 * @param showStartTime
@@ -172,12 +181,26 @@ public class Show {
 	public void setTheaterId(Integer theaterId) {
 		this.theaterId = theaterId;
 	}
+	public Booking getBooking() {
+		return booking;
+	}
+	public void setBooking(Booking booking) {
+		this.booking = booking;
+	}
+	public Screen getScreen() {
+		return screen;
+	}
+	public void setScreen(Screen screen) {
+		this.screen = screen;
+	}
 	@Override
 	public String toString() {
 		return "Show [showId=" + showId + ", showStartTime=" + showStartTime + ", showEndTime=" + showEndTime
-				+ ", seats=" + seats + ", showName=" + showName + ", movieName=" + movieName + ", screenId=" + screenId
-				+ ", theaterId=" + theaterId + "]";
+				+ ", seats=" + seats + ", booking=" + booking + ", showName=" + showName + ", movieName=" + movieName
+				+ ", screenId=" + screenId + ", theaterId=" + theaterId + ", screen=" + screen + "]";
 	}
+	
+	
 	
 	
 

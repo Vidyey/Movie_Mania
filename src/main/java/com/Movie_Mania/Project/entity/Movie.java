@@ -1,8 +1,10 @@
+
 /**
  * 
  */
 package com.Movie_Mania.Project.entity;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Arrays;
 
@@ -19,14 +21,17 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "Movie_Details")
-public class Movie {
+public class Movie implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="movie_id")
 	private Integer movieId;
-	@Column(name="booking_id")
-	private Integer	bookingId;
+	
 	@Column(name="Movie_name")
 	private String movieName;
 	
@@ -39,21 +44,17 @@ public class Movie {
 	private String[] languages;
 	@Column(name="movie_releaseDate")
 	private LocalDate movieReleaseDate;
-	/**
-	 * @param movieId
-	 * @param bookingId
-	 * @param movieName
-	 * @param movieGenre
-	 * @param movieDirector
-	 * @param movieLength
-	 * @param languages
-	 * @param movieReleaseDate
-	 */
-	public Movie(Integer movieId, Integer bookingId, String movieName, String movieGenre, String movieDirector,
+	
+	@OneToOne(mappedBy = "movieName",cascade = CascadeType.ALL)
+	Show show;
+	@ManyToOne
+	@JoinColumn(name="theater_id")
+	Theater theatre;
+	
+	public Movie(Integer movieId, String movieName, String movieGenre, String movieDirector,
 			Integer movieLength, String[] languages, LocalDate movieReleaseDate) {
 		super();
 		this.movieId = movieId;
-		this.bookingId = bookingId;
 		this.movieName = movieName;
 		this.movieGenre = movieGenre;
 		this.movieDirector = movieDirector;
@@ -81,18 +82,7 @@ public class Movie {
 	public void setMovieId(Integer movieId) {
 		this.movieId = movieId;
 	}
-	/**
-	 * @return the bookingId
-	 */
-	public Integer getBookingId() {
-		return bookingId;
-	}
-	/**
-	 * @param bookingId the bookingId to set
-	 */
-	public void setBookingId(Integer bookingId) {
-		this.bookingId = bookingId;
-	}
+	
 	/**
 	 * @return the movieName
 	 */
@@ -165,14 +155,32 @@ public class Movie {
 	public void setMovieReleaseDate(LocalDate movieReleaseDate) {
 		this.movieReleaseDate = movieReleaseDate;
 	}
+	
+	
+	
+	public Show getShow() {
+		return show;
+	}
+	public void setShow(Show show) {
+		this.show = show;
+	}
+	public Theater getTheatre() {
+		return theatre;
+	}
+	public void setTheatre(Theater theatre) {
+		this.theatre = theatre;
+	}
 	@Override
 	public String toString() {
-		return "Movie [movieId=" + movieId + ", bookingId=" + bookingId + ", movieName=" + movieName + ", movieGenre="
-				+ movieGenre + ", movieDirector=" + movieDirector + ", movieLength=" + movieLength + ", languages="
-				+ Arrays.toString(languages) + ", movieReleaseDate=" + movieReleaseDate + "]";
+		return "Movie [movieId=" + movieId + ", movieName=" + movieName + ", movieGenre=" + movieGenre
+				+ ", movieDirector=" + movieDirector + ", movieLength=" + movieLength + ", languages="
+				+ Arrays.toString(languages) + ", movieReleaseDate=" + movieReleaseDate + ", show=" + show
+				+ ", theatre=" + theatre + "]";
 	}
-	
-	
 
+	
+	
+	
 
 }
+

@@ -3,24 +3,59 @@
  */
 package com.Movie_Mania.Project.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  * @author Administrator
  *
  */
-public class Seat {
+@Entity
+@Table(name = "seat_details")
+public class Seat implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="seat_id")
 	private Integer seatId; 
 	@Column(name="seat_Status")
 	private  Enum<BookingState> seatStatus;
 	@Column(name="seat_Price")
 	private  Double seatPrice;
+	
+	@ManyToOne
+	@JoinColumn(name="booking_id")
+	private Booking booking;
+	
+	@ManyToOne
+	@JoinColumn(name="show_id")
+	private Show show;
+
+	public Booking getBooking() {
+		return booking;
+	}
+
+	public void setBooking(Booking booking) {
+		this.booking = booking;
+	}
+
+	
+	
+	public Show getShow() {
+		return show;
+	}
+
+	public void setShow(Show show) {
+		this.show = show;
+	}
 
 	public Enum<BookingState> getSeatStatus() {
 		return seatStatus;
@@ -50,10 +85,6 @@ public class Seat {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public String toString() {
-		return "Seat [seatId=" + seatId + ", seatStatus=" + seatStatus + ", seatPrice=" + seatPrice + "]";
-	}
 
 	/**
 	 * @return the seatId
@@ -81,6 +112,12 @@ public class Seat {
 	 */
 	public void setSeatPrice(Double seatPrice) {
 		this.seatPrice = seatPrice;
+	}
+
+	@Override
+	public String toString() {
+		return "Seat [seatId=" + seatId + ", seatStatus=" + seatStatus + ", seatPrice=" + seatPrice + ", booking="
+				+ booking + "]";
 	}
 	
 	
