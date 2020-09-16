@@ -103,24 +103,20 @@ public class MovieServiceImpl implements MovieService
 
 	public List<Movie> searchMovie(String movieName) {
 		// TODO Auto-generated method stub
-		return null;
+		return dao.searchMovie(movieName);
 	}
 
 	public List<Theater> searchTheatre(String theatreName) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return dao.searchTheatre(theatreName);
 	}
 
 	public List<Show> showShows(Integer screenId) {
 		// TODO Auto-generated method stub
-		return null;
+		return dao.showShows(screenId);
 	}
 
-	@Override
-	public List<Show> searchShow(String movieName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 	
 	
 	
@@ -146,5 +142,6 @@ public class MovieServiceImpl implements MovieService
 //		Screen screen=screpo.getOne(screenId) ;
 //		return screen.getShowList();
 //	}
+
 
 }
