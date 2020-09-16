@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.Movie_Mania.Project.entity.Ticket;
 
-public interface IBookingDao {
+public interface IMovieDao {
 
 	List<Ticket> showTickets(int customerId);
 	

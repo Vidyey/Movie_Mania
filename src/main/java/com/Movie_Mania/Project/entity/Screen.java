@@ -163,6 +163,12 @@ public class Screen implements Serializable{
 	public void setTheaterId(Integer theaterId) {
 		this.theaterId = theaterId;
 	}
+	@Override
+	public String toString() {
+		return "Screen [screenId=" + screenId + ", theaterId=" + theaterId + ", screenName=" + screenName
+				+ ", showList=" + showList + ", movieEndDate=" + movieEndDate + ", rows=" + rows + ", columns="
+				+ columns + "]";
+	}
 	public Theater getTheatre() {
 		return theatre;
 	}

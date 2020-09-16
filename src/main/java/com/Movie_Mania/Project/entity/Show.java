@@ -46,6 +46,7 @@ public class Show implements Serializable{
 	
 	private String showName;
 	@JoinColumn(name="movie_name")
+
 	@OneToOne(targetEntity=Movie.class,cascade=CascadeType.ALL) 
 	private Movie movieName;
 	@Column(name="screen_id")

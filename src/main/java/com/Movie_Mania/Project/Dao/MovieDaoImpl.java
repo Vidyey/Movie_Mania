@@ -10,11 +10,11 @@ import com.Movie_Mania.Project.entity.Customer;
 import com.Movie_Mania.Project.entity.Ticket;
 import com.Movie_Mania.Project.repo.BookingRepository;
 import com.Movie_Mania.Project.repo.CustomerRepository;
-import com.Movie_Mania.Project.repo.ShowRepository;
+import com.Movie_Mania.Project.repo.ShowRepo;
 import com.Movie_Mania.Project.repo.TicketRepository;
 
 @Repository
-public class BookingDaoImpl implements IBookingDao {
+public class MovieDaoImpl implements IMovieDao {
 
 	@Autowired
 	CustomerRepository custRepository;
@@ -23,7 +23,7 @@ public class BookingDaoImpl implements IBookingDao {
 	BookingRepository bookRepository;
 	
 	@Autowired
-	ShowRepository showRepository;
+	ShowRepo showRepository;
 	
 	@Autowired
 	TicketRepository ticketRepository;
