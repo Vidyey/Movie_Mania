@@ -4,7 +4,6 @@
 package com.Movie_Mania.Project.entity;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -12,7 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -27,8 +25,8 @@ public class Screen {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="screen_id")
 	private Integer screenId;
-	@Column(name="theatre_id")
-	private Integer theatreId;
+	@Column(name="theater_id")
+	private Integer theaterId;
 	@Column(name="screen_Name")
 	String screenName;
 	
@@ -38,9 +36,9 @@ public class Screen {
 	private List<Show> showList;
 	@Column(name="movieEndDate")
 	private LocalDate movieEndDate;
-	@Column(name="rows")
+	@Column(name="row_count")
 	private Integer rows;												// does any need to use this in table ??
-	@Column(name="columns")
+	@Column(name="column_count")
 	private Integer columns;
 	/**
 	 * 
@@ -58,11 +56,11 @@ public class Screen {
 	 * @param rows
 	 * @param columns
 	 */
-	public Screen(Integer screenId, Integer theatreId, String screenName, List<Show> showList, LocalDate movieEndDate,
+	public Screen(Integer screenId, Integer theaterId, String screenName, List<Show> showList, LocalDate movieEndDate,
 			Integer rows, Integer columns) {
 		super();
 		this.screenId = screenId;
-		this.theatreId = theatreId;
+		this.theaterId = theaterId;
 		this.screenName = screenName;
 		this.showList = showList;
 		this.movieEndDate = movieEndDate;
@@ -86,13 +84,13 @@ public class Screen {
 	 * @return the theatreId
 	 */
 	public Integer getTheatreId() {
-		return theatreId;
+		return theaterId;
 	}
 	/**
 	 * @param theatreId the theatreId to set
 	 */
-	public void setTheatreId(Integer theatreId) {
-		this.theatreId = theatreId;
+	public void setTheatreId(Integer theaterId) {
+		this.theaterId = theaterId;
 	}
 	/**
 	 * @return the screenName
@@ -156,7 +154,7 @@ public class Screen {
 	}
 	@Override
 	public String toString() {
-		return "Screen [screenId=" + screenId + ", theatreId=" + theatreId + ", screenName=" + screenName
+		return "Screen [screenId=" + screenId + ", theaterId=" + theaterId + ", screenName=" + screenName
 				+ ", showList=" + showList + ", movieEndDate=" + movieEndDate + ", rows=" + rows + ", columns="
 				+ columns + "]";
 	}

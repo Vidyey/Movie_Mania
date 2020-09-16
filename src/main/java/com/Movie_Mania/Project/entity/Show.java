@@ -4,7 +4,6 @@
 package com.Movie_Mania.Project.entity;
 
 import java.sql.Time;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,7 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -37,9 +35,8 @@ public class Show {
 	
 	@OneToMany(targetEntity = Seat.class)										//mappimg remaining
 	private List<Seat> seats;
-	@Column(name="showName")
+	
 	private String showName;
-	@Column(name="movieName")
 	@OneToOne(targetEntity=Movie.class,cascade=CascadeType.ALL) 
 	private Movie movieName;
 	@Column(name="screen_id")

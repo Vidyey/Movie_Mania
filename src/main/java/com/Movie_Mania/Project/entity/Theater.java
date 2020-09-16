@@ -3,17 +3,17 @@
  */
 package com.Movie_Mania.Project.entity;
 
-import java.util.Arrays;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 
 /**
  * @author PDGadge
@@ -35,12 +35,12 @@ public class Theater {
 	// mapping remaining
 	
 	
-	@OneToMany(targetEntity = Movie.class)
+	@OneToMany(targetEntity = Movie.class, cascade = CascadeType.ALL)
 	private List<Movie> movies;
 	  // adding extra col 
 	
-	@OneToMany(targetEntity = Screen.class)
-	private List<Screen> listOfScreens;
+	@OneToMany(targetEntity = Screen.class, cascade = CascadeType.ALL)
+	private List<Screen> screens;
 	
 	@Column(name="Manager_Name")
 	private String managerName;
@@ -62,7 +62,7 @@ public class Theater {
 		this.theaterName = theaterName;
 		this.theaterCity = theaterCity;
 		this.movies = movies;
-		this.listOfScreens = listOfScreens;
+		this.screens = listOfScreens;
 		this.managerName = managerName;
 		this.managerContact = managerContact;
 	}
@@ -126,13 +126,13 @@ public class Theater {
 	 * @return the listOfScreens
 	 */
 	public List<Screen> getListOfScreens() {
-		return listOfScreens;
+		return screens;
 	}
 	/**
 	 * @param listOfScreens the listOfScreens to set
 	 */
 	public void setListOfScreens(List<Screen> listOfScreens) {
-		this.listOfScreens = listOfScreens;
+		this.screens = listOfScreens;
 	}
 	/**
 	 * @return the managerName
@@ -161,7 +161,7 @@ public class Theater {
 	@Override
 	public String toString() {
 		return "Theater [theaterId=" + theaterId + ", theaterName=" + theaterName + ", theaterCity=" + theaterCity
-				+ ", movies=" + movies + ", listOfScreens=" + listOfScreens + ", managerName=" + managerName
+				+ ", movies=" + movies + ", listOfScreens=" + screens + ", managerName=" + managerName
 				+ ", managerContact=" + managerContact + "]";
 	}
 	

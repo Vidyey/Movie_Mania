@@ -4,7 +4,6 @@
 package com.Movie_Mania.Project.entity;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.*;
@@ -25,7 +24,7 @@ public class Booking {
 	private Integer movieId;
 	@Column(name="show_id")
 	private Integer	showId;
-	@Column(name="show_ref")
+	
 	@OneToOne(targetEntity=Show.class,cascade=CascadeType.ALL)
 	private Show showRef;
 	@Column(name="booking_date")
