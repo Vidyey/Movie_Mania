@@ -9,6 +9,7 @@ public class MovieManiaApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MovieManiaApplication.class, args);
 		System.out.println("lets start");
+		System.out.println("Dhiraj");
 	}
 
 }
