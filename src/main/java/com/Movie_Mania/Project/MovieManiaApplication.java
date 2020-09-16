@@ -12,6 +12,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+
 import com.Movie_Mania.Project.entity.Movie;
 import com.Movie_Mania.Project.entity.Screen;
 import com.Movie_Mania.Project.entity.Show;
@@ -21,8 +22,8 @@ import com.Movie_Mania.Project.repo.ScreenRepo;
 import com.Movie_Mania.Project.repo.ShowRepo;
 import com.Movie_Mania.Project.repo.TheatreRepo;
 
-@SpringBootApplication
 @EnableJpaRepositories(basePackages = "com.Movie_Mania.Project.repo")
+@SpringBootApplication
 
 public class MovieManiaApplication implements CommandLineRunner {
 
@@ -43,6 +44,7 @@ public class MovieManiaApplication implements CommandLineRunner {
 		SpringApplication.run(MovieManiaApplication.class, args);
 		System.out.println("lets start");
 		System.out.println("yash");
+		System.out.println("Pratik");
 		
 	}
 

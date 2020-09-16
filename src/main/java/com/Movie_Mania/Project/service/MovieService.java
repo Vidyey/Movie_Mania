@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.Movie_Mania.Project.entity.Movie;
 import com.Movie_Mania.Project.entity.Show;
 import com.Movie_Mania.Project.entity.Theater;
+import com.Movie_Mania.Project.entity.Ticket;
 
 @Service
 public interface MovieService {
@@ -14,4 +15,16 @@ public interface MovieService {
 	public List<Theater> searchTheatre(String theatreName) ;
 	public List<Show> searchShow(String movieName);
 	public List<Show> showShows(Integer screenId);
+	
+	List<Ticket> showTickets(int customerId);
+	Boolean cancelSeat();
+	
+	Ticket bookSeat();
+	
+	Boolean bloackSeat();
+	public void addMovie(Movie movie);
+	public void deleteMovie(int movieId);
+	public List<Movie> getAllMovies();
+	
 }
+
