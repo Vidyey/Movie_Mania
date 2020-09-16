@@ -45,12 +45,17 @@ public class Screen implements Serializable{
 	private Integer rows;												// does any need to use this in table ??
 	@Column(name="column_count")
 	private Integer columns;
+	
+	private int SeatMatrix[][];
 	/**
 	 * 
 	 */
 	public Screen() {
 		super();
 		// TODO Auto-generated constructor stub
+		this.rows = 5;
+		this.columns = 10;
+		
 	}
 	/**
 	 * @param screenId
@@ -61,16 +66,22 @@ public class Screen implements Serializable{
 	 * @param rows
 	 * @param columns
 	 */
-	public Screen(Integer screenId, Integer theaterId, String screenName, List<Show> showList, LocalDate movieEndDate,
-			Integer rows, Integer columns) {
+	public Screen(Integer screenId, Integer theaterId, String screenName, List<Show> showList, LocalDate movieEndDate) {
 		super();
 		this.screenId = screenId;
 		this.theaterId = theaterId;
 		this.screenName = screenName;
 		this.showList = showList;
 		this.movieEndDate = movieEndDate;
-		this.rows = rows;
-		this.columns = columns;
+		this.rows = 5;
+		this.columns = 10;
+		
+		for (int i = 0; i < this.rows; i++) {
+			for (int j = 0; j < this.rows; j++) {
+				this.SeatMatrix[i][j] = 0;
+			}
+		}
+		
 	}
 	
 	/**
