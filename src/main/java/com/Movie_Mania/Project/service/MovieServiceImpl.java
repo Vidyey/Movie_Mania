@@ -115,20 +115,7 @@ public class MovieServiceImpl implements MovieService
 		return null;
 	}
 
-	@Override
-	public Boolean cancelSeat(Booking booking) {
-		return dao.cancelSeat(booking);
-	}
 
-	@Override
-	public Ticket bookSeat(Booking booking) {
-		return dao.bookSeat(booking);
-	}
-
-	@Override
-	public Boolean blockSeat(Booking booking) {
-		return dao.blockSeat(booking);
-	}
 	
 	
 

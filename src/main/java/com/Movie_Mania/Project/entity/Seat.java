@@ -24,7 +24,8 @@ public class Seat implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	@Id
-	@Column(name="seat_id")
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="seat_id",length = 6)
 	private Integer seatId; 
 	@Column(name="seat_Status")
 	private  Enum<BookingState> seatStatus;
@@ -93,6 +94,8 @@ public class Seat implements Serializable{
 	 */
 	public Seat() {
 		super();
+		
+		this.seatStatus = BookingState.Available;
 		// TODO Auto-generated constructor stub
 	}
 

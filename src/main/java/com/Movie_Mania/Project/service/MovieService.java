@@ -32,11 +32,7 @@ public interface MovieService {
 	
 	public List<Show> showShows(Integer screenId);
 	
-	public Boolean cancelSeat(Booking booking);
-	
-	public Ticket bookSeat(Booking booking);
-	
-	public Boolean blockSeat(Booking booking);
+
 	public void addMovie(Movie movie);
 	public void deleteMovie(int movieId);
 	public List<Movie> getAllMovies();

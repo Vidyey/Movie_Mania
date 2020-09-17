@@ -14,7 +14,8 @@ public class Booking implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	@Id
-	@Column(name="booking_id")
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="booking_id",length = 10)
 	private Integer	bookingId;
 	@Column(name="movie_id")
 	private Integer movieId;

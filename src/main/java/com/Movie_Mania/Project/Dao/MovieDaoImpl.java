@@ -10,14 +10,14 @@ import com.Movie_Mania.Project.entity.Booking;
 import com.Movie_Mania.Project.entity.BookingState;
 import com.Movie_Mania.Project.entity.Customer;
 import com.Movie_Mania.Project.entity.Movie;
-import com.Movie_Mania.Project.entity.Ticket;
-import com.Movie_Mania.Project.repo.AdminRepository;
-import com.Movie_Mania.Project.repo.BookingRepository;
-import com.Movie_Mania.Project.repo.CustomerRepository;
 import com.Movie_Mania.Project.entity.Screen;
 import com.Movie_Mania.Project.entity.Seat;
 import com.Movie_Mania.Project.entity.Show;
 import com.Movie_Mania.Project.entity.Theater;
+import com.Movie_Mania.Project.entity.Ticket;
+import com.Movie_Mania.Project.repo.AdminRepository;
+import com.Movie_Mania.Project.repo.BookingRepository;
+import com.Movie_Mania.Project.repo.CustomerRepository;
 import com.Movie_Mania.Project.repo.MovieRepository;
 import com.Movie_Mania.Project.repo.ScreenRepo;
 import com.Movie_Mania.Project.repo.ShowRepo;
@@ -50,7 +50,7 @@ public class MovieDaoImpl implements IMovieDao {
 	@Autowired
 	ScreenRepo screenRepo;
 	
-	@Autowired
+	@Autowired 
 	TheatreRepo trepo;
 	
 	private Customer customer;
@@ -169,68 +169,6 @@ public class MovieDaoImpl implements IMovieDao {
 	///End of Dhiraj Modules
 	
 
-	@Override
-	public Boolean cancelSeat(Booking booking) {
-		Show show = booking.getShowRef();
-		
-		Screen screen = show.getScreen();
-		
-		List<Seat> seatList = show.getSeats();
-		for(Seat seat : seatList) {
-			int[] seatloc = seat.getSeatLocation();
-			int[][] matrix = screen.getSeatMatrix();
-			matrix[seatloc[0]][seatloc[1]]=0;
-			seat.setSeatStatus(BookingState.Available);
-		}
-		bookRepository.save(booking);
-		return true;
-	}
-
-	@Override
-	public Ticket bookSeat(Booking booking) {
-		
-Show show = booking.getShowRef();
-		
-		Screen screen = show.getScreen();
-		
-		List<Seat> seatList = show.getSeats();
-		for(Seat seat : seatList) {
-			int[] seatloc = seat.getSeatLocation();
-			int[][] matrix = screen.getSeatMatrix();
-			if(seat.getSeatStatus().equals(BookingState.Blocked)) {
-			matrix[seatloc[0]][seatloc[1]]=1;
-			seat.setSeatStatus(BookingState.booked);
-			}
-			else 
-				return null;
-		}
-		
-		bookRepository.save(booking);
-		return booking.getTicket();
-	}
-
-	@Override
-	public Boolean blockSeat(Booking booking) {
-Show show = booking.getShowRef();
-		
-		Screen screen = show.getScreen();
-		
-		List<Seat> seatList = show.getSeats();
-		for(Seat seat : seatList) {
-			int[] seatloc = seat.getSeatLocation();
-			int[][] matrix = screen.getSeatMatrix();
-			if(seat.getSeatStatus().equals(BookingState.Available)) {
-			matrix[seatloc[0]][seatloc[1]]=999;
-			seat.setSeatStatus(BookingState.Blocked);
-			}
-			else return false;
-		}
-		bookRepository.save(booking);
-		return true;
-	}
-	
-	
-	
 
 	
 	@Override
@@ -267,6 +205,53 @@ Show show = booking.getShowRef();
 		
 	}
 
+
+	
+
+	@Override
+	public List<Seat> SelectSeat(Show show, int[] seatLocation) {
+		// TODO Auto-generated method stub
+		List<Seat> SeatList = show.getSeats();
+		List<Seat> ChoosedSeat = null;
+		int size = seatLocation.length;
+		for (int i =0 ; i<size; i=i+2) {
+		int row = seatLocation[i];
+		int col = seatLocation[i+1];
+		
+		int loc = (row*10)+(col+1);
+		;
+		ChoosedSeat.add(SeatList.get(loc));
+		}
+		
+		return ChoosedSeat;
+		
+	}
+	@Override
+	public Boolean UpdateSeatStatus(Booking BookingObj) {
+		
+		List<Seat>List =BookingObj.getSeatList();
+		for (Seat seat : List) {
+			if(seat.getSeatStatus().equals(BookingState.Blocked))
+					{
+				       seat.setSeatStatus(BookingState.booked);
+					}
+			else {
+				return false;
+			}
+		}
+		return true;
+		
+		
+		
+	}
+
+	@Override
+	public Booking initiateBooking(Booking BookingObj) {
+		// TODO Auto-generated method stub
+		
+		
+		return null;
+	}
 
 	
 

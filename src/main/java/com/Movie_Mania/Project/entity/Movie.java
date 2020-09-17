@@ -8,10 +8,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Arrays;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -30,7 +26,8 @@ public class Movie implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="movie_id")
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="movie_id",length = 4)
 	private Integer movieId;
 	
 	@Column(name="Movie_name")

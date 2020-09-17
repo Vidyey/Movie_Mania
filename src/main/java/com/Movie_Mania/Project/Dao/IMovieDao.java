@@ -12,6 +12,7 @@ import com.Movie_Mania.Project.entity.Movie;
 	
 	
 
+import com.Movie_Mania.Project.entity.Seat;
 import com.Movie_Mania.Project.entity.Show;
 import com.Movie_Mania.Project.entity.Theater;
 import com.Movie_Mania.Project.entity.Ticket;
@@ -32,13 +33,15 @@ public interface IMovieDao {
 	public List<Movie> searchMovie(String movieName);
 	public List<Theater> searchTheatre(String theatreName) ;
 	
-	public Boolean cancelSeat(Booking booking);
-	
-	public Ticket bookSeat(Booking booking);
-	
-	public Boolean blockSeat(Booking booking);
+
 
 	
 	public List<Show> showShows(Integer screenId);
+	
+	public List<Seat> SelectSeat(Show show, int[] seatLocation);   //  function to select seat
+	
+	public Boolean UpdateSeatStatus(Booking BookingObj);
+	
+	public Booking initiateBooking (Booking BookingObj);
 
 }

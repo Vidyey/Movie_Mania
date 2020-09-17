@@ -162,21 +162,6 @@ public class Movie_Mania_Controller {
 
 	
 
-	@PostMapping("bookSeat/{customerId}")
-	public ResponseEntity<Ticket> bookSeat(@PathVariable("customerId") int customerId,@RequestBody Booking booking ){
-	return new ResponseEntity<Ticket>(mserv.bookSeat(booking), HttpStatus.OK);
-	}
-
-	@GetMapping("cancelSeat/{customerId}")
-	public ResponseEntity<Boolean> cancelSeat(@PathVariable("customerId") int customerId,@RequestBody Booking booking ){
-		return new ResponseEntity<Boolean>(mserv.cancelSeat(booking), HttpStatus.OK);
-		}
-
-	@GetMapping("blockSeat")
-	public ResponseEntity<Boolean> blockSeat(@PathVariable("customerId") int customerId,@RequestBody Booking booking ){
-		return new ResponseEntity<Boolean>(mserv.blockSeat(booking), HttpStatus.OK);
-	}
-	 
 	
 	
 	
