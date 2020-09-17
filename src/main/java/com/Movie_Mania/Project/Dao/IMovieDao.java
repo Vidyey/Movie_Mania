@@ -38,6 +38,8 @@ public interface IMovieDao {
 	
 	public List<Show> showShows(Integer screenId);
 	
+	// pratiks Module
+	
 	public List<Seat> SelectSeat(Show show, int[] seatLocation);   //  function to select seat
 	
 	public Booking UpdateSeatStatus(Booking BookingObj);

@@ -15,6 +15,7 @@ import com.Movie_Mania.Project.entity.Customer;
 import com.Movie_Mania.Project.Dao.IMovieDao;
 
 import com.Movie_Mania.Project.entity.Movie;
+import com.Movie_Mania.Project.entity.Seat;
 import com.Movie_Mania.Project.entity.Show;
 import com.Movie_Mania.Project.entity.Theater;
 import com.Movie_Mania.Project.entity.Ticket;
@@ -113,6 +114,36 @@ public class MovieServiceImpl implements MovieService
 	public List<Show> showShows(Integer screenId) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<Seat> SelectSeat(Show show, int[] seatLocation) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Booking UpdateSeatStatus(Booking BookingObj) {
+		// TODO Auto-generated method stub
+		return dao.UpdateSeatStatus(BookingObj);
+	}
+
+	@Override
+	public Seat blockUnblock(Seat markseat) {
+		// TODO Auto-generated method stub
+		return dao.blockUnblock(markseat);
+	}
+
+	@Override
+	public Booking unblockSeat(Booking Bookingobj) {
+		// TODO Auto-generated method stub
+		return dao.unblockSeat(Bookingobj);
+	}
+
+	@Override
+	public Booking cancelBooking(Booking cancelBooking) {
+		// TODO Auto-generated method stub
+		return dao.cancelBooking(cancelBooking);
 	}
 
 
