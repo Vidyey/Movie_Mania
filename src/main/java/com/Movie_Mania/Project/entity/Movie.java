@@ -7,12 +7,10 @@ package com.Movie_Mania.Project.entity;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
+
 import javax.persistence.*;
 
 /**
@@ -29,12 +27,13 @@ public class Movie implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="movie_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="movie_id", updatable = false, nullable = false)
 	private Integer movieId;
 	
 	@Column(name="Movie_name")
 	private String movieName;
-	
+	@Column(name="Movie_genre")
 	private String	movieGenre; 
 	@Column(name="movie_Director")
 	private String movieDirector;
@@ -42,8 +41,12 @@ public class Movie implements Serializable{
 	private Integer movieLength;
 	@Column(name="movie_langauges")
 	private String[] languages;
+	
+@Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
+	
+	@Temporal(TemporalType.DATE)
 	@Column(name="movie_releaseDate")
-	private LocalDate movieReleaseDate;
+	private Date movieReleaseDate;
 	
 	@OneToOne(mappedBy = "movieName",cascade = CascadeType.ALL)
 	Show show;
@@ -52,7 +55,7 @@ public class Movie implements Serializable{
 	Theater theatre;
 	
 	public Movie(Integer movieId, String movieName, String movieGenre, String movieDirector,
-			Integer movieLength, String[] languages, LocalDate movieReleaseDate) {
+			Integer movieLength, String[] languages, Date movieReleaseDate) {
 		super();
 		this.movieId = movieId;
 		this.movieName = movieName;
@@ -146,13 +149,13 @@ public class Movie implements Serializable{
 	/**
 	 * @return the movieReleaseDate
 	 */
-	public LocalDate getMovieReleaseDate() {
+	public Date getMovieReleaseDate() {
 		return movieReleaseDate;
 	}
 	/**
 	 * @param movieReleaseDate the movieReleaseDate to set
 	 */
-	public void setMovieReleaseDate(LocalDate movieReleaseDate) {
+	public void setMovieReleaseDate(Date movieReleaseDate) {
 		this.movieReleaseDate = movieReleaseDate;
 	}
 	

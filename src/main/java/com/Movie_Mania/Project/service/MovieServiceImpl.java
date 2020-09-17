@@ -11,6 +11,7 @@ import com.Movie_Mania.Project.Dao.MovieDaoImpl;
 import com.Movie_Mania.Project.Dao.IMovieDao;
 
 import com.Movie_Mania.Project.entity.Movie;
+import com.Movie_Mania.Project.entity.Screen;
 import com.Movie_Mania.Project.entity.Show;
 import com.Movie_Mania.Project.entity.Theater;
 
@@ -100,6 +101,65 @@ public class MovieServiceImpl implements MovieService
 	public List<Show> searchShow(String movieName) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void addTheater(Theater theater) {
+		// TODO Auto-generated method stub
+		dao.addTheater(theater);
+	}
+
+	@Override
+	public void deleteTheater(int theater_id) {
+		// TODO Auto-generated method stub
+		dao.deleteTheater(theater_id);
+		
+	}
+
+	@Override
+	public List<Theater> getAllTheater() {
+		// TODO Auto-generated method stub
+		return dao.getAllTheater();
+	}
+
+	@Override
+	public void addScreen(Screen screen) {
+		// TODO Auto-generated method stub
+		dao.addScreen(screen);
+		
+	}
+
+	@Override
+	public void deleteScreen(int screen_id) {
+		// TODO Auto-generated method stub
+dao.deleteScreen(screen_id);
+		
+	}
+
+	@Override
+	public List<Screen> getAllScreen() {
+		// TODO Auto-generated method stub
+		return dao.getAllScreen();
+	}
+
+	@Override
+	public void addShow(Show show) {
+		// TODO Auto-generated method stub
+		dao.addShow(show);
+		
+	}
+
+	@Override
+	public void deleteShow(int show_id) {
+		// TODO Auto-generated method stub
+		dao.deleteShow(show_id);
+		
+	}
+
+	@Override
+	public List<Show> getAllShow() {
+		// TODO Auto-generated method stub
+		return dao.getAllShow();
 	}
 
 }

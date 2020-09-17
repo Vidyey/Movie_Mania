@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Movie_Mania.Project.entity.Movie;
+import com.Movie_Mania.Project.entity.Screen;
 import com.Movie_Mania.Project.entity.Show;
 import com.Movie_Mania.Project.entity.Theater;
 import com.Movie_Mania.Project.entity.Ticket;
@@ -41,19 +43,105 @@ public class Movie_Mania_Controller {
 	{
 		return "hii";
 	}
+	
+//	Movie
 	@PostMapping(value="/addMovie")
 	public void addMovie(@RequestBody Movie movie)
 	{
+		System.out.println(movie.toString());
 		ser.addMovie(movie);
 	}
 
+	@DeleteMapping(value="/deleteMovie/{movieId}")
+	public void deleteMovie(@PathVariable("movieId") int movieId)
+	{
+		ser.deleteMovie(movieId);
+	}
 	
 	
 	@GetMapping(value="/getMovies")
-	public List<Movie> GetAllTopics()
+	public List<Movie> GetAllMovies()
 	{
 	return ser.getAllMovies();
 	}
+	
+	
+	
+	
+//	Theater
+	@PostMapping(value="/addTheater")
+	public void addTheater(@RequestBody Theater theater)
+	{
+		System.out.println(theater.toString());
+		ser.addTheater(theater);
+	}
+
+	@DeleteMapping(value="/deleteTheater/{theater_id}")
+	public void deleteTheater(@PathVariable("theater_id") int theater_id)
+	{
+		
+		ser.deleteTheater(theater_id);
+	}
+	
+	@GetMapping(value="/getTheater")
+	public List<Theater> GetAllTheater()
+	{
+	
+	
+		return ser.getAllTheater();
+	}
+	
+	
+	
+	//Screen
+	@PostMapping(value="/addScreen")
+	public void addScreen(@RequestBody Screen screen)
+	{
+		System.out.println(screen.toString());
+		ser.addScreen(screen);
+	}
+
+	@DeleteMapping(value="/deleteScreen/{screen_id}")
+	public void deleteScreen(@PathVariable("screen_id") int screen_id)
+	{
+		
+		ser.deleteScreen(screen_id);
+	}
+	
+	@GetMapping(value="/getScreen")
+	public List<Screen> GetAllScreen()
+	{
+	
+	
+		return ser.getAllScreen();
+	}
+	
+	//Show
+	
+	@PostMapping(value="/addShow")
+	public void addShow(@RequestBody Show show)
+	{
+		System.out.println(show.toString());
+		ser.addShow(show);
+	}
+
+	@DeleteMapping(value="/deleteShow/{show_id}")
+	public void deleteShow(@PathVariable("show_id") int show_id)
+	{
+		
+		ser.deleteShow(show_id);
+	}
+	
+	@GetMapping(value="/getShow")
+	public List<Show> GetAllShow()
+	{
+	
+	
+		return ser.getAllShow();
+	}
+	
+//	-----------------------
+	
 	
 	@GetMapping(path="/searchMovie/{movieName}")
 	public List<Movie> searchMovie(@PathVariable("movieName") String movieName)
