@@ -19,12 +19,15 @@ import com.Movie_Mania.Project.repo.BookingRepository;
 import com.Movie_Mania.Project.repo.CustomerRepository;
 import com.Movie_Mania.Project.repo.MovieRepository;
 import com.Movie_Mania.Project.repo.ScreenRepo;
+import com.Movie_Mania.Project.repo.SeatRepo;
 import com.Movie_Mania.Project.repo.ShowRepo;
 import com.Movie_Mania.Project.repo.TheatreRepo;
 import com.Movie_Mania.Project.repo.TicketRepository;
 
 @Repository
 public class MovieDaoImpl implements IMovieDao {
+
+	private static final Booking Bookingobj = null;
 
 	@Autowired
 	CustomerRepository custRepository;
@@ -46,6 +49,9 @@ public class MovieDaoImpl implements IMovieDao {
 	
 	@Autowired 
 	TheatreRepo trepo;
+	
+	@Autowired
+	SeatRepo seatrepo;
 	
 	private Customer customer;
 	
@@ -149,30 +155,82 @@ public class MovieDaoImpl implements IMovieDao {
 		
 	}
 	@Override
-	public Boolean UpdateSeatStatus(Booking BookingObj) {
+	public  Booking UpdateSeatStatus(Booking BookingObj) {
 		
-		List<Seat>List =BookingObj.getSeatList();
-		for (Seat seat : List) {
+		List<Seat> list =BookingObj.getSeatList();
+		for (Seat seat : list) {
 			if(seat.getSeatStatus().equals(BookingState.Blocked))
 					{
 				       seat.setSeatStatus(BookingState.booked);
 					}
-			else {
-				return false;
-			}
+			
 		}
-		return true;
-		
+		Ticket confirmTicket = BookingObj.getTicket();
+		confirmTicket.setTicketStatus(true);
+		ticketRepository.save(confirmTicket);
+		seatrepo.saveAll(list);
+		bookRepository.save(BookingObj);		
+		return BookingObj ;
 		
 		
 	}
 
 	@Override
-	public Booking initiateBooking(Booking BookingObj) {
+	public Seat blockUnblock(Seat markseat) {
 		// TODO Auto-generated method stub
 		
+		if(markseat.getSeatStatus().equals(BookingState.Available))
+		{
+	       markseat.setSeatStatus(BookingState.Blocked);
+		}
+		else if(markseat.getSeatStatus().equals(BookingState.Blocked))
+		{
+			markseat.setSeatStatus(BookingState.Available);
+		}
 		
-		return null;
+		seatrepo.save(markseat);
+		return markseat;
+	}
+
+
+	@Override
+	public Booking cancelBooking(Booking cancelBooking) {
+		// TODO Auto-generated method stub
+		List<Seat> list = cancelBooking.getSeatList();
+		for (Seat seat : list) {
+			if(seat.getSeatStatus().equals(BookingState.booked))
+					{
+				       seat.setSeatStatus(BookingState.Available);
+					}
+			
+		}
+		Ticket confirmTicket = cancelBooking.getTicket();
+		confirmTicket.setTicketStatus(false);
+		ticketRepository.save(confirmTicket);
+		seatrepo.saveAll(list);
+		bookRepository.save(cancelBooking);		
+		return cancelBooking ;
+		
+	}
+
+	@Override
+	public Booking unblockSeat(Booking Bookingobj) {
+		// TODO Auto-generated method stub
+		List<Seat> list = Bookingobj.getSeatList();
+		for (Seat seat : list) {
+			if(seat.getSeatStatus().equals(BookingState.Blocked))
+					{
+				       seat.setSeatStatus(BookingState.Available);
+					}
+			
+		}
+		
+		Ticket confirmTicket = Bookingobj.getTicket();
+		confirmTicket.setTicketStatus(false);
+		ticketRepository.save(confirmTicket);
+		seatrepo.saveAll(list);
+		bookRepository.save(Bookingobj);		
+		return Bookingobj ;
 	}
 
 	

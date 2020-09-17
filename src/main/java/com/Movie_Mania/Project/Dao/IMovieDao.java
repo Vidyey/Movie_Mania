@@ -31,8 +31,14 @@ public interface IMovieDao {
 	
 	public List<Seat> SelectSeat(Show show, int[] seatLocation);   //  function to select seat
 	
-	public Boolean UpdateSeatStatus(Booking BookingObj);
+	public Booking UpdateSeatStatus(Booking BookingObj);
 	
-	public Booking initiateBooking (Booking BookingObj);
+	
+	
+	public Seat blockUnblock (Seat markseat);
+	
+	public Booking unblockSeat (Booking Bookingobj);
+	
+	public Booking cancelBooking (Booking  cancelBooking);
 
 }

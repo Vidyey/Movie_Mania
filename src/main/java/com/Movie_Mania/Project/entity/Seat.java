@@ -132,6 +132,29 @@ public class Seat implements Serializable{
 		return "Seat [seatId=" + seatId + ", seatStatus=" + seatStatus + ", seatPrice=" + seatPrice + ", booking="
 				+ booking + "]";
 	}
+
+	/**
+	 * @return the seatLocation
+	 */
+	public int[] getSeatLocation() {
+		return seatLocation;
+	}
+
+	/**
+	 * @param seatLocation the seatLocation to set
+	 */
+	public void setSeatLocation(int[] seatLocation) {
+		this.seatLocation = seatLocation;
+	}
+
+	/**
+	 * @return the serialversionuid
+	 */
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	
 	
 	
 

@@ -81,7 +81,11 @@ public class Show implements Serializable{
 		this.theaterId = theaterId;
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 10; j++) {
-				this.SeatMatrix[i][j] = new Seat();
+				Seat seat = new Seat();
+				int[] seatLocation = {i,j};
+				seat.setSeatLocation(seatLocation);
+				this.SeatMatrix[i][j] = seat;
+				
 				this.seats.add(this.SeatMatrix[i][j]);
 			}
 		}
