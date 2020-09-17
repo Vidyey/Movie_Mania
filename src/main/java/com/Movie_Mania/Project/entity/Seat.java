@@ -93,6 +93,8 @@ public class Seat implements Serializable{
 	 */
 	public Seat() {
 		super();
+		
+		this.seatStatus = BookingState.Available;
 		// TODO Auto-generated constructor stub
 	}
 

@@ -6,9 +6,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.Movie_Mania.Project.entity.Booking;
+import com.Movie_Mania.Project.entity.BookingState;
 import com.Movie_Mania.Project.entity.Customer;
 import com.Movie_Mania.Project.entity.Movie;
 import com.Movie_Mania.Project.entity.Screen;
+import com.Movie_Mania.Project.entity.Seat;
 import com.Movie_Mania.Project.entity.Show;
 import com.Movie_Mania.Project.entity.Theater;
 import com.Movie_Mania.Project.entity.Ticket;
@@ -41,7 +44,7 @@ public class MovieDaoImpl implements IMovieDao {
 	@Autowired
 	ScreenRepo screenRepo;
 	
-	@Autowired
+	@Autowired 
 	TheatreRepo trepo;
 	
 	private Customer customer;
@@ -126,6 +129,53 @@ public class MovieDaoImpl implements IMovieDao {
 		Screen screen =screenRepo.getOne(screenId);
 		return screen.getShowList();
 	}
+
+	@Override
+	public List<Seat> SelectSeat(Show show, int[] seatLocation) {
+		// TODO Auto-generated method stub
+		List<Seat> SeatList = show.getSeats();
+		List<Seat> ChoosedSeat = null;
+		int size = seatLocation.length;
+		for (int i =0 ; i<size; i=i+2) {
+		int row = seatLocation[i];
+		int col = seatLocation[i+1];
+		
+		int loc = (row*10)+(col+1);
+		;
+		ChoosedSeat.add(SeatList.get(loc));
+		}
+		
+		return ChoosedSeat;
+		
+	}
+	@Override
+	public Boolean UpdateSeatStatus(Booking BookingObj) {
+		
+		List<Seat>List =BookingObj.getSeatList();
+		for (Seat seat : List) {
+			if(seat.getSeatStatus().equals(BookingState.Blocked))
+					{
+				       seat.setSeatStatus(BookingState.booked);
+					}
+			else {
+				return false;
+			}
+		}
+		return true;
+		
+		
+		
+	}
+
+	@Override
+	public Booking initiateBooking(Booking BookingObj) {
+		// TODO Auto-generated method stub
+		
+		
+		return null;
+	}
+
+	
 
 
 }

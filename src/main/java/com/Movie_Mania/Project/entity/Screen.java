@@ -46,7 +46,7 @@ public class Screen implements Serializable{
 	@Column(name="column_count")
 	private Integer columns;
 	
-	private int SeatMatrix[][];
+	
 	/**
 	 * 
 	 */
@@ -76,11 +76,7 @@ public class Screen implements Serializable{
 		this.rows = 5;
 		this.columns = 10;
 		
-		for (int i = 0; i < this.rows; i++) {
-			for (int j = 0; j < this.rows; j++) {
-				this.SeatMatrix[i][j] = 0;
-			}
-		}
+		
 		
 	}
 	

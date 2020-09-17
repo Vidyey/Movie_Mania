@@ -56,6 +56,8 @@ public class Show implements Serializable{
 	
 	@ManyToOne
 	Screen screen;
+	
+	private Seat SeatMatrix[][];
 	/**
 	 * @param showId
 	 * @param showStartTime
@@ -66,17 +68,25 @@ public class Show implements Serializable{
 	 * @param screenId
 	 * @param theaterId
 	 */
-	public Show(Integer showId, Time showStartTime, Time showEndTime, List<Seat> seats, String showName, Movie movieName,
+	public Show(Integer showId, Time showStartTime, Time showEndTime, String showName, Movie movieName,
 			Integer screenId, Integer theaterId) {
 		super();
 		this.showId = showId;
 		this.showStartTime = showStartTime;
 		this.showEndTime = showEndTime;
-		this.seats = seats;
+		
 		this.showName = showName;
 		this.movieName = movieName;
 		this.screenId = screenId;
 		this.theaterId = theaterId;
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 10; j++) {
+				this.SeatMatrix[i][j] = new Seat();
+				this.seats.add(this.SeatMatrix[i][j]);
+			}
+		}
+		
+		
 	}
 	/**
 	 * 
