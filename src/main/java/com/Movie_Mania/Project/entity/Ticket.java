@@ -8,6 +8,8 @@ import java.util.Arrays;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author PDGadge
  *
@@ -26,7 +28,7 @@ public class Ticket implements Serializable{
 	@Column(name = "SeatName")
 	private String[] seatName; 
 	
-	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private Customer customer;

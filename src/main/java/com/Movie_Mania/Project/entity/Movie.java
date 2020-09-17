@@ -11,6 +11,9 @@ import java.util.Arrays;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 /**
@@ -45,6 +48,7 @@ public class Movie implements Serializable{
 	
 	@OneToOne(mappedBy = "movieName",cascade = CascadeType.ALL)
 	Show show;
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="theater_id")
 	Theater theatre;

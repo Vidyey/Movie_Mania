@@ -4,6 +4,7 @@
 package com.Movie_Mania.Project.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
@@ -36,11 +39,11 @@ public class Theater implements Serializable{
 	
 	// mapping remaining
 	
-	
 	@OneToMany(mappedBy = "theatre",targetEntity = Movie.class, cascade = CascadeType.ALL)
 	private List<Movie> movies;
 	  // adding extra col 
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "theatre",targetEntity = Screen.class, cascade = CascadeType.ALL)
 	private List<Screen> screens;
 	
@@ -57,14 +60,14 @@ public class Theater implements Serializable{
 	 * @param managerName
 	 * @param managerContact
 	 */
-	public Theater(Integer theaterId, String theaterName, String theaterCity, List<Movie> movies, List<Screen> listOfScreens,
+	public Theater(Integer theaterId, String theaterName, String theaterCity,
 			String managerName, String managerContact) {
 		super();
 		this.theaterId = theaterId;
 		this.theaterName = theaterName;
 		this.theaterCity = theaterCity;
-		this.movies = movies;
-		this.screens = listOfScreens;
+		this.movies = new ArrayList<>();
+		this.screens = new ArrayList<Screen>();
 		this.managerName = managerName;
 		this.managerContact = managerContact;
 	}
@@ -167,6 +170,17 @@ public class Theater implements Serializable{
 				+ ", managerContact=" + managerContact + "]";
 	}
 	
+	
+	public void addMovie(Movie movie) {
+		movie.setTheatre(this);
+		this.getMovies().add(movie);
+	}
+	
+	
+	public void addScreen(Screen screen) {
+		screen.setTheatre(this);
+		this.getListOfScreens().add(screen);
+	}
 	
 
 }
