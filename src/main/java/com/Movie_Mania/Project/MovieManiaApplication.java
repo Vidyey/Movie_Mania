@@ -12,12 +12,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-
+import com.Movie_Mania.Project.entity.Customer;
 import com.Movie_Mania.Project.entity.Movie;
 import com.Movie_Mania.Project.entity.Screen;
 import com.Movie_Mania.Project.entity.Show;
 import com.Movie_Mania.Project.entity.Theater;
-import com.Movie_Mania.Project.repo.MovieRepo;
+import com.Movie_Mania.Project.entity.Ticket;
+import com.Movie_Mania.Project.repo.CustomerRepository;
+import com.Movie_Mania.Project.repo.MovieRepository;
 import com.Movie_Mania.Project.repo.ScreenRepo;
 import com.Movie_Mania.Project.repo.ShowRepo;
 import com.Movie_Mania.Project.repo.TheatreRepo;
@@ -31,8 +33,11 @@ public class MovieManiaApplication implements CommandLineRunner {
 	private ScreenRepo screpo;
 
 	@Autowired
-	private MovieRepo mrepo;
+	private MovieRepository mrepo;
 
+	@Autowired
+	CustomerRepository custRepo;
+	
 	@Autowired
 	private TheatreRepo trepo;
 
@@ -43,77 +48,82 @@ public class MovieManiaApplication implements CommandLineRunner {
 		
 		SpringApplication.run(MovieManiaApplication.class, args);
 		System.out.println("lets start");
-		System.out.println("yash");
-		System.out.println("Pratik");
-		
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
 
+		Theater t2 = new Theater(102, "INOX", "Pune", "Akshay", "9875566776");
+		Theater t1 = new Theater(101, "PVR", "Pune", "Danny", "9075566776");
+		String[] language = {"Hindi","English"};
+
+		Movie m1=new Movie(3,"3 Idiots","Entertainment","Raju Hirani",170,language,LocalDate.of(2010, 01, 12));
+		
+		Movie m2=new Movie(4,"Tanhaji","Period","Om Raut",130,language,LocalDate.of(2020, 01, 12));
 		
 		
-		String[] stringArray = {"t","s"};
-		
-		Movie m1=new Movie(1, "Ragnarok", "", "", 50, stringArray, LocalDate.now());
-		
-		
-		Movie m2=new Movie(2, "Orphan", "", "", 60, stringArray, LocalDate.now());
-		
-		
-		
-		List<Movie> movielist1 =new ArrayList<Movie>();
-		movielist1.add(m1);
-	
-		
-		
-		
-		
-		
-		
-		
-		Theater t1 = new Theater(101, "PVR", "Pune", movielist1, null, "", "");
-		
-		
+		t1.addMovie(m1);
+		t1.addMovie(m2);
 		trepo.save(t1);
+		trepo.save(t2);
 		
+		Customer customer = new Customer(1011, "pratik123","pet name", "tom", "Pratik", "21-09-1998", "8765677766");
 		
-		/*
-	
-		long milli = 123456789999l;
-		java.sql.Time time = new java.sql.Time(milli);
+		String[] seatsname = {"A1","A2"};
+		customer.addTicket(new Ticket(121,3,seatsname,true,"Audi3"));
 		
-		Show s1 = new Show(null,time, time, null, "Alpha", m1, 501, 101);     //Theatre 1 Screen 1 show 1
-		Show s2 = new Show(null,time, time, null, "Alpha", m1, 501, 101);
-		
-		 
-		 		
-		List<Show> showlist1=new ArrayList<Show>();
-		showlist1.add(s1);
-	
-		
-		
-	
-		Screen sc1=new Screen(501, 101, "A", showlist1, LocalDate.now(),10 , 20);
-		
-		
-		
-		
-		
-		List<Screen> screenlist1 = new ArrayList<Screen>();
-		screenlist1.add(sc1);
-		
-		
-		
-		
-		
-		
-		
-	*/
-		
-		
-		
-		
+		custRepo.save(customer);
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//		List<Movie> movielist1 =new ArrayList<Movie>();
+//		movielist1.add(m1);
+//		movielist1.add(m2);
+//	
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//		Theater t1 = new Theater(101, "PVR", "Pune", movielist1, null, "", "");
+//		
+//		
+//		trepo.save(t1);
+//		
+//		
+//		
+//	
+//		long milli = 123456789999l;
+//		java.sql.Time time = new java.sql.Time(milli);
+//		
+//		Show s1 = new Show(null,time, time, null, "Alpha", m1, 501, 101);     //Theatre 1 Screen 1 show 1
+//		Show s2 = new Show(null,time, time, null, "Alpha", m1, 501, 101);
+//		
+//		 
+//		 		
+//		List<Show> showlist1=new ArrayList<Show>();
+//		showlist1.add(s1);
+//	
+//		
+//		
+//	
+//		Screen sc1=new Screen(501, 101, "A", showlist1, LocalDate.now(),10 , 20);
+//		
+//		
+//		
+//		
+//		
+//		List<Screen> screenlist1 = new ArrayList<Screen>();
+//		screenlist1.add(sc1);
+//		
+
 		
 	}
 

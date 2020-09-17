@@ -10,6 +10,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -27,7 +29,8 @@ public class Screen implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	@Column(name="screen_id")
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="screen_id",length = 4)
 	private Integer screenId;
 	@Column(name="theater_id")
 	private Integer theaterId;
@@ -182,6 +185,7 @@ public class Screen implements Serializable{
 	public void setTheatre(Theater theatre) {
 		this.theatre = theatre;
 	}
+	
 	
 	
 

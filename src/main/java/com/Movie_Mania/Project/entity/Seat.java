@@ -24,7 +24,8 @@ public class Seat implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	@Id
-	@Column(name="seat_id")
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="seat_id",length = 6)
 	private Integer seatId; 
 	@Column(name="seat_Status")
 	private  Enum<BookingState> seatStatus;
@@ -133,12 +134,11 @@ public class Seat implements Serializable{
 				+ booking + "]";
 	}
 
-	/**
-	 * @return the seatLocation
-	 */
+
 	public int[] getSeatLocation() {
 		return seatLocation;
 	}
+
 
 	/**
 	 * @param seatLocation the seatLocation to set
@@ -155,6 +155,7 @@ public class Seat implements Serializable{
 	}
 
 	
+
 	
 	
 

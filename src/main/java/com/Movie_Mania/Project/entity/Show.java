@@ -10,6 +10,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -31,7 +33,8 @@ public class Show implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	@Column(name="show_id")
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="show_id",length = 8)
 	private Integer showId;
 	@Column(name="show_StartTime")
 	private Time showStartTime;

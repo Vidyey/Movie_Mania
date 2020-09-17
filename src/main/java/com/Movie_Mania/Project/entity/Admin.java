@@ -12,22 +12,27 @@ public class Admin extends User{
 	
 	
 	private static final long serialVersionUID = 1L;
-	@Column(name = "admin_name")
+	@Column(name = "admin_name",length = 30,nullable = false)
 	private  String adminName;
 	
 
-	@Column(name = "admin_contact")
+	@Column(name = "admin_contact",length = 15,nullable = false)
 	private String adminContact;
 	
 	public Admin() {
 		super();
 	}
 	
-	public Admin(Integer userId, String password, String adminName, String adminContact) {
-		super(userId, password);
+	
+
+	public Admin(Integer userId, String password, String securityQuestion, String answer, String adminName,
+			String adminContact) {
+		super(userId, password, securityQuestion, answer);
 		this.adminName = adminName;
 		this.adminContact = adminContact;
 	}
+
+
 
 	public String getAdminName() {
 		return adminName;

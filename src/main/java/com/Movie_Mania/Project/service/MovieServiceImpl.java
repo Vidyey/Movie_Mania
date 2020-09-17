@@ -5,80 +5,87 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+
 import com.Movie_Mania.Project.entity.Admin;
+import com.Movie_Mania.Project.entity.Booking;
 import com.Movie_Mania.Project.entity.Customer;
 
 
-import com.Movie_Mania.Project.Dao.MovieDaoImpl;
 import com.Movie_Mania.Project.Dao.IMovieDao;
 
 import com.Movie_Mania.Project.entity.Movie;
 import com.Movie_Mania.Project.entity.Show;
 import com.Movie_Mania.Project.entity.Theater;
-import com.Movie_Mania.Project.repo.AdminRepo;
-import com.Movie_Mania.Project.repo.CustomerRepo;
-
 import com.Movie_Mania.Project.entity.Ticket;
-import com.Movie_Mania.Project.repo.MovieRepo;
-import com.Movie_Mania.Project.repo.ScreenRepo;
-import com.Movie_Mania.Project.repo.ShowRepo;
-import com.Movie_Mania.Project.repo.TheatreRepo;
+
 
 
 @Service
-	
+
 	
 public class MovieServiceImpl implements MovieService
 {
-	@Autowired
-
-	private MovieDaoImpl dao;
-	@Autowired
-	CustomerRepo custRepo;
-
-
-	ShowRepo srepo;
+	
+	
 	
 	@Autowired
-	AdminRepo adminRepo;
+	private IMovieDao dao;
 	
-	@Autowired
-	private IMovieDao bookDao;
+
 	
 	@Override
-	public Customer registerCustomer(Customer customer) {
-		Customer cust = custRepo.save(customer);
-		return cust;
+	public String registerCustomer(Customer customer) {
+		return dao.registerCustomer(customer);
+	}
+
+	@Override
+	public String registerAdmin(Admin admin) {
+		return dao.registerAdmin(admin);
+	}
+
+	@Override
+	public boolean custLogin(Integer userId, String password) {
+		return dao.custLogin(userId, password);
 	}
 	
 	@Override
-	public Admin registerAdmin(Admin admin) {
-		Admin ad = adminRepo.save(admin);
-		return ad;
+	public boolean adminLogin(Integer userId, String password) {
+		return dao.adminLogin(userId, password);
 	}
 
-	
+	@Override
+	public String changePassword(Integer userId, String currentPassword, String newPassword) {
+		return dao.changePassword(userId, currentPassword, newPassword);
+	}
+
+	@Override
+	public String editCustomer(Customer customer) {
+		return dao.editCustomer(customer);
+	}
+
+	@Override
+	public String forgotPassword(Integer userId, String securityQuestion, String answer) {
+		return dao.forgotPassword(userId, securityQuestion, answer);
+	}
+
 	public List<Ticket> showTickets(int customerId) {
-		return bookDao.showTickets(customerId);
+		return dao.showTickets(customerId);
 	}
 
-	@Override
-	public Boolean cancelSeat() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Movie> searchMovie(String movieName) {
+		return dao.searchMovie(movieName);
 	}
 
-	@Override
-	public Ticket bookSeat() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Theater> searchTheatre(String theatreName) {
+		
+		return dao.searchTheatre(theatreName);
 	}
+	
+	
+	
 
-	@Override
-	public Boolean bloackSeat() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 	
 	@Override
 	public void addMovie(Movie movie) {
@@ -101,47 +108,16 @@ public class MovieServiceImpl implements MovieService
 	}
 
 
-	public List<Movie> searchMovie(String movieName) {
-		// TODO Auto-generated method stub
-		return dao.searchMovie(movieName);
-	}
-
-	public List<Theater> searchTheatre(String theatreName) {
-		
-		return dao.searchTheatre(theatreName);
-	}
+	
 
 	public List<Show> showShows(Integer screenId) {
 		// TODO Auto-generated method stub
-		return dao.showShows(screenId);
+		return null;
 	}
 
 
 	
 	
-	
-//	@Override
-//	public List<Movie> searchMovie(String movieName) {
-//
-//		return mrepo.findByMovieName(movieName);
-//	}
-//
-//	@Override
-//	public List<Theater> searchTheatre(String theatreName) {
-//		// TODO Auto-generated method stub
-//		return trepo.findByTheaterName(theatreName);
-//	}
-//	
-//	@Override
-//	public List<Show> searchShow(String showName) {
-//		return srepo.findByShowName(showName);
-//	}
-//
-//	@Override
-//	public List<Show> showShows(Integer screenId) {
-//		Screen screen=screpo.getOne(screenId) ;
-//		return screen.getShowList();
-//	}
 
 
 }
