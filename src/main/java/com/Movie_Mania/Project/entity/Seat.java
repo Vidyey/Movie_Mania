@@ -24,7 +24,8 @@ public class Seat implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	@Id
-	@Column(name="seat_id")
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="seat_id",length = 6)
 	private Integer seatId; 
 	@Column(name="seat_Status")
 	private  Enum<BookingState> seatStatus;
@@ -38,6 +39,8 @@ public class Seat implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="show_id")
 	private Show show;
+	
+	private int seatLocation[];
 
 	public Booking getBooking() {
 		return booking;
@@ -65,16 +68,25 @@ public class Seat implements Serializable{
 		this.seatStatus = seatStatus;
 	}
 
+	
+
 	/**
 	 * @param seatId
 	 * @param seatStatus
 	 * @param seatPrice
+	 * @param booking
+	 * @param show
+	 * @param seatLocation
 	 */
-	public Seat(Integer seatId, Enum<BookingState> seatStatus, Double seatPrice) {
+	public Seat(Integer seatId, Enum<BookingState> seatStatus, Double seatPrice, Booking booking, Show show,
+			int[] seatLocation) {
 		super();
 		this.seatId = seatId;
 		this.seatStatus = seatStatus;
 		this.seatPrice = seatPrice;
+		this.booking = booking;
+		this.show = show;
+		this.seatLocation = seatLocation;
 	}
 
 	/**
@@ -82,6 +94,8 @@ public class Seat implements Serializable{
 	 */
 	public Seat() {
 		super();
+		
+		this.seatStatus = BookingState.Available;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -118,6 +132,14 @@ public class Seat implements Serializable{
 	public String toString() {
 		return "Seat [seatId=" + seatId + ", seatStatus=" + seatStatus + ", seatPrice=" + seatPrice + ", booking="
 				+ booking + "]";
+	}
+
+	public int[] getSeatLocation() {
+		return seatLocation;
+	}
+
+	public void setSeatLocation(int[] seatLocation) {
+		this.seatLocation = seatLocation;
 	}
 	
 	

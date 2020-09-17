@@ -30,7 +30,8 @@ public class Screen implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 //	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="screen_id")
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="screen_id",length = 4)
 	private Integer screenId;
 	@Column(name="theater_id")
 	private Integer theaterId;
@@ -48,12 +49,17 @@ public class Screen implements Serializable{
 	private Integer rows;												// does any need to use this in table ??
 	@Column(name="column_count")
 	private Integer columns;
+	
+	
 	/**
 	 * 
 	 */
 	public Screen() {
 		super();
 		// TODO Auto-generated constructor stub
+		this.rows = 5;
+		this.columns = 10;
+		
 	}
 	/**
 	 * @param screenId
@@ -64,16 +70,18 @@ public class Screen implements Serializable{
 	 * @param rows
 	 * @param columns
 	 */
-	public Screen(Integer screenId, Integer theaterId, String screenName, List<Show> showList, LocalDate movieEndDate,
-			Integer rows, Integer columns) {
+	public Screen(Integer screenId, Integer theaterId, String screenName, List<Show> showList, LocalDate movieEndDate) {
 		super();
 		this.screenId = screenId;
 		this.theaterId = theaterId;
 		this.screenName = screenName;
 		this.showList = showList;
 		this.movieEndDate = movieEndDate;
-		this.rows = rows;
-		this.columns = columns;
+		this.rows = 5;
+		this.columns = 10;
+		
+		
+		
 	}
 	
 	/**
@@ -178,6 +186,7 @@ public class Screen implements Serializable{
 	public void setTheatre(Theater theatre) {
 		this.theatre = theatre;
 	}
+	
 	
 	
 

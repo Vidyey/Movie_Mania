@@ -11,6 +11,8 @@ import java.util.Date;
 
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 /**
@@ -27,8 +29,10 @@ public class Movie implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="movie_id", updatable = false, nullable = false)
+
+	
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="movie_id",length = 4)
 	private Integer movieId;
 	
 	@Column(name="Movie_name")
@@ -50,6 +54,7 @@ public class Movie implements Serializable{
 	
 	@OneToOne(mappedBy = "movieName",cascade = CascadeType.ALL)
 	Show show;
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="theater_id")
 	Theater theatre;

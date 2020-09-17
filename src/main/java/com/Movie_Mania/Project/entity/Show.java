@@ -10,6 +10,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -33,7 +35,8 @@ public class Show implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	@Column(name="show_id")
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="show_id",length = 8)
 	private Integer showId;
 	
 	
@@ -64,6 +67,8 @@ public class Show implements Serializable{
 	
 	@ManyToOne
 	Screen screen;
+	
+	private Seat SeatMatrix[][];
 	/**
 	 * @param showId
 	 * @param showStartTime
@@ -80,11 +85,19 @@ public class Show implements Serializable{
 		this.showId = showId;
 		this.showStartTime = showStartTime;
 		this.showEndTime = showEndTime;
-		this.seats = seats;
+		
 		this.showName = showName;
 		this.movieName = movieName;
 		this.screenId = screenId;
 		this.theaterId = theaterId;
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 10; j++) {
+				this.SeatMatrix[i][j] = new Seat();
+				this.seats.add(this.SeatMatrix[i][j]);
+			}
+		}
+		
+		
 	}
 	/**
 	 * 
