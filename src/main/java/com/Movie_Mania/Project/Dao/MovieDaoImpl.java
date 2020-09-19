@@ -1,5 +1,7 @@
 package com.Movie_Mania.Project.Dao;
 
+
+
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -12,7 +14,9 @@ import com.Movie_Mania.Project.entity.BookingState;
 import com.Movie_Mania.Project.entity.Customer;
 import com.Movie_Mania.Project.entity.Movie;
 import com.Movie_Mania.Project.entity.Screen;
+
 import com.Movie_Mania.Project.entity.Seat;
+
 import com.Movie_Mania.Project.entity.Show;
 import com.Movie_Mania.Project.entity.Theater;
 import com.Movie_Mania.Project.entity.Ticket;
@@ -48,11 +52,24 @@ public class MovieDaoImpl implements IMovieDao {
 	
 	@Autowired
 
-	MovieRepository movieRepo;
+	 MovieRepository repo;
 	
+	@Autowired
+	TheatreRepo theatreRepo; 
+
+	@Autowired
+	MovieRepository movieRepo;
+
 	@Autowired
 	ScreenRepo screenRepo;
 	
+
+	@Autowired
+	ShowRepo showRepo;
+	
+	
+//	private Theater theaterobj ;
+
 	@Autowired 
 	TheatreRepo trepo;
 	
@@ -60,11 +77,13 @@ public class MovieDaoImpl implements IMovieDao {
 	
 	//Dhiraj Modules
 	
+
 	/*
 	 * Register a customer 
 	 * If customer already exists then it will not be registered again.
 	 * If doesn't exist will be registered
 	 */
+
 	@Override
 	public String registerCustomer(Customer customer) {
 		
@@ -277,7 +296,11 @@ public class MovieDaoImpl implements IMovieDao {
 	}
 
 	
-//	Movie m1=new Movie(101,111,"abc","fh","gvj",12,"hindi","2020-4-14");
+	
+	
+	
+//	-----------------------------------------------------------------------------------
+
 	@Override
 	public void addMovie(Movie movie) {
 		// TODO Auto-generated method stub
@@ -287,21 +310,84 @@ public class MovieDaoImpl implements IMovieDao {
 	@Override
 	public void deleteMovie(int movieId) {
 		// TODO Auto-generated method stub
+
+     
+		repo.deleteById(movieId);
+
       //repo.deleteById(movieId);
-		movieRepo.deleteById(movieId);
+		
+
 	}
 
 	@Override
 	public List<Movie> getAllMovies() {
 		// TODO Auto-generated method stub
-//		List<Movie> movies=new ArrayList<>();
-//		movies=repo.findAll();
-		
-//		List<Movie> movies=new ArrayList<Movie>();
-//		movies=repo.findAll();
-//		System.out.println(movies);
+
+
+//       return repo.findAll();
+
        return movieRepo.findAll();
+
 		
+	}
+
+	@Override
+	public void addTheater(Theater theater) {
+		// TODO Auto-generated method stub
+		theatreRepo.save(theater);
+	}
+
+	@Override
+	public void deleteTheater(int theater_id) {
+		// TODO Auto-generated method stub
+		theatreRepo.deleteById(theater_id);
+		
+	}
+
+	@Override
+	public List<Theater> getAllTheater() {
+		// TODO Auto-generated method stub
+
+		return theatreRepo.findAll();
+	}
+
+	@Override
+	public void addScreen(Screen screen) {
+		// TODO Auto-generated method stub
+		screenRepo.save(screen);
+		
+	}
+
+	@Override
+	public void deleteScreen(int screen_id) {
+		// TODO Auto-generated method stub
+		screenRepo.deleteById(screen_id);
+		
+	}
+
+	@Override
+	public List<Screen> getAllScreen() {
+		// TODO Auto-generated method stub
+		return screenRepo.findAll();
+	}
+
+	@Override
+	public void addShow(Show show) {
+		// TODO Auto-generated method stub
+		showRepo.save(show);
+	}
+
+	@Override
+	public void deleteShow(int show_id) {
+		// TODO Auto-generated method stub
+		showRepo.deleteById(show_id);
+		
+	}
+
+	@Override
+	public List<Show> getAllShow() {
+		// TODO Auto-generated method stub
+		return showRepo.findAll();
 	}
 
 

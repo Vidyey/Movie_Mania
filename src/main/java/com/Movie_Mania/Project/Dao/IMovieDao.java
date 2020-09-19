@@ -6,6 +6,7 @@ import com.Movie_Mania.Project.entity.Admin;
 import com.Movie_Mania.Project.entity.Booking;
 import com.Movie_Mania.Project.entity.Customer;
 import com.Movie_Mania.Project.entity.Movie;
+import com.Movie_Mania.Project.entity.Screen;
 
 
 
@@ -22,6 +23,21 @@ public interface IMovieDao {
 	public void deleteMovie(int movieId);
 	public List<Movie> getAllMovies();
 
+	
+	public void addTheater(Theater theater);
+	public void deleteTheater(int theater_id);
+	public List<Theater> getAllTheater();
+	
+	public void addScreen(Screen screen);
+	public void deleteScreen(int screen_id);
+	public List<Screen> getAllScreen();
+	
+	public void addShow(Show screen);
+	public void deleteShow(int show_id);
+	public List<Show> getAllShow();
+	
+	
+	
 	public String registerCustomer(Customer customer);
 	public String registerAdmin(Admin admin);
 	public boolean custLogin(Integer userId,String password);

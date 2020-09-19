@@ -19,6 +19,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * @author PDGadge
  *
@@ -36,10 +38,14 @@ public class Show implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="show_id",length = 8)
 	private Integer showId;
+	
+	
 	@Column(name="show_StartTime")
-	private Time showStartTime;
+	private String showStartTime;
+	
+	
 	@Column(name="show_EndTime")
-	private Time showEndTime;
+	private String showEndTime;
 	
 	@OneToMany(mappedBy = "show",targetEntity = Seat.class,cascade=CascadeType.ALL)										//mappimg remaining
 	private List<Seat> seats;
@@ -51,6 +57,8 @@ public class Show implements Serializable{
 	@JoinColumn(name="movie_name")
 
 	@OneToOne(targetEntity=Movie.class,cascade=CascadeType.ALL) 
+	
+	
 	private Movie movieName;
 	@Column(name="screen_id")
 	private Integer screenId;
@@ -71,7 +79,7 @@ public class Show implements Serializable{
 	 * @param screenId
 	 * @param theaterId
 	 */
-	public Show(Integer showId, Time showStartTime, Time showEndTime, String showName, Movie movieName,
+	public Show(Integer showId, String showStartTime, String showEndTime, List<Seat> seats, String showName, Movie movieName,
 			Integer screenId, Integer theaterId) {
 		super();
 		this.showId = showId;
@@ -114,25 +122,25 @@ public class Show implements Serializable{
 	/**
 	 * @return the showStartTime
 	 */
-	public Time getShowStartTime() {
+	public String getShowStartTime() {
 		return showStartTime;
 	}
 	/**
 	 * @param showStartTime the showStartTime to set
 	 */
-	public void setShowStartTime(Time showStartTime) {
+	public void setShowStartTime(String showStartTime) {
 		this.showStartTime = showStartTime;
 	}
 	/**
 	 * @return the showEndTime
 	 */
-	public Time getShowEndTime() {
+	public String getShowEndTime() {
 		return showEndTime;
 	}
 	/**
 	 * @param showEndTime the showEndTime to set
 	 */
-	public void setShowEndTime(Time showEndTime) {
+	public void setShowEndTime(String showEndTime) {
 		this.showEndTime = showEndTime;
 	}
 	/**

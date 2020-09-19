@@ -78,13 +78,8 @@ public class MovieManiaApplication implements CommandLineRunner {
 		customer.addTicket(new Ticket(121,3,seatsname,true,"Audi3"));
 		
 		custRepo.save(customer);
-////		
-//		
-//		
-//		
-//		
-//		
-//		
+
+	
 //		
 //		List<Movie> movielist1 =new ArrayList<Movie>();
 //		movielist1.add(m1);
