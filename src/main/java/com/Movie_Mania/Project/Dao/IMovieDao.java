@@ -32,7 +32,8 @@ public interface IMovieDao {
 	public List<Ticket> showTickets(int customerId);
 	public List<Movie> searchMovie(String movieName);
 	public List<Theater> searchTheatre(String theatreName) ;
-	
+	public Customer getCustById(Integer userId);
+	public Admin getAdminById(Integer userId);
 
 
 	
@@ -43,5 +44,6 @@ public interface IMovieDao {
 	public Boolean UpdateSeatStatus(Booking BookingObj);
 	
 	public Booking initiateBooking (Booking BookingObj);
+	
 
 }
