@@ -20,6 +20,7 @@ import com.Capgemini.Movie_Mania.Project.entity.Booking;
 import com.Capgemini.Movie_Mania.Project.entity.Customer;
 import com.Capgemini.Movie_Mania.Project.entity.Movie;
 import com.Capgemini.Movie_Mania.Project.entity.Seat;
+import com.Capgemini.Movie_Mania.Project.entity.SelectedSeatArray;
 import com.Capgemini.Movie_Mania.Project.entity.Show;
 import com.Capgemini.Movie_Mania.Project.entity.Theater;
 import com.Capgemini.Movie_Mania.Project.entity.Ticket;
@@ -137,7 +138,6 @@ public class Movie_Mania_Controller {
 		
 	} 
 	
-	
 
 	@PostMapping(path ="/ConfirmedSeat/{showId}")
 	public List<Seat> SelectSeat(@PathVariable("showId") Integer showId,@RequestBody SelectedSeatArray seatLocation) {
@@ -171,5 +171,6 @@ public class Movie_Mania_Controller {
 		// TODO Auto-generated method stub
 		return mserv.cancelBooking(cancelBooking);
 	}
+	
 	
 }

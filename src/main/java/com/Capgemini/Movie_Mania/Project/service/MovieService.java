@@ -9,6 +9,7 @@ import com.Capgemini.Movie_Mania.Project.entity.Booking;
 import com.Capgemini.Movie_Mania.Project.entity.Customer;
 import com.Capgemini.Movie_Mania.Project.entity.Movie;
 import com.Capgemini.Movie_Mania.Project.entity.Seat;
+import com.Capgemini.Movie_Mania.Project.entity.SelectedSeatArray;
 import com.Capgemini.Movie_Mania.Project.entity.Show;
 import com.Capgemini.Movie_Mania.Project.entity.Theater;
 import com.Capgemini.Movie_Mania.Project.entity.Ticket;
@@ -45,8 +46,22 @@ public interface MovieService {
 	public Booking makePayment(Booking b);
 	public Booking   cancelticket(Ticket t);
 	public Booking choosePaymentmethod(List<Seat> seat,int buttonid);
+//	
+	public List<Seat> SelectSeat(Integer showId, SelectedSeatArray seatLocation);   //  function to select seat
+	
+	public Booking UpdateSeatStatus(Booking BookingObj);
 	
 	
+	
+	
+	
+	
+	
+	public Seat blockUnblock (Seat markseat);
+	
+	public Booking unblockSeat (Booking Bookingobj);
+	
+	public Booking cancelBooking (Booking  cancelBooking);
 	
 }
 

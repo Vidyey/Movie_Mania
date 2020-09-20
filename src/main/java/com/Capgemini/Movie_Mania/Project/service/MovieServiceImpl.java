@@ -12,6 +12,7 @@ import com.Capgemini.Movie_Mania.Project.entity.Booking;
 import com.Capgemini.Movie_Mania.Project.entity.Customer;
 import com.Capgemini.Movie_Mania.Project.entity.Movie;
 import com.Capgemini.Movie_Mania.Project.entity.Seat;
+import com.Capgemini.Movie_Mania.Project.entity.SelectedSeatArray;
 import com.Capgemini.Movie_Mania.Project.entity.Show;
 import com.Capgemini.Movie_Mania.Project.entity.Theater;
 import com.Capgemini.Movie_Mania.Project.entity.Ticket;
@@ -144,8 +145,35 @@ public List<Show> searchShow(String showName) {
 	
 }
 
-	
-	
+@Override
+public List<Seat> SelectSeat(Integer showId, SelectedSeatArray seatLocation) {
+	// TODO Auto-generated method stub
+	return dao.SelectSeat(showId, seatLocation);
+}
+
+@Override
+public Booking UpdateSeatStatus(Booking BookingObj) {
+	// TODO Auto-generated method stub
+	return dao.UpdateSeatStatus(BookingObj);
+}
+
+@Override
+public Seat blockUnblock(Seat markseat) {
+	// TODO Auto-generated method stub
+	return dao.blockUnblock(markseat);
+}
+
+@Override
+public Booking unblockSeat(Booking Bookingobj) {
+	// TODO Auto-generated method stub
+	return dao.unblockSeat(Bookingobj);
+}
+
+@Override
+public Booking cancelBooking(Booking cancelBooking) {
+	// TODO Auto-generated method stub
+	return dao.cancelBooking(cancelBooking);
+}
 	
 	
 	

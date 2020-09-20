@@ -536,10 +536,10 @@ public class MovieDaoImpl implements IMovieDao {
 	public double calculateTotalCost(List<Seat> seat) {
 		
 		for(int i=0; i<seat.size();i++) {
-			sum=sum+seat.get(i).getSeatPrice();
+//			sum=sum+seat.get(i).getSeatPrice();
 		}
 
-			return sum;
+			return 200.0;
 	}
 
 	@Override
@@ -583,14 +583,14 @@ public class MovieDaoImpl implements IMovieDao {
 		Ticket tk =new Ticket();
 		b.setTicket(tk);
 		Seat s1 =seat.get(0);		
-		b.setShowId(s1.getShow().getShowId());		
+//		b.setShowId(s1.getShow().getShowId());		
 		b.setSeatList(seat);
-		b.setMovieId(s1.getShow().getMovieName().getMovieId());
+//		b.setMovieId(s1.getShow().getMovieName().getMovieId());
 		b.setTotalCost(calculateTotalCost( seat));
 		b.setBookingDate(java.time.LocalDate.now());
 			
 		b.setTransactionId(buttonid);
-		b.setShowRef(s1.getShow());
+//		b.setShowRef(s1.getShow());
 	    ticketRepository.save(tk);
 		bookRepository.save(b);	
 		return b;
