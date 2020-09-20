@@ -1,24 +1,29 @@
-package com.Movie_Mania.Project.Dao;
+package com.Capgemini.Movie_Mania.Project.Dao;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.Movie_Mania.Project.entity.Customer;
-import com.Movie_Mania.Project.entity.Movie;
-import com.Movie_Mania.Project.entity.Screen;
-import com.Movie_Mania.Project.entity.Show;
-import com.Movie_Mania.Project.entity.Theater;
-import com.Movie_Mania.Project.entity.Ticket;
-import com.Movie_Mania.Project.repo.BookingRepository;
-import com.Movie_Mania.Project.repo.CustomerRepository;
-import com.Movie_Mania.Project.repo.MovieRepository;
-import com.Movie_Mania.Project.repo.ScreenRepo;
-import com.Movie_Mania.Project.repo.ShowRepo;
-import com.Movie_Mania.Project.repo.TheatreRepo;
-import com.Movie_Mania.Project.repo.TicketRepository;
+import com.Capgemini.Movie_Mania.Project.entity.Booking;
+import com.Capgemini.Movie_Mania.Project.entity.BookingState;
+import com.Capgemini.Movie_Mania.Project.entity.Customer;
+import com.Capgemini.Movie_Mania.Project.entity.Movie;
+import com.Capgemini.Movie_Mania.Project.entity.Screen;
+import com.Capgemini.Movie_Mania.Project.entity.Seat;
+import com.Capgemini.Movie_Mania.Project.entity.Show;
+import com.Capgemini.Movie_Mania.Project.entity.Theater;
+import com.Capgemini.Movie_Mania.Project.entity.Ticket;
+import com.Capgemini.Movie_Mania.Project.repo.BookingRepository;
+import com.Capgemini.Movie_Mania.Project.repo.CustomerRepository;
+import com.Capgemini.Movie_Mania.Project.repo.MovieRepository;
+import com.Capgemini.Movie_Mania.Project.repo.ScreenRepo;
+import com.Capgemini.Movie_Mania.Project.repo.Seatrepo;
+import com.Capgemini.Movie_Mania.Project.repo.ShowRepo;
+import com.Capgemini.Movie_Mania.Project.repo.TheatreRepo;
+import com.Capgemini.Movie_Mania.Project.repo.TicketRepository;
 
 @Repository
 public class MovieDaoImpl implements IMovieDao {
@@ -40,6 +45,7 @@ public class MovieDaoImpl implements IMovieDao {
 	
 	@Autowired
 	ScreenRepo screenRepo;
+	
 	
 	@Autowired
 	TheatreRepo trepo;
@@ -127,5 +133,94 @@ public class MovieDaoImpl implements IMovieDao {
 		return screen.getShowList();
 	}
 
+	public List<Show> searchShow(String showName) {
+	return  showRepository.findByShowName(showName);
+		
+	}
+
+//	mahesh module
+	
+	
+	@Autowired
+	Seatrepo seatrepository;
+	Booking booking1;
+	Show show;
+	Ticket ticket1=new Ticket();
+	double sum=0;
+	
+	
+	@Override
+	public double calculateTotalCost(List<Seat> seat) {
+		// TODO Auto-generated method stub
+//		List<Seat> seat=booking.getSeatList();
+		
+		for(int i=0; i<seat.size();i++) {
+			sum=sum+seat.get(i).getSeatPrice();
+		}
+//			booking.setTotalCost(sum);
+//			bookRepository.save(booking);
+			return sum;
+	}
+
+	@Override
+	public Booking makePayment(Booking booking) {
+
+		booking.getTransactionId();
+		
+		
+		Ticket printTicket = booking.getTicket();
+
+				printTicket.setNoOfSeats(booking.getSeatList().size());
+		printTicket.setScreenName(booking.getShowRef().getShowName());
+		
+		booking.getTicket().setTicketStatus(true);
+		booking.setTicket(printTicket);
+
+//				UpdateSeatStatus(booking);
+		
+		return booking;
+	}
+
+	
+	@Override
+	public Booking cancelticket(Ticket ticket) {
+		
+//		cancelticket=cancelBooking(cancelticket);
+		Ticket ticket1=ticketRepository.getOne(ticket.getTicketId());
+		Booking cancelBooking=ticket1.getBookingRef();
+		List<Seat> list = cancelBooking.getSeatList();
+		for (Seat seat : list) {
+			if(seat.getSeatStatus().equals(BookingState.booked))
+					{
+				       seat.setSeatStatus(BookingState.Available);
+					}
+			
+		}
+		Ticket confirmTicket = cancelBooking.getTicket();
+		confirmTicket.setTicketStatus(false);
+		ticketRepository.save(confirmTicket);
+		seatrepository.saveAll(list);
+		bookRepository.save(cancelBooking);		
+		return cancelBooking ;
+		
+	
+	}
+		
+	@Override
+	public Booking choosePaymentmethod(List<Seat> seat, int buttonid) {
+		Booking b = null; 
+		Seat s1 =seat.get(0);		
+		b.setShowId(show.getShowId());		
+		b.setSeatList(seat);
+		b.setMovieId(show.getMovieName().getMovieId());
+		b.setTotalCost(calculateTotalCost( seat));
+		b.setBookingDate(java.time.LocalDate.now());
+			
+		b.setTransactionId(buttonid);
+		b.setShowRef(show);
+		b.setTicket(ticket1);
+		bookRepository.save(b);	
+		return b;
+	}
 
 }

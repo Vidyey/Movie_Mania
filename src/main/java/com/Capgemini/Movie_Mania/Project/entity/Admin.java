@@ -1,4 +1,4 @@
-package com.Movie_Mania.Project.entity;
+package com.Capgemini.Movie_Mania.Project.entity;
 
 
 import javax.persistence.Column;

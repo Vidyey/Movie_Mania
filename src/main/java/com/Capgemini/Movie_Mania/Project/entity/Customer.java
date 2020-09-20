@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.Movie_Mania.Project.entity;
+package com.Capgemini.Movie_Mania.Project.entity;
 
 import java.util.ArrayList;
 import java.util.Date;

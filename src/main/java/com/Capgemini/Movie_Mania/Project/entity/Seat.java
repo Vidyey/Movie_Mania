@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.Movie_Mania.Project.entity;
+package com.Capgemini.Movie_Mania.Project.entity;
 
 import java.io.Serializable;
 
@@ -77,11 +77,11 @@ public class Seat implements Serializable{
 	 * @param show
 	 * @param seatLocation
 	 */
-	public Seat(Integer seatId, Enum<BookingState> seatStatus, Double seatPrice, Booking booking, Show show,
+	public Seat(Integer seatId,  Double seatPrice, Booking booking, Show show,
 			int[] seatLocation) {
 		super();
 		this.seatId = seatId;
-		this.seatStatus = seatStatus;
+		
 		this.seatPrice = seatPrice;
 		this.booking = booking;
 		this.show = show;

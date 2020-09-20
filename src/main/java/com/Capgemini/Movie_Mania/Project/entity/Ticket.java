@@ -1,12 +1,15 @@
 /**
  * 
  */
-package com.Movie_Mania.Project.entity;
+package com.Capgemini.Movie_Mania.Project.entity;
 
 import java.io.Serializable;
 import java.util.Arrays;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * @author PDGadge
@@ -30,7 +33,7 @@ public class Ticket implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private Customer customer;
-	
+	@JsonIgnore
 	@OneToOne(mappedBy = "ticket",targetEntity=Booking.class,cascade=CascadeType.ALL) 
 	private Booking	bookingRef;
 	

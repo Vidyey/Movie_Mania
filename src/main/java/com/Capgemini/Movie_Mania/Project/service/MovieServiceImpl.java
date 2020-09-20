@@ -1,28 +1,26 @@
-package com.Movie_Mania.Project.service;
+package com.Capgemini.Movie_Mania.Project.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.Movie_Mania.Project.entity.Admin;
-import com.Movie_Mania.Project.entity.Customer;
-
-
-import com.Movie_Mania.Project.Dao.MovieDaoImpl;
-import com.Movie_Mania.Project.Dao.IMovieDao;
-
-import com.Movie_Mania.Project.entity.Movie;
-import com.Movie_Mania.Project.entity.Show;
-import com.Movie_Mania.Project.entity.Theater;
-import com.Movie_Mania.Project.repo.AdminRepo;
-import com.Movie_Mania.Project.repo.CustomerRepo;
-
-import com.Movie_Mania.Project.entity.Ticket;
-import com.Movie_Mania.Project.repo.MovieRepo;
-import com.Movie_Mania.Project.repo.ScreenRepo;
-import com.Movie_Mania.Project.repo.ShowRepo;
-import com.Movie_Mania.Project.repo.TheatreRepo;
+import com.Capgemini.Movie_Mania.Project.Dao.IMovieDao;
+import com.Capgemini.Movie_Mania.Project.Dao.MovieDaoImpl;
+import com.Capgemini.Movie_Mania.Project.entity.Admin;
+import com.Capgemini.Movie_Mania.Project.entity.Booking;
+import com.Capgemini.Movie_Mania.Project.entity.Customer;
+import com.Capgemini.Movie_Mania.Project.entity.Movie;
+import com.Capgemini.Movie_Mania.Project.entity.Seat;
+import com.Capgemini.Movie_Mania.Project.entity.Show;
+import com.Capgemini.Movie_Mania.Project.entity.Theater;
+import com.Capgemini.Movie_Mania.Project.entity.Ticket;
+import com.Capgemini.Movie_Mania.Project.repo.AdminRepo;
+import com.Capgemini.Movie_Mania.Project.repo.CustomerRepo;
+import com.Capgemini.Movie_Mania.Project.repo.MovieRepo;
+import com.Capgemini.Movie_Mania.Project.repo.ScreenRepo;
+import com.Capgemini.Movie_Mania.Project.repo.ShowRepo;
+import com.Capgemini.Movie_Mania.Project.repo.TheatreRepo;
 
 
 @Service
@@ -110,13 +108,46 @@ public class MovieServiceImpl implements MovieService
 		
 		return dao.searchTheatre(theatreName);
 	}
+	
+public List<Show> searchShow(String showName) {
+		
+		return dao.searchShow(showName);
+	}
 
 	public List<Show> showShows(Integer screenId) {
 		// TODO Auto-generated method stub
 		return dao.showShows(screenId);
 	}
 
+//	mahesh module
+	@Override
+	public double calculateTotalCost(List<Seat> seat) {
+		return dao.calculateTotalCost(seat);	
+	}
 
+	@Override
+	public Booking makePayment(Booking booking) {
+		// TODO Auto-generated method stub
+		return dao.makePayment(booking);
+	}
+
+	@Override
+	public Booking   cancelticket(Ticket ticket) {
+		// TODO Auto-generated method stub
+		return dao.cancelticket(ticket);
+	}
+
+	@Override
+	public Booking choosePaymentmethod(List<Seat> seat, int buttonid) {
+		// TODO Auto-generated method stub
+		return dao.choosePaymentmethod(seat, buttonid);
+	
+}
+
+	
+	
+	
+	
 	
 	
 	

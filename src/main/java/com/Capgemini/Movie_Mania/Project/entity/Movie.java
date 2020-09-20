@@ -2,7 +2,7 @@
 /**
  * 
  */
-package com.Movie_Mania.Project.entity;
+package com.Capgemini.Movie_Mania.Project.entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;

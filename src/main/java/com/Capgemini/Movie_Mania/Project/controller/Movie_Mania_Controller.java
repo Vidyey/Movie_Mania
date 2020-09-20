@@ -1,4 +1,4 @@
-package com.Movie_Mania.Project.controller;
+package com.Capgemini.Movie_Mania.Project.controller;
 
 import java.util.List;
 
@@ -9,27 +9,26 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.Movie_Mania.Project.entity.Admin;
-import com.Movie_Mania.Project.entity.Customer;
-import com.Movie_Mania.Project.entity.Movie;
-import com.Movie_Mania.Project.entity.Show;
-import com.Movie_Mania.Project.entity.Theater;
-import com.Movie_Mania.Project.entity.Ticket;
-import com.Movie_Mania.Project.service.MovieService;
-import com.Movie_Mania.Project.service.MovieServiceImpl;
-
-
-
+import com.Capgemini.Movie_Mania.Project.entity.Admin;
+import com.Capgemini.Movie_Mania.Project.entity.Booking;
+import com.Capgemini.Movie_Mania.Project.entity.Customer;
+import com.Capgemini.Movie_Mania.Project.entity.Movie;
+import com.Capgemini.Movie_Mania.Project.entity.Seat;
+import com.Capgemini.Movie_Mania.Project.entity.Show;
+import com.Capgemini.Movie_Mania.Project.entity.Theater;
+import com.Capgemini.Movie_Mania.Project.entity.Ticket;
+import com.Capgemini.Movie_Mania.Project.service.MovieService;
+import com.Capgemini.Movie_Mania.Project.service.MovieServiceImpl;
 
 @RestController
 @RequestMapping("/movie")
-@CrossOrigin(origins = "http://localhost:4200",  allowedHeaders = "*")
+
 public class Movie_Mania_Controller {
-	
 	
 	
 	@Autowired
@@ -37,8 +36,6 @@ public class Movie_Mania_Controller {
 
 	@Autowired
 	MovieService mserv;
-
-
 
 	@GetMapping(value="/hellooo")
 	public String poo()
@@ -50,8 +47,6 @@ public class Movie_Mania_Controller {
 	{
 	ser.addMovie(movie);
 	}
-
-
 
 	@GetMapping(value="/getMovies")
 	public List<Movie> GetAllTopics()
@@ -72,7 +67,12 @@ public class Movie_Mania_Controller {
 
 	}
 
+	@GetMapping(path="/searchShow/{showName}")
+	public List<Show> searchShow(@PathVariable("showName") String showName)
+	{
+	return mserv.searchShow(showName);
 
+	}
 
 	@GetMapping(path="/showShows/{screenId}")
 	public List<Show> showShows(@PathVariable("screenId") Integer screenId)
@@ -115,7 +115,19 @@ public class Movie_Mania_Controller {
 		return mserv.registerAdmin(admin);
 	}
 	
+	@PostMapping("cancelticket")
+	public ResponseEntity<Booking> cancelticket(@RequestBody Ticket ticket){
+	return new ResponseEntity<Booking>(mserv.cancelticket(ticket),HttpStatus.OK);
+		
+	}
 	
+	@PostMapping("makePayment")
+	public ResponseEntity<Booking> makePayment(@RequestBody Booking booking){
+	return new ResponseEntity<Booking>(mserv.makePayment(booking),HttpStatus.OK);
+	}	
 	
-	
+	@PostMapping("calculateTotalCost")
+	public ResponseEntity<Double> calculateTotalCost(@RequestBody List<Seat> seat){
+    return new ResponseEntity<Double>(mserv.calculateTotalCost(seat), HttpStatus.OK);
+	}
 }
