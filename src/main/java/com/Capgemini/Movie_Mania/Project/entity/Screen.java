@@ -1,7 +1,10 @@
-/**
- * 
- */
+
+
 package com.Capgemini.Movie_Mania.Project.entity;
+
+
+
+
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -17,10 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-/**
- * @author PDGadge
- *
- */
+
 @Entity
 @Table(name = "Screen_Details")
 public class Screen implements Serializable{
@@ -29,7 +29,7 @@ public class Screen implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="screen_id",length = 4)
 	private Integer screenId;

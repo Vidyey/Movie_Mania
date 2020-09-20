@@ -6,10 +6,9 @@ package com.Capgemini.Movie_Mania.Project.entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
-
-import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -29,15 +28,12 @@ public class Movie implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-
-	
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="movie_id",length = 4)
 	private Integer movieId;
 	
 	@Column(name="Movie_name")
 	private String movieName;
-	@Column(name="Movie_genre")
+	
 	private String	movieGenre; 
 	@Column(name="movie_Director")
 	private String movieDirector;
@@ -45,22 +41,17 @@ public class Movie implements Serializable{
 	private Integer movieLength;
 	@Column(name="movie_langauges")
 	private String[] languages;
-	
-@Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
-	
-	@Temporal(TemporalType.DATE)
 	@Column(name="movie_releaseDate")
-	private Date movieReleaseDate;
+	private LocalDate movieReleaseDate;
 	
 	@OneToOne(mappedBy = "movieName",cascade = CascadeType.ALL)
 	Show show;
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name="theater_id")
-	Theater theatre;
+//	@JsonIgnore
+	@ManyToMany(mappedBy = "movies")
+	List<Theater> theatrelist;
 	
 	public Movie(Integer movieId, String movieName, String movieGenre, String movieDirector,
-			Integer movieLength, String[] languages, Date movieReleaseDate) {
+			Integer movieLength, String[] languages, LocalDate movieReleaseDate) {
 		super();
 		this.movieId = movieId;
 		this.movieName = movieName;
@@ -69,6 +60,7 @@ public class Movie implements Serializable{
 		this.movieLength = movieLength;
 		this.languages = languages;
 		this.movieReleaseDate = movieReleaseDate;
+		theatrelist=new ArrayList<>();
 	}
 	/**
 	 * 
@@ -154,53 +146,41 @@ public class Movie implements Serializable{
 	/**
 	 * @return the movieReleaseDate
 	 */
-	public Date getMovieReleaseDate() {
+	public LocalDate getMovieReleaseDate() {
 		return movieReleaseDate;
 	}
 	/**
 	 * @param movieReleaseDate the movieReleaseDate to set
 	 */
-	public void setMovieReleaseDate(Date movieReleaseDate) {
+	public void setMovieReleaseDate(LocalDate movieReleaseDate) {
 		this.movieReleaseDate = movieReleaseDate;
 	}
 	
 	
 	
-//	public Show getShow() {
-//		return show;
-//	}
-//	public void setShow(Show show) {
-//		this.show = show;
-//	}
-	public Theater getTheatre() {
-		return theatre;
+	public Show getShow() {
+		return show;
 	}
-	public void setTheatre(Theater theatre) {
-		this.theatre = theatre;
+	public void setShow(Show show) {
+		this.show = show;
+	}
+	public List<Theater> getTheatrelist() {
+		return theatrelist;
+	}
+	public void setTheatrelist(List<Theater> theatrelist) {
+		this.theatrelist = theatrelist;
 	}
 	@Override
 	public String toString() {
 		return "Movie [movieId=" + movieId + ", movieName=" + movieName + ", movieGenre=" + movieGenre
 				+ ", movieDirector=" + movieDirector + ", movieLength=" + movieLength + ", languages="
-				+ Arrays.toString(languages) + ", movieReleaseDate=" + movieReleaseDate 
-				+ ", theatre=" + theatre + "]";
+				+ Arrays.toString(languages) + ", movieReleaseDate=" + movieReleaseDate + ", show=" + show
+				+ ", theatrelist=" + theatrelist + "]";
 	}
-	/**
-	 * @return the show
-	 */
-	public Show getShow() {
-		return show;
-	}
-	/**
-	 * @param show the show to set
-	 */
-	public void setShow(Show show) {
-		this.show = show;
-	}
+	
 
 	
 	
 	
 
 }
-

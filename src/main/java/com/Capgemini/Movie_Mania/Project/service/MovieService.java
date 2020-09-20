@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+
 import com.Capgemini.Movie_Mania.Project.entity.Admin;
 import com.Capgemini.Movie_Mania.Project.entity.Booking;
 import com.Capgemini.Movie_Mania.Project.entity.Customer;
@@ -15,8 +16,10 @@ import com.Capgemini.Movie_Mania.Project.entity.Show;
 import com.Capgemini.Movie_Mania.Project.entity.Theater;
 import com.Capgemini.Movie_Mania.Project.entity.Ticket;
 
+
 @Service
 public interface MovieService {
+	
 	
 	
 	public String registerCustomer(Customer customer);
@@ -39,6 +42,8 @@ public interface MovieService {
 	public void addMovie(Movie movie);
 	public void deleteMovie(int movieId);
 	public List<Movie> getAllMovies();
+	public Customer getCustById(Integer userId);
+	public Admin getAdminById(Integer userId);
 	
 
 	// pratiks Module
