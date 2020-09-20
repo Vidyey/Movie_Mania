@@ -448,6 +448,9 @@ public class MovieDaoImpl implements IMovieDao {
 		System.out.print("payment success :- Ticket status :-     ");
 		System.out.println( BookingObj.getTicket().getTicketStatus());
 		seatrepo.saveAll(list);
+		
+		BookingObj.setTicket(confirmTicket);
+		BookingObj.setSeatList(list);
 		bookRepository.save(BookingObj);		
 		return BookingObj ;
 		
