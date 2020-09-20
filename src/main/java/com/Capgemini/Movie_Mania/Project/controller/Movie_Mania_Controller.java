@@ -1,0 +1,312 @@
+package com.Capgemini.Movie_Mania.Project.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.Capgemini.Movie_Mania.Project.entity.Admin;
+import com.Capgemini.Movie_Mania.Project.entity.Booking;
+import com.Capgemini.Movie_Mania.Project.entity.Customer;
+import com.Capgemini.Movie_Mania.Project.entity.Movie;
+import com.Capgemini.Movie_Mania.Project.entity.Screen;
+import com.Capgemini.Movie_Mania.Project.entity.Seat;
+import com.Capgemini.Movie_Mania.Project.entity.SelectedSeatArray;
+import com.Capgemini.Movie_Mania.Project.entity.Show;
+import com.Capgemini.Movie_Mania.Project.entity.Theater;
+import com.Capgemini.Movie_Mania.Project.entity.Ticket;
+import com.Capgemini.Movie_Mania.Project.service.MovieService;
+import com.Capgemini.Movie_Mania.Project.service.MovieServiceImpl;
+
+
+
+
+@RestController
+@RequestMapping("/movie")
+public class Movie_Mania_Controller {
+	
+	
+	
+	
+	@Autowired
+	private MovieServiceImpl ser;
+	
+	@Autowired
+	MovieService mserv;
+	
+	@GetMapping("/hello")
+	public ResponseEntity<Object> checkWorking(){
+	return new ResponseEntity<Object>("Hello Customer..", HttpStatus.OK);
+	}
+	
+	
+	@PostMapping(value ="/regCust")
+	public String registerCustomer(@RequestBody Customer customer) {
+		return mserv.registerCustomer(customer);
+	}
+	
+	@PostMapping(value ="/regAdmin")
+	public String registerAdmin(@RequestBody Admin admin) {
+		return mserv.registerAdmin(admin);
+	}
+	
+	@GetMapping(value="/custLogin/{userId}/{password}")
+	public boolean custLogin(@PathVariable("userId")Integer userId, @PathVariable("password")String password) 
+	{
+		return mserv.custLogin(userId, password);
+	}
+	
+
+//	Movie
+	@PostMapping(value="/addMovie")
+	public void addMovie(@RequestBody Movie movie)
+	{
+		System.out.println(movie.toString());
+		ser.addMovie(movie);
+	}
+
+	@DeleteMapping(value="/deleteMovie/{movieId}")
+	public void deleteMovie(@PathVariable("movieId") int movieId)
+	{
+		ser.deleteMovie(movieId);
+	}
+
+	@GetMapping(value="/adminLogin/{userId}/{password}")
+	public boolean adminLogin(@PathVariable("userId")Integer userId, @PathVariable("password")String password) 
+	{
+		return mserv.adminLogin(userId, password);
+	}
+
+	
+	@PutMapping(value ="/editCust")
+	public String editCustomer(@RequestBody Customer customer) {
+		return mserv.editCustomer(customer);
+	}
+	
+
+//	@GetMapping(value="/getMovies")
+//	public List<Movie> GetAllMovies()
+//	{
+//		return null;
+//		
+//	}
+
+	
+	@GetMapping(value = "/changePassword/{userId}/{currentPass}/{newPass}")
+	public String changePassword(@PathVariable("userId") Integer userId,
+			@PathVariable("currentPass")String currentPassword,@PathVariable("newPass")String newPassword)
+
+	{
+		return mserv.changePassword(userId, currentPassword, newPassword);
+	}
+	
+
+	
+	
+	
+//	Theater
+	@PostMapping(value="/addTheater")
+	public void addTheater(@RequestBody Theater theater)
+	{
+		System.out.println(theater.toString());
+		ser.addTheater(theater);
+	}
+
+	@DeleteMapping(value="/deleteTheater/{theater_id}")
+	public void deleteTheater(@PathVariable("theater_id") int theater_id)
+	{
+		
+		ser.deleteTheater(theater_id);
+	}
+	
+	@GetMapping(value="/getTheater")
+	public List<Theater> GetAllTheater()
+	{
+	
+	
+		return ser.getAllTheater();
+	}
+	
+	
+	
+	//Screen
+	@PostMapping(value="/addScreen")
+	public void addScreen(@RequestBody Screen screen)
+	{
+		System.out.println(screen.toString());
+		ser.addScreen(screen);
+	}
+
+	@DeleteMapping(value="/deleteScreen/{screen_id}")
+	public void deleteScreen(@PathVariable("screen_id") int screen_id)
+	{
+		
+		ser.deleteScreen(screen_id);
+	}
+	
+	@GetMapping(value="/getScreen")
+	public List<Screen> GetAllScreen()
+	{
+	
+	
+		return ser.getAllScreen();
+	}
+	
+	//Show
+	
+	@PostMapping(value="/addShow/{movieId}")
+	public void addShow(@RequestBody Show show, @PathVariable("movieId")  int movieId)
+	{
+		System.out.println(show.toString());
+		ser.addShow(show,  movieId);
+	}
+
+	@DeleteMapping(value="/deleteShow/{show_id}")
+	public void deleteShow(@PathVariable("show_id") int show_id)
+	{
+		
+		ser.deleteShow(show_id);
+	}
+	
+	@GetMapping(value="/getShow")
+	public List<Show> GetAllShow()
+	{
+	
+	
+		return ser.getAllShow();
+	}
+	
+//	-----------------------
+	
+	
+
+	@GetMapping(value = "/forgotPassword/{userId}/{securityQue}/{answer}")
+	public String forgotPassword(@PathVariable("userId") Integer userId,
+			@PathVariable("securityQue")String securityQuestion,@PathVariable("answer")String answer) {
+		return mserv.forgotPassword(userId, securityQuestion, answer);
+	}
+	
+	@GetMapping("myTickets/{customerId}")
+	public ResponseEntity<List<Ticket>> showMyTickets(@PathVariable("customerId") int customerId ){
+	return new ResponseEntity<List<Ticket>>(mserv.showTickets(customerId), HttpStatus.OK);
+	}
+
+
+	@GetMapping(path="/searchMovie/{movieName}")
+	public List<Movie> searchMovie(@PathVariable("movieName") String movieName)
+	{
+	return mserv.searchMovie(movieName);
+	}
+
+	@GetMapping(path="/searchTheatre/{theatreName}")
+	public List<Theater> searchTheatre(@PathVariable("theatreName") String theatreName)
+	{
+	return mserv.searchTheatre(theatreName);
+
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@GetMapping(value="/hellooo")
+	public String poo()
+	{
+		return "hii";
+	}
+	
+
+
+
+
+	@GetMapping(value="/getMovies")
+	public List<Movie> GetAllTopics()
+	{
+	return ser.getAllMovies();
+	}
+	
+	
+
+
+
+	@GetMapping(path="/showShows/{screenId}")
+	public List<Show> showShows(@PathVariable("screenId") Integer screenId)
+	{
+	return mserv.showShows(screenId);
+	}
+
+	
+
+	
+
+	//------- Seat Show Module
+	
+	
+	@PostMapping(path ="/ConfirmedSeat/{showId}")
+	public List<Seat> SelectSeat(@PathVariable("showId") Integer showId,@RequestBody SelectedSeatArray seatLocation) {
+		// TODO Auto-generated method stub
+		return mserv.SelectSeat(showId, seatLocation);
+	}
+
+	// tasted on postman 
+	@PutMapping(path ="/updateSeatstatus")
+	public Booking UpdateSeatStatus(@RequestBody Booking BookingObj) {
+		// TODO Auto-generated method stub
+		return mserv.UpdateSeatStatus(BookingObj);
+	}
+
+	//tested on postman
+	@PutMapping(path="/selectSeat")
+	public Seat blockUnblock(@RequestBody Seat markseat) {
+		// TODO Auto-generated method stub
+		return mserv.blockUnblock(markseat);
+	}
+
+	//tested on postmanstatus
+	@PutMapping(path="/CancelPayment")
+	public Booking unblockSeat(@RequestBody Booking Bookingobj) {
+		// TODO Auto-generated method stub
+		return mserv.unblockSeat(Bookingobj);
+	}
+
+	@GetMapping(path="/cancelBooking")
+	public Booking cancelBooking(Booking cancelBooking) {
+		// TODO Auto-generated method stub
+		return mserv.cancelBooking(cancelBooking);
+	}
+	
+	
+	
+	
+	
+}
