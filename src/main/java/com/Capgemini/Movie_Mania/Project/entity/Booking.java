@@ -14,15 +14,18 @@ public class Booking implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	@Id
-	@Column(name="booking_id")
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="booking_id",length = 10)
 	private Integer	bookingId;
 	@Column(name="movie_id")
 	private Integer movieId;
 	@Column(name="show_id")
 	private Integer	showId;
 	
-	@OneToOne(mappedBy = "booking",targetEntity=Show.class,cascade=CascadeType.ALL)
+	@OneToOne(targetEntity=Show.class,cascade=CascadeType.ALL)
 	private Show showRef;
+	
+	
 	@Column(name="booking_date")
 	private LocalDate bookingDate;
 	@Column(name="transaction_id")
@@ -30,7 +33,7 @@ public class Booking implements Serializable{
 	@Column(name="Total_Cost")
 	private Double totalCost;
 	
-	@OneToMany(mappedBy = "booking",targetEntity = Seat.class,cascade=CascadeType.ALL)
+	@OneToMany(targetEntity = Seat.class,cascade=CascadeType.ALL)
 	private List<Seat> seatList;
 	
 	@OneToOne(targetEntity=Ticket.class) 

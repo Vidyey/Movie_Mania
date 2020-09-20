@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Capgemini.Movie_Mania.Project.entity.Admin;
@@ -130,4 +131,45 @@ public class Movie_Mania_Controller {
 	public ResponseEntity<Double> calculateTotalCost(@RequestBody List<Seat> seat){
     return new ResponseEntity<Double>(mserv.calculateTotalCost(seat), HttpStatus.OK);
 	}
+	@PutMapping(value="/choosePaymentmethod/{buttonid}")
+	public Booking choosePaymentmethod(@RequestBody List<Seat> seat, @PathVariable("buttonid") int buttonid) {
+		return mserv.choosePaymentmethod(seat, buttonid);
+		
+	} 
+	
+	
+
+	@PostMapping(path ="/ConfirmedSeat/{showId}")
+	public List<Seat> SelectSeat(@PathVariable("showId") Integer showId,@RequestBody SelectedSeatArray seatLocation) {
+		// TODO Auto-generated method stub
+		return mserv.SelectSeat(showId, seatLocation);
+	}
+
+	// tasted on postman 
+	@PutMapping(path ="/updateSeatstatus")
+	public Booking UpdateSeatStatus(@RequestBody Booking BookingObj) {
+		// TODO Auto-generated method stub
+		return mserv.UpdateSeatStatus(BookingObj);
+	}
+
+	//tested on postman
+	@PutMapping(path="/selectSeat")
+	public Seat blockUnblock(@RequestBody Seat markseat) {
+		// TODO Auto-generated method stub
+		return mserv.blockUnblock(markseat);
+	}
+
+	//tested on postmanstatus
+	@PutMapping(path="/CancelPayment")
+	public Booking unblockSeat(@RequestBody Booking Bookingobj) {
+		// TODO Auto-generated method stub
+		return mserv.unblockSeat(Bookingobj);
+	}
+
+	@GetMapping(path="/cancelBooking")
+	public Booking cancelBooking(Booking cancelBooking) {
+		// TODO Auto-generated method stub
+		return mserv.cancelBooking(cancelBooking);
+	}
+	
 }

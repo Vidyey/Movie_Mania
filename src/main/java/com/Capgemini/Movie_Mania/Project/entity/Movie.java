@@ -6,13 +6,12 @@ package com.Capgemini.Movie_Mania.Project.entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 /**
@@ -29,7 +28,7 @@ public class Movie implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="movie_id")
+	@Column(name="movie_id",length = 4)
 	private Integer movieId;
 	
 	@Column(name="Movie_name")
@@ -47,9 +46,9 @@ public class Movie implements Serializable{
 	
 	@OneToOne(mappedBy = "movieName",cascade = CascadeType.ALL)
 	Show show;
-	@ManyToOne
-	@JoinColumn(name="theater_id")
-	Theater theatre;
+//	@JsonIgnore
+	@ManyToMany(mappedBy = "movies")
+	List<Theater> theatrelist;
 	
 	public Movie(Integer movieId, String movieName, String movieGenre, String movieDirector,
 			Integer movieLength, String[] languages, LocalDate movieReleaseDate) {
@@ -61,6 +60,7 @@ public class Movie implements Serializable{
 		this.movieLength = movieLength;
 		this.languages = languages;
 		this.movieReleaseDate = movieReleaseDate;
+		theatrelist=new ArrayList<>();
 	}
 	/**
 	 * 
@@ -164,23 +164,23 @@ public class Movie implements Serializable{
 	public void setShow(Show show) {
 		this.show = show;
 	}
-	public Theater getTheatre() {
-		return theatre;
+	public List<Theater> getTheatrelist() {
+		return theatrelist;
 	}
-	public void setTheatre(Theater theatre) {
-		this.theatre = theatre;
+	public void setTheatrelist(List<Theater> theatrelist) {
+		this.theatrelist = theatrelist;
 	}
 	@Override
 	public String toString() {
 		return "Movie [movieId=" + movieId + ", movieName=" + movieName + ", movieGenre=" + movieGenre
 				+ ", movieDirector=" + movieDirector + ", movieLength=" + movieLength + ", languages="
 				+ Arrays.toString(languages) + ", movieReleaseDate=" + movieReleaseDate + ", show=" + show
-				+ ", theatre=" + theatre + "]";
+				+ ", theatrelist=" + theatrelist + "]";
 	}
+	
 
 	
 	
 	
 
 }
-

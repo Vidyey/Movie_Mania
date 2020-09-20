@@ -10,12 +10,16 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * @author PDGadge
@@ -31,31 +35,43 @@ public class Show implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	@Column(name="show_id")
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="show_id",length = 8)
 	private Integer showId;
+	
+	
 	@Column(name="show_StartTime")
 	private String showStartTime;
+
 	@Column(name="show_EndTime")
 	private String showEndTime;
 	
-	@OneToMany(mappedBy = "show",targetEntity = Seat.class,cascade=CascadeType.ALL)										//mappimg remaining
+	@OneToMany(targetEntity = Seat.class,cascade=CascadeType.ALL)		
 	private List<Seat> seats;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	Booking booking;
 	
 	private String showName;
 	@JoinColumn(name="movie_name")
 
 	@OneToOne(targetEntity=Movie.class,cascade=CascadeType.ALL) 
 	private Movie movieName;
+	
+	
 	@Column(name="screen_id")
 	private Integer screenId;
 	@Column(name="theater_id")
 	private Integer theaterId;
 
+
 	@ManyToOne
 	Screen screen;
+
+	
+//	@ManyToOne
+//	Screen screen;
+//	
+//	private Seat SeatMatrix[][];
+
 	/**
 	 * @param showId
 	 * @param showStartTime
@@ -72,11 +88,14 @@ public class Show implements Serializable{
 		this.showId = showId;
 		this.showStartTime = showStartTime;
 		this.showEndTime = showEndTime;
-		this.seats = seats;
+		
 		this.showName = showName;
 		this.movieName = movieName;
 		this.screenId = screenId;
 		this.theaterId = theaterId;
+		this.seats = seats;
+		
+		
 	}
 	/**
 	 * 
@@ -182,25 +201,25 @@ public class Show implements Serializable{
 	public void setTheaterId(Integer theaterId) {
 		this.theaterId = theaterId;
 	}
-	public Booking getBooking() {
-		return booking;
-	}
-	public void setBooking(Booking booking) {
-		this.booking = booking;
-	}
-	public Screen getScreen() {
-		return screen;
-	}
-	public void setScreen(Screen screen) {
-		this.screen = screen;
-	}
-	@Override
-	public String toString() {
-		return "Show [showId=" + showId + ", showStartTime=" + showStartTime + ", showEndTime=" + showEndTime
-				+ ", seats=" + seats + ", booking=" + booking + ", showName=" + showName + ", movieName=" + movieName
-				+ ", screenId=" + screenId + ", theaterId=" + theaterId + ", screen=" + screen + "]";
-	}
-	
+//	public Booking getBooking() {
+//		return booking;
+//	}
+//	public void setBooking(Booking booking) {
+//		this.booking = booking;
+//	}
+//	public Screen getScreen() {
+//		return screen;
+//	}
+//	public void setScreen(Screen screen) {
+//		this.screen = screen;
+//	}
+//	@Override
+//	public String toString() {
+//		return "Show [showId=" + showId + ", showStartTime=" + showStartTime + ", showEndTime=" + showEndTime
+//				+ ", seats=" + seats + ", showName=" + showName + ", movieName=" + movieName
+//				+ ", screenId=" + screenId + ", theaterId=" + theaterId + ", screen=" + screen + "]";
+//	}
+//	
 	
 	
 	

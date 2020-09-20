@@ -1,19 +1,21 @@
+
 /**
  * 
  */
 package com.Capgemini.Movie_Mania.Project.entity;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -23,6 +25,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  *
  */
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
+
+
 @Entity
 @Table(name = "Screen_Details")
 public class Screen implements Serializable{
@@ -31,7 +36,9 @@ public class Screen implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	@Column(name="screen_id")
+
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="screen_id",length = 4)
 	private Integer screenId;
 	@Column(name="theater_id")
 	private Integer theaterId;
@@ -40,8 +47,12 @@ public class Screen implements Serializable{
 	
 	@ManyToOne
 	Theater theatre;
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "screen",targetEntity = Show.class,cascade = CascadeType.ALL)
+
+
+
 	private List<Show> showList;
 	@Column(name="movieEndDate")
 	private LocalDate movieEndDate;
@@ -50,7 +61,7 @@ public class Screen implements Serializable{
 	@Column(name="column_count")
 	private Integer columns;
 	
-	private int SeatMatrix[][];
+	
 	/**
 	 * 
 	 */
@@ -80,12 +91,13 @@ public class Screen implements Serializable{
 		this.rows = 5;
 		this.columns = 10;
 		
+
 //		for (int i = 0; i < this.rows; i++) {
 //			for (int j = 0; j < this.rows; j++) {
 //				this.SeatMatrix[i][j] = 0;
 //			}
 //		}
-		
+
 	}
 	
 	/**
@@ -191,10 +203,12 @@ public class Screen implements Serializable{
 		this.theatre = theatre;
 	}
 	
-	public void addShow(Show show) {
-		show.setScreen(this);
-		this.getShowList().add(show);
-	}
+
+//	public void addShow(Show show) {
+//		show.setScreen(this);
+//		this.getShowList().add(show);
+//	}
+
 
 	
 

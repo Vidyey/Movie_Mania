@@ -9,7 +9,9 @@ import java.util.Arrays;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 /**
  * @author PDGadge
@@ -22,14 +24,15 @@ public class Ticket implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	@Id
-	@Column(name="ticket_id")
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="ticket_id",length = 8)
 	private Integer ticketId;
 	@Column(name = "No_of_seats")
 	private Integer	noOfSeats;
 	@Column(name = "SeatName")
 	private String[] seatName; 
 	
-	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private Customer customer;

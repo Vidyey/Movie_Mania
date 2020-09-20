@@ -27,6 +27,7 @@ public interface MovieService {
 	public List<Movie> searchMovie(String movieName);
 	public List<Theater> searchTheatre(String theatreName) ;
 	
+	
 	public List<Show> showShows(Integer screenId);
 	
 	List<Ticket> showTickets(int customerId);
