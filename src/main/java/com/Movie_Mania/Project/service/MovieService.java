@@ -19,15 +19,19 @@ public interface MovieService {
 	
 	public String registerCustomer(Customer customer);
 	public String registerAdmin(Admin admin);
-	public boolean custLogin(Integer userId,String password);
-	public boolean adminLogin(Integer userId,String password);
-	public String changePassword(Integer userId,String currentPassword,String newPassword);
+	public boolean custLogin(String userId,String password);
+	public boolean adminLogin(String userId,String password);
+	public String changePassword(String userId,String currentPassword,String newPassword);
+	public String changePasswordAdmin(String userId, String currentPassword, String newPassword);
 	public String editCustomer(Customer customer);
-	public String forgotPassword(Integer userId,String securityQuestion,String answer);
-	public List<Ticket> showTickets(int customerId);
+	public String editAdmin(Admin admin);
+	public String forgotPassword(String userId,String securityQuestion,String answer);
+	public String forgotPasswordAdmin(String userId,String securityQuestion,String answer);
+	public List<Ticket> showTickets(String customerId);
 	public List<Movie> searchMovie(String movieName);
 	public List<Theater> searchTheatre(String theatreName) ;
-	
+	public Customer getCustById(String userId);
+	public Admin getAdminById(String userId);
 	
 	
 	
@@ -37,8 +41,7 @@ public interface MovieService {
 	public void addMovie(Movie movie);
 	public void deleteMovie(int movieId);
 	public List<Movie> getAllMovies();
-	public Customer getCustById(Integer userId);
-	public Admin getAdminById(Integer userId);
+	
 	
 	
 	public void addTheater(Theater theater);
@@ -53,6 +56,8 @@ public interface MovieService {
 	public void addShow(Show screen);
 	public void deleteShow(int show_id);
 	public List<Show> getAllShow();
+	
+	
 	
 }
 

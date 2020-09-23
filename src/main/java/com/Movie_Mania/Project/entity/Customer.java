@@ -37,9 +37,9 @@ public class Customer extends User {
 	
 	
 	
-	public Customer(Integer userId, String password, String securityQuestion, String answer, String customerName,
+	public Customer(String username, String password, String securityQuestion, String answer, String customerName,
 			String dateOfBirth, String customerContact) {
-		super(userId, password, securityQuestion, answer);
+		super(username, password, securityQuestion, answer);
 		this.customerName = customerName;
 		this.dateOfBirth = dateOfBirth;
 		this.customerContact = customerContact;

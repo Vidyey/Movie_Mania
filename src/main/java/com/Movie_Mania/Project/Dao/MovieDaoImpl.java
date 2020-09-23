@@ -87,7 +87,7 @@ public class MovieDaoImpl implements IMovieDao {
 	@Override
 	public String registerCustomer(Customer customer) {
 		
-			if(custRepository.existsById(customer.getUserId())) 
+			if(custRepository.existsById(customer.getUsername())) 
 			{
 				logger.error("Customer Already Exists.");
 				return "Customer Already Exists.Try login or forgot password";
@@ -107,7 +107,7 @@ public class MovieDaoImpl implements IMovieDao {
 	 */
 	@Override
 	public String registerAdmin(Admin admin) {
-		if(adminRepo.existsById(admin.getUserId())) 
+		if(adminRepo.existsById(admin.getUsername())) 
 		{
 			logger.error("Admin Already Exists.");
 			return "Admin Already Exists.Try login or forgot password";
@@ -125,10 +125,10 @@ public class MovieDaoImpl implements IMovieDao {
 	 * else return false
 	 */
 	@Override
-	public boolean custLogin(Integer userId, String password) {
+	public boolean custLogin(String username, String password) {
 		
-		if(custRepository.existsById(userId)) {
-			customer = custRepository.getOne(userId);
+		if(custRepository.existsById(username)) {
+			customer = custRepository.getOne(username);
 			if(customer.getPassword().equals(password)) {
 				logger.info("Login successfull");
 				return true;
@@ -152,10 +152,10 @@ public class MovieDaoImpl implements IMovieDao {
 	 * else return false
 	 */
 	@Override
-	public boolean adminLogin(Integer userId, String password) {
+	public boolean adminLogin(String username, String password) {
 		
-		if(adminRepo.existsById(userId)) {
-			Admin admin = adminRepo.getOne(userId);
+		if(adminRepo.existsById(username)) {
+			Admin admin = adminRepo.getOne(username);
 			if(admin.getPassword().equals(password))
 			 {
 				logger.info("Login successfull");
@@ -180,8 +180,8 @@ public class MovieDaoImpl implements IMovieDao {
 	 * New password can't be Same as Current
 	 */
 	@Override
-	public String changePassword(Integer userId, String currentPassword, String newPassword) {
-		customer = custRepository.getOne(userId);
+	public String changePassword(String username, String currentPassword, String newPassword) {
+		customer = custRepository.getOne(username);
 		if(customer.getPassword().equals(currentPassword)) 
 		{
 			if(currentPassword.equals(newPassword)) {
@@ -199,16 +199,53 @@ public class MovieDaoImpl implements IMovieDao {
 			return "Current Password is incorrect";
 		}
 	}
+	
+	@Override
+	public String changePasswordAdmin(String username, String currentPassword, String newPassword) {
+		Admin admin = adminRepo.getOne(username);
+		if(admin.getPassword().equals(currentPassword)) 
+		{
+			if(currentPassword.equals(newPassword)) {
+				logger.error("New password can't be Same as Current");
+				return "New password can't be Same as Current";
+			}
+			admin.setPassword(newPassword);
+			adminRepo.save(admin);
+			logger.info("Password changed successfully");
+			return "Password changed successfully";
+		}
+		else 
+		{
+			logger.error("Current Password is incorrect");
+			return "Current Password is incorrect";
+		}
+	}
 
 	/*
 	 * Edit Customer
 	 * Customer can edit his details
 	 */
 	@Override
-	public String editCustomer(Customer customer) {
+	public String editCustomer(Customer customer){
+		try {
 		custRepository.save(customer);
 		logger.info(customer.getCustomerName()+" is updated successfully!..");
 		return customer.getCustomerName()+" is updated successfully!..";
+		}
+		catch(Exception exception) {
+			throw exception;
+		}
+	}
+	@Override
+	public String editAdmin(Admin admin) {
+		try {
+			adminRepo.save(admin);
+			logger.info(admin.getAdminName()+" is updated successfully!..");
+			return admin.getAdminName()+" is updated successfully!..";
+			}
+			catch(Exception exception) {
+				throw exception;
+			}
 	}
 
 	/*
@@ -217,9 +254,9 @@ public class MovieDaoImpl implements IMovieDao {
 	 * Both should match the existing user
 	 */
 	@Override
-	public String forgotPassword(Integer userId, String securityQuestion, String answer) {
-		if(custRepository.existsById(userId)) {
-			customer = custRepository.getOne(userId);
+	public String forgotPassword(String username, String securityQuestion, String answer) {
+		if(custRepository.existsById(username)) {
+			customer = custRepository.getOne(username);
 			if(customer.getSecurityQuestion().equals(securityQuestion) && customer.getAnswer().equals(answer)) {
 				logger.info("Password retrieved");
 				return "Your password is "+customer.getPassword()+". Plz change it for security purpose.";
@@ -234,15 +271,42 @@ public class MovieDaoImpl implements IMovieDao {
 	}
 	
 	@Override
-	public Customer getCustById(Integer userId) {
+	public String forgotPasswordAdmin(String username, String securityQuestion, String answer) {
+		if(adminRepo.existsById(username)) {
+			Admin admin = adminRepo.getOne(username);
+			if(admin.getSecurityQuestion().equals(securityQuestion) && admin.getAnswer().equals(answer)) {
+				logger.info("Password retrieved");
+				return "Your password is "+admin.getPassword()+". Plz change it for security purpose.";
+			}
+			logger.error("Invalid Security question/Answer");
+			return "Invalid Security question/Answer";
+		}
+		else {
+			logger.error("UserId does not exist");
+			return "UserId does not exist";
+		}
+	}
+	
+	@Override
+	public Customer getCustById(String username){
+		try {
 		logger.info("Customer retrieved");
-		return custRepository.getOne(userId);
+		return custRepository.getOne(username);
+		}
+		catch(Exception exception) {
+			throw exception;
+		}
 	}
 
 	@Override
-	public Admin getAdminById(Integer userId) {
+	public Admin getAdminById(String username){
+		try {
 		logger.info("Admin retrieved");
-		return adminRepo.getOne(userId);
+		return adminRepo.getOne(username);
+		}
+	catch(Exception exception) {
+		throw exception;
+	}
 	}
 	
 	/*
@@ -251,10 +315,10 @@ public class MovieDaoImpl implements IMovieDao {
 	 * All tickets can be seen booked or cancelled also
 	 */
 	@Override
-	public List<Ticket> showTickets(int customerId) {
-		if(custRepository.existsById(customerId)) {
+	public List<Ticket> showTickets(String username) {
+		if(custRepository.existsById(username)) {
 			logger.info("Tickets retrieved");
-		return custRepository.getOne(customerId).getMyTickets();
+		return custRepository.getOne(username).getMyTickets();
 		}
 		else
 			return null;
@@ -437,6 +501,10 @@ public class MovieDaoImpl implements IMovieDao {
 		
 		return null;
 	}
+
+	
+
+	
 
 	
 

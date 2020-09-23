@@ -17,7 +17,6 @@ public class Admin extends User{
 	@Column(name = "admin_name",length = 30,nullable = false)
 	private  String adminName;
 	
-
 	@Column(name = "admin_contact",length = 15,nullable = false)
 	private String adminContact;
 	
@@ -25,14 +24,24 @@ public class Admin extends User{
 		super();
 	}
 	
-	
 
-	public Admin(Integer userId, String password, String securityQuestion, String answer, String adminName,
+
+
+
+
+
+
+	public Admin(String username, String password, String securityQuestion, String answer, String adminName,
 			String adminContact) {
-		super(userId, password, securityQuestion, answer);
+		super(username, password, securityQuestion, answer);
 		this.adminName = adminName;
 		this.adminContact = adminContact;
 	}
+
+
+
+
+
 
 
 
@@ -52,14 +61,15 @@ public class Admin extends User{
 		this.adminContact = adminContact;
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "Admin [adminName=" + adminName + ", adminContact=" + adminContact + "]";
 	}
-	
-	
-	
-	
+
+
+
 	
 
 }

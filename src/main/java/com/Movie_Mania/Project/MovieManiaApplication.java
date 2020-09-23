@@ -72,10 +72,10 @@ public class MovieManiaApplication implements CommandLineRunner {
 		trepo.save(t1);
 		trepo.save(t2);
 		
-		Customer customer = new Customer(111111, "mahesh123","pet name", "maddy", "Mahesh", "21-09-1998", "8765677766");
+		Customer customer = new Customer("mahesh@gmail.com", "mahesh123","pet name", "maddy", "Mahesh", "21-09-1998", "8765677766");
 		
-		String[] seatsname = {"A1","A2"};
-		customer.addTicket(new Ticket(121,3,seatsname,true,"Audi3"));
+		String[] seatsname = {"B1","B2","B3"};
+		customer.addTicket(new Ticket(125,3,seatsname,false,"Audi4"));
 		
 		custRepo.save(customer);
 

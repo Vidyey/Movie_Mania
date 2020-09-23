@@ -1,32 +1,31 @@
 package com.Movie_Mania.Project.exception;
 
-import org.springframework.http.HttpStatus;
+import java.util.Date;
+
 
 public class ErrorMessage {
-	private HttpStatus header;
+	private Date timestamp;
 	private String message;
-	
-	public ErrorMessage() {
-		
-	}
-	
-	public ErrorMessage(HttpStatus header, String message) {
-		this.header = header;
+	private String details;
+
+	public ErrorMessage(Date timestamp, String message, String details) {
+		super();
+		this.timestamp = timestamp;
 		this.message = message;
+		this.details = details;
 	}
-	public HttpStatus getHeader() {
-		return header;
+
+	public Date getTimestamp() {
+		return timestamp;
 	}
-	public void setHeader(HttpStatus header) {
-		this.header = header;
-	}
+
 	public String getMessage() {
 		return message;
 	}
-	public void setMessage(String message) {
-		this.message = message;
+
+	public String getDetails() {
+		return details;
 	}
-	
-	
+
 	
 }

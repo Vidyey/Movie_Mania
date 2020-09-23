@@ -40,16 +40,19 @@ public interface IMovieDao {
 	
 	public String registerCustomer(Customer customer);
 	public String registerAdmin(Admin admin);
-	public boolean custLogin(Integer userId,String password);
-	public boolean adminLogin(Integer userId,String password);
-	public String changePassword(Integer userId,String currentPassword,String newPassword);
+	public boolean custLogin(String username,String password);
+	public boolean adminLogin(String username,String password);
+	public String changePassword(String username,String currentPassword,String newPassword);
+	public String changePasswordAdmin(String username, String currentPassword, String newPassword);
 	public String editCustomer(Customer customer);
-	public String forgotPassword(Integer userId,String securityQuestion,String answer);
-	public List<Ticket> showTickets(int customerId);
+	public String editAdmin(Admin admin);
+	public String forgotPassword(String username,String securityQuestion,String answer);
+	public String forgotPasswordAdmin(String username,String securityQuestion,String answer);
+	public List<Ticket> showTickets(String username);
 	public List<Movie> searchMovie(String movieName);
 	public List<Theater> searchTheatre(String theatreName) ;
-	public Customer getCustById(Integer userId);
-	public Admin getAdminById(Integer userId);
+	public Customer getCustById(String username);
+	public Admin getAdminById(String username);
 
 
 	
@@ -60,6 +63,8 @@ public interface IMovieDao {
 	public Boolean UpdateSeatStatus(Booking BookingObj);
 	
 	public Booking initiateBooking (Booking BookingObj);
+	
+	
 	
 
 }

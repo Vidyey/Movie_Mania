@@ -40,30 +40,30 @@ public class MovieServiceImpl implements MovieService
 	 */
 	@Override
 	public String registerCustomer(Customer customer) {
-		if(customer.getUserId().toString().length()<6) {
-			return "User Id should be minimum of 6 digits";
-		}
-		else if(customer.getCustomerName().isEmpty() || customer.getCustomerName().trim().length()==0) {
-			return "Name should not be null";
-		}
-		else if(!Pattern.matches("[a-z A-Z]{1,30}", customer.getCustomerName())) {
-			return "Name should not contains digits";
-		}
-		else if(!Pattern.matches("[6-9][0-9]{9}", customer.getCustomerContact())) {
-			return "Enter valid mobile number (should start with 6-9)";
-		}
-		else if(customer.getPassword().length()<6) {
-			return "Password should be minimum of length 6";
-		}
-		else if(customer.getSecurityQuestion().isEmpty() || customer.getSecurityQuestion().trim().length()==0) {
-			return "Security question should not be null";
-		}
-		else if(customer.getAnswer().isEmpty() || customer.getAnswer().trim().length()==0) {
-			return "Answer should not be null";
-		}
-		else if(customer.getDateOfBirth().isEmpty() || customer.getDateOfBirth().trim().length()==0) {
-			return "DOB should not be null";
-		}
+//		if(customer.getUserId().toString().length()<6) {
+//			return "User Id should be minimum of 6 digits";
+//		}
+//		else if(customer.getCustomerName().isEmpty() || customer.getCustomerName().trim().length()==0) {
+//			return "Name should not be null";
+//		}
+//		else if(!Pattern.matches("[a-z A-Z]{1,30}", customer.getCustomerName())) {
+//			return "Name should not contains digits";
+//		}
+//		else if(!Pattern.matches("[6-9][0-9]{9}", customer.getCustomerContact())) {
+//			return "Enter valid mobile number (should start with 6-9)";
+//		}
+//		else if(customer.getPassword().length()<6) {
+//			return "Password should be minimum of length 6";
+//		}
+//		else if(customer.getSecurityQuestion().isEmpty() || customer.getSecurityQuestion().trim().length()==0) {
+//			return "Security question should not be null";
+//		}
+//		else if(customer.getAnswer().isEmpty() || customer.getAnswer().trim().length()==0) {
+//			return "Answer should not be null";
+//		}
+//		else if(customer.getDateOfBirth().isEmpty() || customer.getDateOfBirth().trim().length()==0) {
+//			return "DOB should not be null";
+//		}
 		return dao.registerCustomer(customer);
 	}
 
@@ -74,90 +74,126 @@ public class MovieServiceImpl implements MovieService
 	 */
 	@Override
 	public String registerAdmin(Admin admin) {
-		if(!Pattern.matches("[1][0-8]{3}",admin.getUserId().toString())) {
-			return "Admin Id should be 4 digits and should start with 1";
-		}
-		else if(admin.getAdminName().isEmpty() || admin.getAdminName().trim().length()==0) {
-			return "Name should not be null";
-		}
-		else if(!Pattern.matches("[a-z A-Z]{1,30}", admin.getAdminName())) {
-			return "Name should not contains digits";
-		}
-		else if(!Pattern.matches("[6-9][0-9]{9}", admin.getAdminContact())) {
-			return "Enter valid mobile number";
-		}
-		else if(admin.getPassword().length()<6) {
-			return "Password should be minimum of length 6";
-		}
-		else if(admin.getSecurityQuestion().isEmpty() || admin.getSecurityQuestion().trim().length()==0) {
-			return "Security question should not be null";
-		}
-		else if(admin.getAnswer().isEmpty() || admin.getAnswer().trim().length()==0) {
-			return "Answer should not be null";
-		}
+//		if(!Pattern.matches("[1][0-8]{3}",admin.getUserId().toString())) {
+//			return "Admin Id should be 4 digits and should start with 1";
+//		}
+//		else if(admin.getAdminName().isEmpty() || admin.getAdminName().trim().length()==0) {
+//			return "Name should not be null";
+//		}
+//		else if(!Pattern.matches("[a-z A-Z]{1,30}", admin.getAdminName())) {
+//			return "Name should not contains digits";
+//		}
+//		else if(!Pattern.matches("[6-9][0-9]{9}", admin.getAdminContact())) {
+//			return "Enter valid mobile number";
+//		}
+//		else if(admin.getPassword().length()<6) {
+//			return "Password should be minimum of length 6";
+//		}
+//		else if(admin.getSecurityQuestion().isEmpty() || admin.getSecurityQuestion().trim().length()==0) {
+//			return "Security question should not be null";
+//		}
+//		else if(admin.getAnswer().isEmpty() || admin.getAnswer().trim().length()==0) {
+//			return "Answer should not be null";
+//		}
 		return dao.registerAdmin(admin);
 	}
 
 	@Override
-	public boolean custLogin(Integer userId, String password) {
+	public boolean custLogin(String userId, String password) {
 		return dao.custLogin(userId, password);
 	}
 	
 	@Override
-	public boolean adminLogin(Integer userId, String password) {
+	public boolean adminLogin(String userId, String password) {
 		return dao.adminLogin(userId, password);
 	}
 
 	@Override
-	public String changePassword(Integer userId, String currentPassword, String newPassword) {
+	public String changePassword(String userId, String currentPassword, String newPassword) {
 		return dao.changePassword(userId, currentPassword, newPassword);
+	}
+	
+	@Override
+	public String changePasswordAdmin(String userId, String currentPassword, String newPassword) {
+		return dao.changePasswordAdmin(userId, currentPassword, newPassword);
 	}
 
 	@Override
 	public String editCustomer(Customer customer) {
-		if(customer.getUserId().toString().length()<6) {
-			return "User Id should be minimum of 6 digits";
-		}
-		else if(customer.getCustomerName().isEmpty() || customer.getCustomerName().trim().length()==0) {
-			return "Name should not be null";
-		}
-		else if(!Pattern.matches("[a-z A-Z]{1,30}", customer.getCustomerName())) {
-			return "Name should not contains digits";
-		}
-		else if(!Pattern.matches("[6-9][0-9]{9}", customer.getCustomerContact())) {
-			return "Enter valid mobile number";
-		}
-		else if(customer.getPassword().length()<6) {
-			return "Password should be minimum of length 6";
-		}
-		else if(customer.getSecurityQuestion().isEmpty() || customer.getSecurityQuestion().trim().length()==0) {
-			return "Security question should not be null";
-		}
-		else if(customer.getAnswer().isEmpty() || customer.getAnswer().trim().length()==0) {
-			return "Answer should not be null";
-		}
-		else if(customer.getDateOfBirth().isEmpty() || customer.getDateOfBirth().trim().length()==0) {
-			return "DOB should not be null";
-		}
+//		if(customer.getUserId().toString().length()<6) {
+//			return "User Id should be minimum of 6 digits";
+//		}
+//		else if(customer.getCustomerName().isEmpty() || customer.getCustomerName().trim().length()==0) {
+//			return "Name should not be null";
+//		}
+//		else if(!Pattern.matches("[a-z A-Z]{1,30}", customer.getCustomerName())) {
+//			return "Name should not contains digits";
+//		}
+//		else if(!Pattern.matches("[6-9][0-9]{9}", customer.getCustomerContact())) {
+//			return "Enter valid mobile number";
+//		}
+//		else if(customer.getPassword().length()<6) {
+//			return "Password should be minimum of length 6";
+//		}
+//		else if(customer.getSecurityQuestion().isEmpty() || customer.getSecurityQuestion().trim().length()==0) {
+//			return "Security question should not be null";
+//		}
+//		else if(customer.getAnswer().isEmpty() || customer.getAnswer().trim().length()==0) {
+//			return "Answer should not be null";
+//		}
+//		else if(customer.getDateOfBirth().isEmpty() || customer.getDateOfBirth().trim().length()==0) {
+//			return "DOB should not be null";
+//		}
 		return dao.editCustomer(customer);
 	}
 
 	@Override
-	public String forgotPassword(Integer userId, String securityQuestion, String answer) {
-		return dao.forgotPassword(userId, securityQuestion, answer);
+	public String editAdmin(Admin admin) {
+//		if(!Pattern.matches("[1][0-8]{3}",admin.getUserId().toString())) {
+//			return "Admin Id should be 4 digits and should start with 1";
+//		}
+//		else if(admin.getAdminName().isEmpty() || admin.getAdminName().trim().length()==0) {
+//			return "Name should not be null";
+//		}
+//		else if(!Pattern.matches("[a-z A-Z]{1,30}", admin.getAdminName())) {
+//			return "Name should not contains digits";
+//		}
+//		else if(!Pattern.matches("[6-9][0-9]{9}", admin.getAdminContact())) {
+//			return "Enter valid mobile number";
+//		}
+//		else if(admin.getPassword().length()<6) {
+//			return "Password should be minimum of length 6";
+//		}
+//		else if(admin.getSecurityQuestion().isEmpty() || admin.getSecurityQuestion().trim().length()==0) {
+//			return "Security question should not be null";
+//		}
+//		else if(admin.getAnswer().isEmpty() || admin.getAnswer().trim().length()==0) {
+//			return "Answer should not be null";
+//		}
+		return dao.editAdmin(admin);
 	}
 
-	public List<Ticket> showTickets(int customerId) {
+	@Override
+	public String forgotPassword(String userId, String securityQuestion, String answer) {
+		return dao.forgotPassword(userId, securityQuestion, answer);
+	}
+	
+	@Override
+	public String forgotPasswordAdmin(String userId, String securityQuestion, String answer) {
+		return dao.forgotPasswordAdmin(userId, securityQuestion, answer);
+	}
+
+	public List<Ticket> showTickets(String customerId) {
 		return dao.showTickets(customerId);
 	}
 	
 	@Override
-	public Customer getCustById(Integer userId) {
+	public Customer getCustById(String userId)  {
 		return dao.getCustById(userId);
 	}
 
 	@Override
-	public Admin getAdminById(Integer userId) {
+	public Admin getAdminById(String userId)  {
 		return dao.getAdminById(userId);
 	}
 
@@ -269,4 +305,9 @@ dao.deleteScreen(screen_id);
 		return dao.getAllShow();
 	}
 
+
+	
+
+
+	
 }

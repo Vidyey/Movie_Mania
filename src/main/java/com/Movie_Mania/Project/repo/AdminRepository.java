@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.Movie_Mania.Project.entity.Admin;
 
 
-public interface AdminRepository extends JpaRepository<Admin, Integer>{
+public interface AdminRepository extends JpaRepository<Admin, String>{
 
 }

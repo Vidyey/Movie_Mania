@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,12 +23,13 @@ import com.Movie_Mania.Project.entity.Screen;
 import com.Movie_Mania.Project.entity.Show;
 import com.Movie_Mania.Project.entity.Theater;
 import com.Movie_Mania.Project.entity.Ticket;
+import com.Movie_Mania.Project.requests.ForgotPasswordRequest;
 import com.Movie_Mania.Project.service.MovieService;
 import com.Movie_Mania.Project.service.MovieServiceImpl;
 
 
 
-
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/movie")
 public class Movie_Mania_Controller {
@@ -76,7 +78,7 @@ public class Movie_Mania_Controller {
 	 * It will return the response message true or false
 	 */
 	@GetMapping(value="/custLogin/{userId}/{password}")
-	public boolean custLogin(@PathVariable("userId")Integer userId, @PathVariable("password")String password) 
+	public boolean custLogin(@PathVariable("userId")String userId, @PathVariable("password")String password) 
 	{
 		logger.info("At Controller - Customer login function");
 		return mserv.custLogin(userId, password);
@@ -88,7 +90,7 @@ public class Movie_Mania_Controller {
 	 * It will return the response message true or false
 	 */
 	@GetMapping(value="/adminLogin/{userId}/{password}")
-	public boolean adminLogin(@PathVariable("userId")Integer userId, @PathVariable("password")String password) 
+	public boolean adminLogin(@PathVariable("userId")String userId, @PathVariable("password")String password) 
 	{
 		logger.info("At Controller - admin login function");
 		return mserv.adminLogin(userId, password);
@@ -99,9 +101,15 @@ public class Movie_Mania_Controller {
 	 * It will return the response message
 	 */
 	@PutMapping(value ="/editCust")
-	public String editCustomer(@RequestBody Customer customer) {
+	public String editCustomer(@RequestBody Customer customer){
 		logger.info("At Controller - Edit Customer function");
 		return mserv.editCustomer(customer);
+	}
+	
+	@PutMapping(value ="/editAdmin")
+	public String editAdmin(@RequestBody Admin admin){
+		logger.info("At Controller - Edit Admin function");
+		return mserv.editAdmin(admin);
 	}
 	
 	/*
@@ -109,7 +117,7 @@ public class Movie_Mania_Controller {
 	 * It will return the response message 
 	 */
 	@GetMapping(value = "/changePassword/{userId}/{currentPass}/{newPass}")
-	public String changePassword(@PathVariable("userId") Integer userId,
+	public String changePassword(@PathVariable("userId") String userId,
 			@PathVariable("currentPass")String currentPassword,@PathVariable("newPass")String newPassword)
 
 	{
@@ -117,16 +125,30 @@ public class Movie_Mania_Controller {
 		return mserv.changePassword(userId, currentPassword, newPassword);
 	}
 	
+	@GetMapping(value = "/changePasswordAdmin/{userId}/{currentPass}/{newPass}")
+	public String changePasswordAdmin(@PathVariable("userId") String userId,
+			@PathVariable("currentPass")String currentPassword,@PathVariable("newPass")String newPassword)
+
+	{
+		logger.info("At Controller - Change password Admin function");
+		return mserv.changePasswordAdmin(userId, currentPassword, newPassword);
+	}
+	
 	
 	/*
 	 * This mapping will handle the request for Forgot Password.
 	 * It will return the response message
 	 */
-	@GetMapping(value = "/forgotPassword/{userId}/{securityQue}/{answer}")
-	public String forgotPassword(@PathVariable("userId") Integer userId,
-			@PathVariable("securityQue")String securityQuestion,@PathVariable("answer")String answer) {
+	@PostMapping(value = "/forgotPassword")
+	public String forgotPassword(@RequestBody ForgotPasswordRequest forgotpPassRequest) {
 		logger.info("At Controller - Forgot password function");
-		return mserv.forgotPassword(userId, securityQuestion, answer);
+		return mserv.forgotPassword(forgotpPassRequest.getUsername(), forgotpPassRequest.getSecurityQuestion(), forgotpPassRequest.getSecurityAnswer());
+	}
+	
+	@PostMapping(value = "/forgotPasswordAdmin")
+	public String forgotPasswordAdmin(@RequestBody ForgotPasswordRequest forgotpPassRequest) {
+		logger.info("At Controller - Forgot password Admin function");
+		return mserv.forgotPasswordAdmin(forgotpPassRequest.getUsername(), forgotpPassRequest.getSecurityQuestion(), forgotpPassRequest.getSecurityAnswer());
 	}
 	
 	/*
@@ -134,7 +156,7 @@ public class Movie_Mania_Controller {
 	 * It will return the the List of Tickets
 	 */
 	@GetMapping("myTickets/{customerId}")
-	public ResponseEntity<List<Ticket>> showMyTickets(@PathVariable("customerId") int customerId ){
+	public ResponseEntity<List<Ticket>> showMyTickets(@PathVariable("customerId") String customerId ){
 		logger.info("At Controller - Show My Tickets function");
 	return new ResponseEntity<List<Ticket>>(mserv.showTickets(customerId), HttpStatus.OK);
 	
@@ -170,7 +192,7 @@ public class Movie_Mania_Controller {
 	 * It will return the the Customer Object
 	 */
 	@GetMapping(path="/getCust/{userId}")
-	public Customer getCustById(@PathVariable("userId") Integer userId)
+	public Customer getCustById(@PathVariable("userId") String userId)
 	{
 		logger.info("At Controller - Get customer by id function");
 	return mserv.getCustById(userId);
@@ -182,10 +204,10 @@ public class Movie_Mania_Controller {
 	 * It will return the the Admin Object
 	 */
 	@GetMapping(path="/getAdmin/{userId}")
-	public Admin getAdminById(@PathVariable("userId") Integer userId)
+	public Admin getAdminById(@PathVariable("userId") String userId) 
 	{
 		logger.info("At Controller - Get Admin by id function");
-	return mserv.getAdminById(userId);
+		return mserv.getAdminById(userId);
 
 	}
 	

@@ -12,22 +12,22 @@ public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(length = 20,name="USER_ID")
-	private Integer userId;
+	@Column(length = 30,name="USER_ID")
+	private String username;
 	
 	@Column(length = 20,name="PASSWORD",nullable = false)
 	private String password;
 	
-	@Column(length = 20, nullable = false)
+	@Column(length = 40, nullable = false)
 	private String securityQuestion;
 	@Column(length = 20, nullable = false)
 	private String answer;
 
 	
 
-	public User(Integer userId, String password, String securityQuestion, String answer) {
+	public User(String username, String password, String securityQuestion, String answer) {
 		super();
-		this.userId = userId;
+		this.username = username;
 		this.password = password;
 		this.securityQuestion = securityQuestion;
 		this.answer = answer;
@@ -37,12 +37,14 @@ public class User implements Serializable{
 		super();
 	}
 
-	public Integer getUserId() {
-		return userId;
+	
+
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -73,15 +75,10 @@ public class User implements Serializable{
 
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", password=" + password + ", securityQuestion=" + securityQuestion
+		return "User [username=" + username + ", password=" + password + ", securityQuestion=" + securityQuestion
 				+ ", answer=" + answer + "]";
 	}
 
-	
-	
-	
-	
-		
 	
 	
 }
