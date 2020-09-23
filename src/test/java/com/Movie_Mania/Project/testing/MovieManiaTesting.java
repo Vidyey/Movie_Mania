@@ -13,8 +13,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.Movie_Mania.Project.entity.Customer;
-import com.Movie_Mania.Project.service.MovieService;
+import com.Capgemini.Movie_Mania.Project.entity.Customer;
+import com.Capgemini.Movie_Mania.Project.service.MovieService;
 
 @Transactional
 @SpringBootTest
