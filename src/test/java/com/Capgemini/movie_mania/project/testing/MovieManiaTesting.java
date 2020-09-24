@@ -1,4 +1,4 @@
-package com.Movie_Mania.Project.testing;
+package com.Capgemini.movie_mania.project.testing;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -5,7 +5,8 @@ package com.Capgemini.Movie_Mania.Project.Dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.catalina.Loader;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -34,7 +35,11 @@ import com.Capgemini.Movie_Mania.Project.repo.TicketRepository;
 public class MovieDaoImpl implements IMovieDao {
 
 
-	private Logger logger = Logger.getRootLogger();
+
+	
+
+//	private Logger logger = Logger.getRootLogger();
+
 	
 
 	@Autowired
@@ -97,12 +102,12 @@ public class MovieDaoImpl implements IMovieDao {
 		
 			if(custRepository.existsById(customer.getUsername())) 
 			{
-				logger.error("Customer Already Exists.");
+//				Loader.error("Customer Already Exists.");
 				return "Customer Already Exists.Try login or forgot password";
 			}
 			else {
 				custRepository.save(customer);
-				logger.info(customer.getCustomerName()+" is registered successfully!..");
+//				logger.info(customer.getCustomerName()+" is registered successfully!..");
 				return customer.getCustomerName()+" is registered successfully!..";
 			}
 		
@@ -117,12 +122,12 @@ public class MovieDaoImpl implements IMovieDao {
 	public String registerAdmin(Admin admin) {
 		if(adminRepo.existsById(admin.getUsername())) 
 		{
-			logger.error("Admin Already Exists.");
+//			logger.error("Admin Already Exists.");
 			return "Admin Already Exists.Try login or forgot password";
 		}
 		else {
 			adminRepo.save(admin);
-			logger.info(admin.getAdminName()+" is registered successfully!..");
+//			logger.info(admin.getAdminName()+" is registered successfully!..");
 			return admin.getAdminName()+" is registered successfully!..";
 		}
 	}
@@ -138,18 +143,18 @@ public class MovieDaoImpl implements IMovieDao {
 		if(custRepository.existsById(username)) {
 			customer = custRepository.getOne(username);
 			if(customer.getPassword().equals(password)) {
-				logger.info("Login successfull");
+//				logger.info("Login successfull");
 				return true;
 				
 			}
 			else 
 				{
-				logger.error("Incorrect password");
+//				logger.error("Incorrect password");
 					return false;
 				}
 		}
 		else {
-			logger.error("Customer doesnt exist");
+//			logger.error("Customer doesnt exist");
 			return false;
 		}
 	}
@@ -166,18 +171,18 @@ public class MovieDaoImpl implements IMovieDao {
 			Admin admin = adminRepo.getOne(username);
 			if(admin.getPassword().equals(password))
 			 {
-				logger.info("Login successfull");
+//				logger.info("Login successfull");
 				return true;
 				
 			}
 			else{
-				logger.error("Incorrect password");
+//				logger.error("Incorrect password");
 				return false;
 			}
 		}
 		else
 		{
-			logger.error("Admin doesnt exist");
+//			logger.error("Admin doesnt exist");
 			return false;
 		}
 	}
@@ -193,17 +198,17 @@ public class MovieDaoImpl implements IMovieDao {
 		if(customer.getPassword().equals(currentPassword)) 
 		{
 			if(currentPassword.equals(newPassword)) {
-				logger.error("New password can't be Same as Current");
+//				logger.error("New password can't be Same as Current");
 				return "New password can't be Same as Current";
 			}
 			customer.setPassword(newPassword);
 			custRepository.save(customer);
-			logger.info("Password changed successfully");
+//			logger.info("Password changed successfully");
 			return "Password changed successfully";
 		}
 		else 
 		{
-			logger.error("Current Password is incorrect");
+//			logger.error("Current Password is incorrect");
 			return "Current Password is incorrect";
 		}
 	}
@@ -214,17 +219,17 @@ public class MovieDaoImpl implements IMovieDao {
 		if(admin.getPassword().equals(currentPassword)) 
 		{
 			if(currentPassword.equals(newPassword)) {
-				logger.error("New password can't be Same as Current");
+//				logger.error("New password can't be Same as Current");
 				return "New password can't be Same as Current";
 			}
 			admin.setPassword(newPassword);
 			adminRepo.save(admin);
-			logger.info("Password changed successfully");
+//			logger.info("Password changed successfully");
 			return "Password changed successfully";
 		}
 		else 
 		{
-			logger.error("Current Password is incorrect");
+//			logger.error("Current Password is incorrect");
 			return "Current Password is incorrect";
 		}
 	}
@@ -238,7 +243,7 @@ public class MovieDaoImpl implements IMovieDao {
 	{
 		try {
 		custRepository.save(customer);
-		logger.info(customer.getCustomerName()+" is updated successfully!..");
+//		logger.info(customer.getCustomerName()+" is updated successfully!..");
 		return customer.getCustomerName()+" is updated successfully!..";
 		}
 		catch(Exception exception) {
@@ -250,7 +255,7 @@ public class MovieDaoImpl implements IMovieDao {
 	{
 		try {
 			adminRepo.save(admin);
-			logger.info(admin.getAdminName()+" is updated successfully!..");
+//			logger.info(admin.getAdminName()+" is updated successfully!..");
 			return admin.getAdminName()+" is updated successfully!..";
 			}
 			catch(Exception exception) {
@@ -269,14 +274,14 @@ public class MovieDaoImpl implements IMovieDao {
 		if(custRepository.existsById(username)) {
 			customer = custRepository.getOne(username);
 			if(customer.getSecurityQuestion().equals(securityQuestion) && customer.getAnswer().equals(answer)) {
-				logger.info("Password retrieved");
+//				logger.info("Password retrieved");
 				return "Your password is "+customer.getPassword()+". Plz change it for security purpose.";
 			}
-			logger.error("Invalid Security question/Answer");
+//			logger.error("Invalid Security question/Answer");
 			return "Invalid Security question/Answer";
 		}
 		else {
-			logger.error("UserId does not exist");
+//			logger.error("UserId does not exist");
 			return "UserId does not exist";
 		}
 	}
@@ -287,14 +292,14 @@ public class MovieDaoImpl implements IMovieDao {
 		if(adminRepo.existsById(username)) {
 			Admin admin = adminRepo.getOne(username);
 			if(admin.getSecurityQuestion().equals(securityQuestion) && admin.getAnswer().equals(answer)) {
-				logger.info("Password retrieved");
+//				logger.info("Password retrieved");
 				return "Your password is "+admin.getPassword()+". Plz change it for security purpose.";
 			}
-			logger.error("Invalid Security question/Answer");
+//			logger.error("Invalid Security question/Answer");
 			return "Invalid Security question/Answer";
 		}
 		else {
-			logger.error("UserId does not exist");
+//			logger.error("UserId does not exist");
 			return "UserId does not exist";
 		}
 	}
@@ -303,7 +308,7 @@ public class MovieDaoImpl implements IMovieDao {
 	public Customer getCustById(String username)
 	{
 		try {
-		logger.info("Customer retrieved");
+//		logger.info("Customer retrieved");
 		return custRepository.getOne(username);
 		}
 		catch(Exception exception) {
@@ -315,7 +320,7 @@ public class MovieDaoImpl implements IMovieDao {
 	public Admin getAdminById(String username)
 	{
 		try {
-		logger.info("Admin retrieved");
+//		logger.info("Admin retrieved");
 		return adminRepo.getOne(username);
 		}
 	catch(Exception exception) {
@@ -332,7 +337,7 @@ public class MovieDaoImpl implements IMovieDao {
 	public List<Ticket> showTickets(String username)
 	{
 		if(custRepository.existsById(username)) {
-			logger.info("Tickets retrieved");
+//			logger.info("Tickets retrieved");
 		return custRepository.getOne(username).getMyTickets();
 		}
 		else
@@ -344,9 +349,10 @@ public class MovieDaoImpl implements IMovieDao {
 	 * Can see all theatres in which the movie is running
 	 */
 	@Override
-	public List<Movie> searchMovie(String movieName)
-	{
-		logger.info("At DAO - Search movie");
+
+	public List<Movie> searchMovie(String movieName) {
+//		logger.info("At DAO - Search movie");
+
 		return movieRepo.findByMovieName(movieName);
 	}
 
@@ -356,9 +362,10 @@ public class MovieDaoImpl implements IMovieDao {
 	 * Can see all movies in that theatre
 	 */
 	@Override
-	public List<Theater> searchTheatre(String theatreName) 
-	{
-		logger.info("At DAO - Search Theatre");
+
+	public List<Theater> searchTheatre(String theatreName) {
+//		logger.info("At DAO - Search Theatre");
+
 		return trepo.findByTheaterName(theatreName);
 		
 	}
@@ -384,21 +391,26 @@ public class MovieDaoImpl implements IMovieDao {
 	
 //	-----------------------------------------------------------------------------------
 
+//	---------------------------Movie--------------------------------------------------------
+
 	@Override
-	public void addMovie(Movie movie)
-	{
+
+	public String addMovie(Movie movie) {
+
 		// TODO Auto-generated method stub
 		movieRepo.save(movie);
+return "Movie added successfully..";
 	}
 
 	@Override
-	public void deleteMovie(int movieId) {
+	public String deleteMovie(int movieId) {
 		// TODO Auto-generated method stub
 
      
 		repo.deleteById(movieId);
+		return "Movie deleted successfully..";
 
-    
+      
 		
 
 	}
@@ -415,73 +427,138 @@ public class MovieDaoImpl implements IMovieDao {
 
 		
 	}
+//	-----------------------------------------------------
+	//-------------------------Theater----------------------------
+		@Override
+		public String addTheater(Theater theater) {
+			// TODO Auto-generated method stub
+			theatreRepo.save(theater);
+	 return "Theater added successfully..";
+		}
 
-	@Override
-	public void addTheater(Theater theater)
-	{
-		// TODO Auto-generated method stub
-		theatreRepo.save(theater);
-	}
 
-	@Override
-	public void deleteTheater(int theater_id) {
-		// TODO Auto-generated method stub
-		theatreRepo.deleteById(theater_id);
+		@Override
+		public String deleteTheater(int theater_id) {
+			// TODO Auto-generated method stub
+			theatreRepo.deleteById(theater_id);
+			return "Theater deleted successfully";
+			
+		}
+
+
+		@Override
+		public List<Theater> getAllTheater() {
+			// TODO Auto-generated method stub
+
+			return theatreRepo.findAll();
+		}
+	//--------------------------------------------------------------------
+		@Override
+		public Theater getTheater(int theater_id) {
+			// TODO Auto-generated method stub
+			return theatreRepo.getOne(theater_id);
+		}
 		
-	}
-
-	@Override
-	public List<Theater> getAllTheater() 
-	{
-		// TODO Auto-generated method stub
-
-		return theatreRepo.findAll();
-	}
-
-	@Override
-	public void addScreen(Screen screen)
-	{
-		// TODO Auto-generated method stub
-		screenRepo.save(screen);
 		
-	}
+//		------------------------Screen---------------------------------
+		@Override
+		public String addScreen(Screen screen) {
+			// TODO Auto-generated method stub
+			screenRepo.save(screen);
+			return "Screen added successfully";
+			
+		}
 
-	@Override
-	public void deleteScreen(int screen_id) 
-	{
-		// TODO Auto-generated method stub
-		screenRepo.deleteById(screen_id);
+
+		@Override
+		public String deleteScreen(int screen_id) {
+			// TODO Auto-generated method stub
+			screenRepo.deleteById(screen_id);
+			return "Screen deleted successfully";
+			
+		}
+
+
+		@Override
+		public List<Screen> getAllScreen() {
+			// TODO Auto-generated method stub
+			return screenRepo.findAll();
+		}
+
+
 		
-	}
+//		-----------------------------------------------------------------
+//		@Override
+//		public Optional<Screen> getAllScreensByTherateid(int theater_id) {
+//			// TODO Auto-generated method stub
+//			return null;
+//		}
 
-	@Override
-	public List<Screen> getAllScreen() 
-	{
-		// TODO Auto-generated method stub
-		return screenRepo.findAll();
-	}
+	//--------------------------Show--------------------------------------
+		@Override
+		public String addShow(Show show) {
+			// TODO Auto-generated method stub
+	 Show s1=showRepo.save(show);
+	 
+	 
+	 List<Seat> seatlist = new ArrayList<Seat>(); 
+	  for (int i = 0; i < 5; i++) 
+	  { 
+		  for(int j = 0; j < 10; j++) 
+		  { 
+			  Seat seat = new Seat(); 
+			  int[] seatLocation ={i,j};
+			  seat.setSeatLocation(seatLocation); 
+			  seat.setShow(show);
+			  seatrepo.save(seat);
+			  System.out.println(seat);
+			  seatlist.add(seat);
+	  
+	  } }
+	 
+	  s1.setSeats(seatlist);
+	  return "Show added successfully";
+
+		
+		}
+
+
+		@Override
+		public String deleteShow(int show_id) {
+			// TODO Auto-generated method stub
+			showRepo.deleteById(show_id);
+			return "Show deleted successfully";
+		}
+
+
+		@Override
+		public List<Show> getAllShow() {
+			// TODO Auto-generated method stub
+			return showRepo.findAll();
+		}
+
+
+	//---------------------------------------------------------------------
+		@Override
+		public Theater grtTheaterById(int theater_id) {
+			// TODO Auto-generated method stub
+			return theatreRepo.getOne(theater_id);
+		}
+
+		@Override
+		public Screen getScreen(int screen_id) {
+			// TODO Auto-generated method stub
+			return screenRepo.getOne(screen_id);
+		}
+	
+	
+	
+
+
 
 	
 
-	@Override
-	public void deleteShow(int show_id)
-	{
-		// TODO Auto-generated method stub
-		showRepo.deleteById(show_id);
-		
-	}
-
-	@Override
-	public List<Show> getAllShow() 
-	{
-		// TODO Auto-generated method stub
-		return showRepo.findAll();
-	}
-
-
-	
-
-	
+//	-----------------------------------------------------------------------------------
 	@SuppressWarnings("null")
 	@Override
 	public List<Seat> SelectSeat(Integer showId, SelectedSeatArray seatLocation) 
@@ -609,34 +686,35 @@ public class MovieDaoImpl implements IMovieDao {
 		return Bookingobj ;
 	}
 
-	@Override
-	public void addShow(Show show , int movieId) 
-	{
-		// TODO Auto-generated method stub
-		Movie movieref = movieRepo.getOne(movieId);
-		show.setMovieName(movieref);
-		showRepo.save(show);
-		
-		
-		List<Seat> seatlist = new ArrayList<Seat>(); 
-		  for (int i = 0; i < 5; i++) 
-		  { 
-			  for(int j = 0; j < 10; j++) 
-			  { 
-				  Seat seat = new Seat(); 
-				  int[] seatLocation ={i,j};
-				  seat.setSeatLocation(seatLocation); 
-				  seat.setShow(show);
-				  seatrepo.save(seat);
-				  System.out.println(seat);
-		  
-		  seatlist.add(seat);
-		  
-		  } }
-		  
-		  show.setSeats(seatlist);
-			 showRepo.save(show);
-	}
+
+//	@Override
+//	public void addShow(Show show , int movieId) {
+//		// TODO Auto-generated method stub
+//		Movie movieref = movieRepo.getOne(movieId);
+//		show.setMovieName(movieref);
+//		showRepo.save(show);
+//		
+//		
+//		List<Seat> seatlist = new ArrayList<Seat>(); 
+//		  for (int i = 0; i < 5; i++) 
+//		  { 
+//			  for(int j = 0; j < 10; j++) 
+//			  { 
+//				  Seat seat = new Seat(); 
+//				  int[] seatLocation ={i,j};
+//				  seat.setSeatLocation(seatLocation); 
+//				  seat.setShow(show);
+//				  seatrepo.save(seat);
+//				  System.out.println(seat);
+//		  
+//		  seatlist.add(seat);
+//		  
+//		  } }
+//		  
+//		  show.setSeats(seatlist);
+//			 showRepo.save(show);
+//	}
+
 
 	@Override
 	public Booking initiateBooking(Booking BookingObj)

@@ -1,4 +1,6 @@
-
+/**
+ * 
+ */
 package com.Capgemini.Movie_Mania.Project.entity;
 
 import java.io.Serializable;
@@ -11,11 +13,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * @author PDGadge
+ *
+ */
 @Entity
 @Table(name = "Screen_Details")
 public class Screen implements Serializable{
@@ -24,22 +32,22 @@ public class Screen implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-
-	@GeneratedValue(strategy=GenerationType.AUTO)
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="screen_id",length = 4)
 	private Integer screenId;
-	@Column(name="theater_id")
-	private Integer theaterId;
 	@Column(name="screen_Name")
 	String screenName;
 	
+	@JsonIgnore
 	@ManyToOne
+	@JoinColumn(name="theater_id")
 	Theater theatre;
 	
 	@OneToMany(mappedBy = "screen",targetEntity = Show.class,cascade = CascadeType.ALL)
 	private List<Show> showList;
 	@Column(name="movieEndDate")
-	private LocalDate movieEndDate;
+	private String movieEndDate;
 	@Column(name="row_count")
 	private Integer rows;												// does any need to use this in table ??
 	@Column(name="column_count")
@@ -65,10 +73,9 @@ public class Screen implements Serializable{
 	 * @param rows
 	 * @param columns
 	 */
-	public Screen(Integer screenId, Integer theaterId, String screenName, List<Show> showList, LocalDate movieEndDate) {
+	public Screen(Integer screenId, Integer theaterId, String screenName, List<Show> showList, String movieEndDate) {
 		super();
 		this.screenId = screenId;
-		this.theaterId = theaterId;
 		this.screenName = screenName;
 		this.showList = showList;
 		this.movieEndDate = movieEndDate;
@@ -91,18 +98,7 @@ public class Screen implements Serializable{
 	public void setScreenId(Integer screenId) {
 		this.screenId = screenId;
 	}
-	/**
-	 * @return the theatreId
-	 */
-	public Integer getTheatreId() {
-		return theaterId;
-	}
-	/**
-	 * @param theatreId the theatreId to set
-	 */
-	public void setTheatreId(Integer theaterId) {
-		this.theaterId = theaterId;
-	}
+	
 	/**
 	 * @return the screenName
 	 */
@@ -130,13 +126,13 @@ public class Screen implements Serializable{
 	/**
 	 * @return the movieEndDate
 	 */
-	public LocalDate getMovieEndDate() {
+	public String getMovieEndDate() {
 		return movieEndDate;
 	}
 	/**
 	 * @param movieEndDate the movieEndDate to set
 	 */
-	public void setMovieEndDate(LocalDate movieEndDate) {
+	public void setMovieEndDate(String movieEndDate) {
 		this.movieEndDate = movieEndDate;
 	}
 	/**
@@ -163,15 +159,9 @@ public class Screen implements Serializable{
 	public void setColumns(Integer columns) {
 		this.columns = columns;
 	}
-	public Integer getTheaterId() {
-		return theaterId;
-	}
-	public void setTheaterId(Integer theaterId) {
-		this.theaterId = theaterId;
-	}
 	@Override
 	public String toString() {
-		return "Screen [screenId=" + screenId + ", theaterId=" + theaterId + ", screenName=" + screenName
+		return "Screen [screenId=" + screenId + ", screenName=" + screenName
 				+ ", showList=" + showList + ", movieEndDate=" + movieEndDate + ", rows=" + rows + ", columns="
 				+ columns + "]";
 	}
@@ -183,6 +173,11 @@ public class Screen implements Serializable{
 	}
 	
 	
+	public void addShow(Show show) {
+
+		show.setScreen(this);
+		this.getShowList().add(show);
+	}
 	
 
 	

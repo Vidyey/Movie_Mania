@@ -16,17 +16,26 @@ import com.Capgemini.Movie_Mania.Project.entity.Ticket;
 public interface IMovieDao {
 	
 	//Prajakta
-	public void addMovie(Movie movie);
-	public void deleteMovie(int movieId);
+	public String addMovie(Movie movie);
+	public String deleteMovie(int movieId);
 	public List<Movie> getAllMovies();
-	public void addTheater(Theater theater);
-	public void deleteTheater(int theater_id);
+
+
+	
+	public String addTheater(Theater theater);
+	public String deleteTheater(int theater_id);
 	public List<Theater> getAllTheater();
-	public void addScreen(Screen screen);
-	public void deleteScreen(int screen_id);
+	public Theater getTheater(int theater_id);
+	public Theater grtTheaterById(int theater_id);
+	
+	public String addScreen(Screen screen);
+	public String deleteScreen(int screen_id);
 	public List<Screen> getAllScreen();
-	public void addShow(Show screen, int movieId);
-	public void deleteShow(int show_id);
+	public Screen getScreen(int screen_id);
+	
+	public String addShow(Show screen);
+	public String deleteShow(int show_id);
+
 	public List<Show> getAllShow();
 	
 	

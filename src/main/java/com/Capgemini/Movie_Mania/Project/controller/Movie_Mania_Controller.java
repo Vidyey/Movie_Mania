@@ -2,7 +2,7 @@ package com.Capgemini.Movie_Mania.Project.controller;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +32,8 @@ import com.Capgemini.Movie_Mania.Project.service.MovieServiceImpl;
 
 
 
+
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/movie")
@@ -42,7 +44,7 @@ public class Movie_Mania_Controller {
 	 * 
 	 * Logger is to store the log messages.In case of failure the logger can help to locate the problems
 	 */
-	private Logger logger = Logger.getRootLogger();
+//private Logger logger = Logger.getRootLogger();
 	
 	@Autowired
 	private MovieServiceImpl ser;
@@ -61,7 +63,7 @@ public class Movie_Mania_Controller {
 	 */
 	@PostMapping(value ="/regCust")	
 	public String registerCustomer(@RequestBody Customer customer) {
-		logger.info("At Controller - Register customer function");
+//		logger.info("At Controller - Register customer function");
 		return mserv.registerCustomer(customer);
 	}
 	
@@ -71,7 +73,7 @@ public class Movie_Mania_Controller {
 	 */
 	@PostMapping(value ="/regAdmin")
 	public String registerAdmin(@RequestBody Admin admin) {
-		logger.info("At Controller - Register admin function");
+//		logger.info("At Controller - Register admin function");
 		return mserv.registerAdmin(admin);
 	}
 	
@@ -83,7 +85,7 @@ public class Movie_Mania_Controller {
 	@GetMapping(value="/custLogin/{userId}/{password}")
 	public boolean custLogin(@PathVariable("userId")String userId, @PathVariable("password")String password) 
 	{
-		logger.info("At Controller - Customer login function");
+//		logger.info("At Controller - Customer login function");
 		return mserv.custLogin(userId, password);
 	}
 	
@@ -95,7 +97,7 @@ public class Movie_Mania_Controller {
 	@GetMapping(value="/adminLogin/{userId}/{password}")
 	public boolean adminLogin(@PathVariable("userId")String userId, @PathVariable("password")String password) 
 	{
-		logger.info("At Controller - admin login function");
+//		logger.info("At Controller - admin login function");
 		return mserv.adminLogin(userId, password);
 	}
 
@@ -105,13 +107,13 @@ public class Movie_Mania_Controller {
 	 */
 	@PutMapping(value ="/editCust")
 	public String editCustomer(@RequestBody Customer customer){
-		logger.info("At Controller - Edit Customer function");
+//		logger.info("At Controller - Edit Customer function");
 		return mserv.editCustomer(customer);
 	}
 	
 	@PutMapping(value ="/editAdmin")
 	public String editAdmin(@RequestBody Admin admin){
-		logger.info("At Controller - Edit Admin function");
+//		logger.info("At Controller - Edit Admin function");
 		return mserv.editAdmin(admin);
 	}
 	
@@ -122,7 +124,7 @@ public class Movie_Mania_Controller {
 	@GetMapping(value = "/changePassword/{userId}/{currentPass}/{newPass}")
 	public String changePassword(@PathVariable("userId") String userId,@PathVariable("currentPass")String currentPassword,@PathVariable("newPass")String newPassword)
 	{
-		logger.info("At Controller - Change password function");
+//		logger.info("At Controller - Change password function");
 		return mserv.changePassword(userId, currentPassword, newPassword);
 	}
 	
@@ -131,7 +133,7 @@ public class Movie_Mania_Controller {
 			@PathVariable("currentPass")String currentPassword,@PathVariable("newPass")String newPassword)
 
 	{
-		logger.info("At Controller - Change password Admin function");
+//		logger.info("At Controller - Change password Admin function");
 		return mserv.changePasswordAdmin(userId, currentPassword, newPassword);
 	}
 	
@@ -142,13 +144,13 @@ public class Movie_Mania_Controller {
 	 */
 	@PostMapping(value = "/forgotPassword")
 	public String forgotPassword(@RequestBody ForgotPasswordRequest forgotpPassRequest) {
-		logger.info("At Controller - Forgot password function");
+//		logger.info("At Controller - Forgot password function");
 		return mserv.forgotPassword(forgotpPassRequest.getUsername(), forgotpPassRequest.getSecurityQuestion(), forgotpPassRequest.getSecurityAnswer());
 	}
 	
 	@PostMapping(value = "/forgotPasswordAdmin")
 	public String forgotPasswordAdmin(@RequestBody ForgotPasswordRequest forgotpPassRequest) {
-		logger.info("At Controller - Forgot password Admin function");
+//		logger.info("At Controller - Forgot password Admin function");
 		return mserv.forgotPasswordAdmin(forgotpPassRequest.getUsername(), forgotpPassRequest.getSecurityQuestion(), forgotpPassRequest.getSecurityAnswer());
 	}
 	
@@ -156,7 +158,16 @@ public class Movie_Mania_Controller {
 	 * This mapping will handle the request for getting the All tickets of a customer.
 	 * It will return the the List of Tickets
 	 */
-		
+
+	@GetMapping("myTickets/{customerId}")
+	public ResponseEntity<List<Ticket>> showMyTickets(@PathVariable("customerId") String customerId ){
+//		logger.info("At Controller - Show My Tickets function");
+	return new ResponseEntity<List<Ticket>>(mserv.showTickets(customerId), HttpStatus.OK);
+	
+	}
+
+	
+
 	/*
 	 * This mapping will handle the request for searching a Movie.
 	 * It will return the the List of Movies
@@ -165,7 +176,7 @@ public class Movie_Mania_Controller {
 	@GetMapping(path="/searchMovie/{movieName}")
 	public List<Movie> searchMovie(@PathVariable("movieName") String movieName)
 	{
-		logger.info("At Controller - Search Movie function");
+//		logger.info("At Controller - Search Movie function");
 	return mserv.searchMovie(movieName);
 	}
 
@@ -176,7 +187,7 @@ public class Movie_Mania_Controller {
 	@GetMapping(path="/searchTheatre/{theatreName}")
 	public List<Theater> searchTheatre(@PathVariable("theatreName") String theatreName)
 	{
-		logger.info("At Controller - Search Theatre function");
+//		logger.info("At Controller - Search Theatre function");
 	return mserv.searchTheatre(theatreName);
 
 	}
@@ -188,7 +199,7 @@ public class Movie_Mania_Controller {
 	@GetMapping(path="/getCust/{userId}")
 	public Customer getCustById(@PathVariable("userId") String userId)
 	{
-		logger.info("At Controller - Get customer by id function");
+//		logger.info("At Controller - Get customer by id function");
 	return mserv.getCustById(userId);
 
 	}
@@ -200,60 +211,32 @@ public class Movie_Mania_Controller {
 	@GetMapping(path="/getAdmin/{userId}")
 	public Admin getAdminById(@PathVariable("userId") String userId) 
 	{
-		logger.info("At Controller - Get Admin by id function");
+//		logger.info("At Controller - Get Admin by id function");
 		return mserv.getAdminById(userId);
 
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-//	Theater
-	@PostMapping(value="/addTheater")
-	public void addTheater(@RequestBody Theater theater)
+//	----------------Prajakta-------------------------------
+//	---------------------Movie------------------------
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping(value="/addMovie")
+	public String addMovie(@RequestBody Movie movie)
 	{
-		System.out.println(theater.toString());
-		ser.addTheater(theater);
+       return ser.addMovie(movie);
+	}
+	@CrossOrigin(origins = "http://localhost:4200")
+	@DeleteMapping(value="/deleteMovie/{movieId}")
+	public String deleteMovie(@PathVariable("movieId") int movieId)
+	{
+		return ser.deleteMovie(movieId);
 	}
 
-	@DeleteMapping(value="/deleteTheater/{theater_id}")
-	public void deleteTheater(@PathVariable("theater_id") int theater_id)
-	{
-		
-		ser.deleteTheater(theater_id);
-	}
-	
-	@GetMapping(value="/getTheater")
-	public List<Theater> GetAllTheater()
-	{
-	
-	
-		return ser.getAllTheater();
-	}
-	
-	
-	
-	//Screen
-	@PostMapping(value="/addScreen")
-	public void addScreen(@RequestBody Screen screen)
-	{
-		System.out.println(screen.toString());
-		ser.addScreen(screen);
-	}
+	//dublicate
 
-
-	@GetMapping("/myTickets/{customerId}")
-	public ResponseEntity<List<Ticket>> showMyTickets(@PathVariable("customerId") String customerId ){
-	return new ResponseEntity<List<Ticket>>(mserv.showTickets(customerId), HttpStatus.OK);
-	}
+//	@GetMapping("/myTickets/{customerId}")
+//	public ResponseEntity<List<Ticket>> showMyTickets(@PathVariable("customerId") String customerId ){
+//	return new ResponseEntity<List<Ticket>>(mserv.showTickets(customerId), HttpStatus.OK);
+//	}
 
 	@DeleteMapping(value="/deleteScreen/{screen_id}")
 	public void deleteScreen(@PathVariable("screen_id") int screen_id)
@@ -313,41 +296,146 @@ public class Movie_Mania_Controller {
 //	return new ResponseEntity<Boolean>(mserv.bloackSeat(), HttpStatus.OK);
 //	}
 //	
-	
+	//dublicate
 //	Movie
-	@PostMapping(value="/addMovie")
-	public void addMovie(@RequestBody Movie movie)
-	{
-		System.out.println(movie.toString());
-		ser.addMovie(movie);
-	}
-
-	@DeleteMapping(value="/deleteMovie/{movieId}")
-	public void deleteMovie(@PathVariable("movieId") int movieId)
-	{
-		ser.deleteMovie(movieId);
-
-	}
-	
-	
-	@GetMapping(value="/hellooo")
-	public String poo()
-	{
-		return "hii";
-	}
+//	@PostMapping(value="/addMovie")
+//	public void addMovie(@RequestBody Movie movie)
+//	{
+//		System.out.println(movie.toString());
+//		ser.addMovie(movie);
+//	}
+//	
 	
 
+//	@DeleteMapping(value="/deleteMovie/{movieId}")
+//	public void deleteMovie(@PathVariable("movieId") int movieId)
+//	{
+//		ser.deleteMovie(movieId);
+//
+//	}
 
-
-
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping(value="/getMovies")
-	public List<Movie> GetAllTopics()
+	public List<Movie> GetAllMovies()
 	{
 	return ser.getAllMovies();
 	}
+//	--------------------------------------------------------------------
+	//---------------------Theater---------------------------------------------
+		@CrossOrigin(origins = "http://localhost:4200")
+		@PostMapping(value="/addTheater")
+		public String addTheater(@RequestBody Theater theater)
+		{
+			System.out.println(theater.toString());
+			return ser.addTheater(theater);
+		}
+		
+		
+		@CrossOrigin(origins = "http://localhost:4200")
+		@DeleteMapping(value="/deleteTheater/{theater_id}")
+		public String deleteTheater(@PathVariable("theater_id") int theater_id)
+		{
+			
+			return ser.deleteTheater(theater_id);
+		}
+		@CrossOrigin(origins = "http://localhost:4200")
+		@GetMapping(value="/getTheater")
+		public List<Theater> GetAllTheater()
+		{
+		
+		
+			return ser.getAllTheater();
+		}
+		@CrossOrigin(origins = "http://localhost:4200")
+		@GetMapping(value="/getTheaterById/{theater_id}")
+		public Theater GetTheaterById(@PathVariable("theater_id") int theater_id)
+		{
+			return ser.grtTheaterById(theater_id);
+		}
+	//-----------------------Screen---------------------------------------
+		
+		@CrossOrigin(origins = "http://localhost:4200")
+		@PostMapping(value="/addScreen/{theatreId}")
+		public String addScreen(@RequestBody Screen screen,@PathVariable("theatreId") int theatreId)
+		{
+			screen.setTheatre(ser.getTheater(theatreId));
+			return ser.addScreen(screen);
+		}
+
+		
+		//dublicate
+//		@CrossOrigin(origins = "http://localhost:4200")
+//		@DeleteMapping(value="/deleteScreen/{screen_id}")
+//		public String deleteScreen(@PathVariable("screen_id") int screen_id)
+//		{
+//			
+//			return ser.deleteScreen(screen_id);
+//		}
+		
+//		@CrossOrigin(origins = "http://localhost:4200")
+//		@GetMapping(value="/getScreen")
+//		public List<Screen> GetAllScreen()
+//		{
+//			return ser.getAllScreen();
+//		}
+		
+		@CrossOrigin(origins = "http://localhost:4200")
+		@GetMapping(value="/getScreenById/{screen_id}")
+		public Screen GetScreenById(@PathVariable("screen_id") int screen_id)
+		{
+			return ser.getScreen(screen_id);
+		}
+	//----------------------------Show---------------------------
+
+		@CrossOrigin(origins = "http://localhost:4200")
+		@PostMapping(value="/addShow/{screen_id}")
+		public String addShow(@RequestBody Show show,@PathVariable("screen_id") int screen_id)
+		{
+			show.setScreen(ser.getScreen(screen_id));
+			return ser.addShow(show);
+//			return ser.addShow(show);
+		}
+
+
+		@CrossOrigin(origins = "http://localhost:4200")
+		@PostMapping(value="/addShow")
+		public void addShow(@RequestBody Show show)
+		{
+			System.out.println(show.toString());
+			ser.addShow(show);
+		}
+
+	// dublicate	
+//		@CrossOrigin(origins = "http://localhost:4200")
+//		@DeleteMapping(value="/deleteShow/{show_id}")
+//		public String deleteShow(@PathVariable("show_id") int show_id)
+//		{
+//			
+//			return ser.deleteShow(show_id);
+//		}
+		
+//		@CrossOrigin(origins = "http://localhost:4200")
+//		@GetMapping(value="/getShow")
+//		public List<Show> GetAllShow()
+//		{
+//		
+//		
+//			return ser.getAllShow();
+//		}
+//		
+		
+		
+//		----------------------------------------------------------
+		
+	
 	
 
+	
+	
+	
+	
 
+//-----------------------------------------------------------
 	@GetMapping(path="/showShows/{screenId}")
 	public List<Show> showShows(@PathVariable("screenId") Integer screenId)
 	{

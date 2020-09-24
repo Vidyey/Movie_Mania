@@ -13,9 +13,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -35,6 +32,7 @@ public class Theater implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
+//	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="theater_id",length = 4)
 	private Integer theaterId;
 	@Column(name="theater_Name")
@@ -44,11 +42,9 @@ public class Theater implements Serializable{
 	
 	// mapping remaining
 	
-	@JsonIgnore
-	@ManyToMany(targetEntity = Movie.class, cascade = CascadeType.ALL)
-	@JoinTable(name = "Theaters_movies",joinColumns = {@JoinColumn(referencedColumnName = "theater_id")},
-	inverseJoinColumns = {@JoinColumn(referencedColumnName = "movie_id")})
+	@OneToMany(mappedBy = "theatre",targetEntity = Movie.class, cascade = CascadeType.ALL)
 	private List<Movie> movies;
+	  // adding extra col 
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "theatre",targetEntity = Screen.class, cascade = CascadeType.ALL)
@@ -179,7 +175,7 @@ public class Theater implements Serializable{
 	
 	
 	public void addMovie(Movie movie) {
-		movie.getTheatrelist().add(this);
+		movie.setTheatre(this);
 		this.getMovies().add(movie);
 	}
 	
@@ -188,6 +184,5 @@ public class Theater implements Serializable{
 		screen.setTheatre(this);
 		this.getListOfScreens().add(screen);
 	}
-	
 
 }

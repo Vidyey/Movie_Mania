@@ -123,95 +123,123 @@ public class MovieServiceImpl implements MovieService
 
 	//Prajakta
 	
-	@Override
-	public void addMovie(Movie movie) {
-		// TODO Auto-generated method stub
-		dao.addMovie(movie);
+	//-----------------------------Movie-------------------------------------
+		@Override
+		public String addMovie(Movie movie) {
+			return dao.addMovie(movie);
+			
 
-	}
+		}
 
-	@Override
-	public void deleteMovie(int movieId) {
-		// TODO Auto-generated method stub
-        dao.deleteMovie(movieId);
-	}
+		@Override
+		public String deleteMovie(int movieId) {
+			return dao.deleteMovie(movieId);
+		}
 
-	@Override
-	public List<Movie> getAllMovies() {
-		// TODO Auto-generated method stub
-		return dao.getAllMovies();
+		@Override
+		public List<Movie> getAllMovies() {
+			// TODO Auto-generated method stub
+			return dao.getAllMovies();
 
-	}
+		}
+
+
+//		-------------------------------------------------------------------------
+
 
 
 	
 
 
 
-	@Override
-	public void addTheater(Theater theater) {
-		// TODO Auto-generated method stub
-		dao.addTheater(theater);
-	}
+		//----------------------------Theater---------------------------------
+			@Override
+			public String addTheater(Theater theater) {
+				 return dao.addTheater(theater);
+				
+			}
 
-	@Override
-	public void deleteTheater(int theater_id) {
-		// TODO Auto-generated method stub
-		dao.deleteTheater(theater_id);
-		
-	}
+			@Override
+			public String deleteTheater(int theater_id) {
+				// TODO Auto-generated method stub
+				return dao.deleteTheater(theater_id);
+			
+				
+			}
 
-	@Override
-	public List<Theater> getAllTheater() {
-		// TODO Auto-generated method stub
-		return dao.getAllTheater();
-	}
-
-	@Override
-	public void addScreen(Screen screen) {
-		// TODO Auto-generated method stub
-		dao.addScreen(screen);
-		
-	}
-
-	@Override
-	public void deleteScreen(int screen_id) {
-		// TODO Auto-generated method stub
-			dao.deleteScreen(screen_id);
-		
-	}
-
-	@Override
-	public List<Screen> getAllScreen() {
-		// TODO Auto-generated method stub
-		return dao.getAllScreen();
-	}
-
-	@Override
-	public void addShow(Show screen, int movieId) {
-		dao.addShow(screen, movieId);
-	}
-
-	@Override
-	public void deleteShow(int show_id) {
-		// TODO Auto-generated method stub
-		dao.deleteShow(show_id);
-		
-	}
-
-	@Override
-	public List<Show> getAllShow() {
-		// TODO Auto-generated method stub
-		return dao.getAllShow();
-	}
+			@Override
+			public List<Theater> getAllTheater() {
+				// TODO Auto-generated method stub
+				return dao.getAllTheater();
+			}
 
 
+			
+//			---------------------------Screen---------------------------------
+			@Override
+			public String addScreen(Screen screen) {
+				return dao.addScreen(screen);
+				
+			}
 
-	public List<Show> showShows(Integer screenId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
+			@Override
+			public String deleteScreen(int screen_id) {
+				return dao.deleteScreen(screen_id);
+				
+			}
+
+			@Override
+			public List<Screen> getAllScreen() {
+				// TODO Auto-generated method stub
+				return dao.getAllScreen();
+			}
+//			@Override
+//			public List<Screen> getAllScreenById(int theater_id) {
+//				// TODO Auto-generated method stub
+//				return null;
+//			}
+//			--------------------------Show---------------------------------
+			@Override
+			public String addShow(Show show) {
+				return dao.addShow(show);
+				 
+				
+			}
+
+			@Override
+			public String deleteShow(int show_id) {
+				return dao.deleteShow(show_id);
+				
+			}
+
+			@Override
+			public List<Show> getAllShow() {
+				// TODO Auto-generated method stub
+				return dao.getAllShow();
+			}
+		//-------------------------------------------------------------
+			//not required
+		@Override
+			public Theater getTheater(int theater_id) {
+				// TODO Auto-generated method stub
+				return dao.getTheater(theater_id);
+			}
+
+
+
+			@Override
+			public Theater grtTheaterById(int theater_id) {
+				// TODO Auto-generated method stub
+				return dao.grtTheaterById(theater_id);
+			}
+
+			@Override
+			public Screen getScreen(int screen_id) {
+				// TODO Auto-generated method stub
+				return dao.getScreen(screen_id);
+			}
+
+			
 
 //	mahesh module
 	@Override
@@ -281,6 +309,13 @@ public class MovieServiceImpl implements MovieService
 			// TODO Auto-generated method stub
 			return null;
 		}
+
+		@Override
+		public List<Show> showShows(Integer screenId) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
 
 
 		@Override
