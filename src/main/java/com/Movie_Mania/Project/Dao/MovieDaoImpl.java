@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -65,8 +66,7 @@ public class MovieDaoImpl implements IMovieDao {
 	@Autowired
 	ShowRepo showRepo;
 	
-	
-//	private Theater theaterobj ;
+
 
 	@Autowired 
 	TheatreRepo trepo;
@@ -200,22 +200,24 @@ public class MovieDaoImpl implements IMovieDao {
 	
 	
 	
-//	-----------------------------------------------------------------------------------
+//	---------------------------Movie--------------------------------------------------------
 
 	@Override
-	public void addMovie(Movie movie) {
+	public String addMovie(Movie movie) {
 		// TODO Auto-generated method stub
 		movieRepo.save(movie);
+return "Movie added successfully..";
 	}
 
 	@Override
-	public void deleteMovie(int movieId) {
+	public String deleteMovie(int movieId) {
 		// TODO Auto-generated method stub
 
      
 		repo.deleteById(movieId);
+		return "Movie deleted successfully..";
 
-      //repo.deleteById(movieId);
+      
 		
 
 	}
@@ -225,23 +227,25 @@ public class MovieDaoImpl implements IMovieDao {
 		// TODO Auto-generated method stub
 
 
-//       return repo.findAll();
+
 
        return movieRepo.findAll();
 
 		
 	}
-
+//-------------------------Theater----------------------------
 	@Override
-	public void addTheater(Theater theater) {
+	public String addTheater(Theater theater) {
 		// TODO Auto-generated method stub
 		theatreRepo.save(theater);
+ return "Theater added successfully..";
 	}
 
 	@Override
-	public void deleteTheater(int theater_id) {
+	public String deleteTheater(int theater_id) {
 		// TODO Auto-generated method stub
 		theatreRepo.deleteById(theater_id);
+		return "Theater deleted successfully";
 		
 	}
 
@@ -251,18 +255,28 @@ public class MovieDaoImpl implements IMovieDao {
 
 		return theatreRepo.findAll();
 	}
-
+//--------------------------------------------------------------------
 	@Override
-	public void addScreen(Screen screen) {
+	public Theater getTheater(int theater_id) {
+		// TODO Auto-generated method stub
+		return theatreRepo.getOne(theater_id);
+	}
+	
+	
+//	------------------------Screen---------------------------------
+	@Override
+	public String addScreen(Screen screen) {
 		// TODO Auto-generated method stub
 		screenRepo.save(screen);
+		return "Screen added successfully";
 		
 	}
 
 	@Override
-	public void deleteScreen(int screen_id) {
+	public String deleteScreen(int screen_id) {
 		// TODO Auto-generated method stub
 		screenRepo.deleteById(screen_id);
+		return "Screen deleted successfully";
 		
 	}
 
@@ -272,17 +286,28 @@ public class MovieDaoImpl implements IMovieDao {
 		return screenRepo.findAll();
 	}
 
+	
+//	-----------------------------------------------------------------
+//	@Override
+//	public Optional<Screen> getAllScreensByTherateid(int theater_id) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+
+//--------------------------Show--------------------------------------
 	@Override
-	public void addShow(Show show) {
+	public String addShow(Show show) {
 		// TODO Auto-generated method stub
-		showRepo.save(show);
+ showRepo.save(show);
+  return "Show added successfully";
+	
 	}
 
 	@Override
-	public void deleteShow(int show_id) {
+	public String deleteShow(int show_id) {
 		// TODO Auto-generated method stub
 		showRepo.deleteById(show_id);
-		
+		return "Show deleted successfully";
 	}
 
 	@Override
@@ -291,7 +316,7 @@ public class MovieDaoImpl implements IMovieDao {
 		return showRepo.findAll();
 	}
 
-
+//---------------------------------------------------------------------
 	
 
 	@Override
@@ -338,6 +363,34 @@ public class MovieDaoImpl implements IMovieDao {
 		
 		return null;
 	}
+
+	@Override
+	public Theater grtTheaterById(int theater_id) {
+		// TODO Auto-generated method stub
+		return theatreRepo.getOne(theater_id);
+	}
+
+	@Override
+	public Screen getScreen(int screen_id) {
+		// TODO Auto-generated method stub
+		return screenRepo.getOne(screen_id);
+	}
+
+	
+
+	
+//	@Override
+//	public Optional<Screen> getAllScreensByTherateid(int theater_id) {
+//		// TODO Auto-generated method stub
+////		return screenRepo.findById(theater_id);
+//		
+//	}
+
+//	public List<Screen> Getall(int theater_id)
+//	{
+//		return theaterobj.getListOfScreens();
+//		
+//	}
 
 	
 

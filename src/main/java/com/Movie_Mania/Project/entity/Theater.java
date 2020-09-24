@@ -32,7 +32,7 @@ public class Theater implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+//	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="theater_id",length = 4)
 	private Integer theaterId;
 	@Column(name="theater_Name")
@@ -184,6 +184,5 @@ public class Theater implements Serializable{
 		screen.setTheatre(this);
 		this.getListOfScreens().add(screen);
 	}
-	
 
 }

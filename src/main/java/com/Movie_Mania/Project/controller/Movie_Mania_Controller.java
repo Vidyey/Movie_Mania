@@ -1,6 +1,7 @@
 package com.Movie_Mania.Project.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Movie_Mania.Project.entity.Admin;
@@ -65,20 +67,37 @@ public class Movie_Mania_Controller {
 	}
 	
 
-//	Movie
+//	Movie-------------------------------------------------------
+//	@PostMapping(value="/addMovie/{theater_id}")
+//	public void addMovie(@PathVariable("theater_id")Integer theater_id,@RequestBody Movie movie)
+//	{
+//		movie.setTheatre(ser.getTheater(theater_id));
+//		ser.addMovie(movie);
+//	}
+
+	
+//	---------------------Movie------------------------
+	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping(value="/addMovie")
-	public void addMovie(@RequestBody Movie movie)
+	public String addMovie(@RequestBody Movie movie)
 	{
-		System.out.println(movie.toString());
-		ser.addMovie(movie);
+       return ser.addMovie(movie);
 	}
-
+	@CrossOrigin(origins = "http://localhost:4200")
 	@DeleteMapping(value="/deleteMovie/{movieId}")
-	public void deleteMovie(@PathVariable("movieId") int movieId)
+	public String deleteMovie(@PathVariable("movieId") int movieId)
 	{
-		ser.deleteMovie(movieId);
+		return ser.deleteMovie(movieId);
 	}
 
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping(value="/getMovies")
+	public List<Movie> GetAllMovies()
+	{
+	return ser.getAllMovies();
+	}
+//	--------------------------------------------------------------------
+	
 	@GetMapping(value="/adminLogin/{userId}/{password}")
 	public boolean adminLogin(@PathVariable("userId")Integer userId, @PathVariable("password")String password) 
 	{
@@ -92,12 +111,7 @@ public class Movie_Mania_Controller {
 	}
 	
 
-//	@GetMapping(value="/getMovies")
-//	public List<Movie> GetAllMovies()
-//	{
-//		return null;
-//		
-//	}
+
 
 	
 	@GetMapping(value = "/changePassword/{userId}/{currentPass}/{newPass}")
@@ -112,21 +126,24 @@ public class Movie_Mania_Controller {
 	
 	
 	
-//	Theater
+//---------------------Theater---------------------------------------------
+	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping(value="/addTheater")
-	public void addTheater(@RequestBody Theater theater)
+	public String addTheater(@RequestBody Theater theater)
 	{
 		System.out.println(theater.toString());
-		ser.addTheater(theater);
-	}
-
-	@DeleteMapping(value="/deleteTheater/{theater_id}")
-	public void deleteTheater(@PathVariable("theater_id") int theater_id)
-	{
-		
-		ser.deleteTheater(theater_id);
+		return ser.addTheater(theater);
 	}
 	
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@DeleteMapping(value="/deleteTheater/{theater_id}")
+	public String deleteTheater(@PathVariable("theater_id") int theater_id)
+	{
+		
+		return ser.deleteTheater(theater_id);
+	}
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping(value="/getTheater")
 	public List<Theater> GetAllTheater()
 	{
@@ -134,34 +151,56 @@ public class Movie_Mania_Controller {
 	
 		return ser.getAllTheater();
 	}
-	
-	
-	
-	//Screen
-	@PostMapping(value="/addScreen")
-	public void addScreen(@RequestBody Screen screen)
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping(value="/getTheaterById/{theater_id}")
+	public Theater GetTheaterById(@PathVariable("theater_id") int theater_id)
 	{
-		System.out.println(screen.toString());
-		ser.addScreen(screen);
+		return ser.grtTheaterById(theater_id);
 	}
-
+//-----------------------Screen---------------------------------------
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping(value="/addScreen/{theatreId}")
+	public String addScreen(@RequestBody Screen screen,@PathVariable("theatreId") int theatreId)
+	{
+		screen.setTheatre(ser.getTheater(theatreId));
+		return ser.addScreen(screen);
+	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@DeleteMapping(value="/deleteScreen/{screen_id}")
-	public void deleteScreen(@PathVariable("screen_id") int screen_id)
+	public String deleteScreen(@PathVariable("screen_id") int screen_id)
 	{
 		
-		ser.deleteScreen(screen_id);
+		return ser.deleteScreen(screen_id);
 	}
 	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping(value="/getScreen")
 	public List<Screen> GetAllScreen()
 	{
-	
-	
 		return ser.getAllScreen();
 	}
 	
-	//Show
-	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping(value="/getScreenById/{screen_id}")
+	public Screen GetScreenById(@PathVariable("screen_id") int screen_id)
+	{
+		return ser.getScreen(screen_id);
+	}
+//----------------------------Show---------------------------
+
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping(value="/addShow/{screen_id}")
+	public String addShow(@RequestBody Show show,@PathVariable("screen_id") int screen_id)
+	{
+		show.setScreen(ser.getScreen(screen_id));
+		return ser.addShow(show);
+//		return ser.addShow(show);
+	}
+
+
+	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping(value="/addShow")
 	public void addShow(@RequestBody Show show)
 	{
@@ -169,13 +208,16 @@ public class Movie_Mania_Controller {
 		ser.addShow(show);
 	}
 
+	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@DeleteMapping(value="/deleteShow/{show_id}")
-	public void deleteShow(@PathVariable("show_id") int show_id)
+	public String deleteShow(@PathVariable("show_id") int show_id)
 	{
 		
-		ser.deleteShow(show_id);
+		return ser.deleteShow(show_id);
 	}
 	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping(value="/getShow")
 	public List<Show> GetAllShow()
 	{
@@ -184,7 +226,9 @@ public class Movie_Mania_Controller {
 		return ser.getAllShow();
 	}
 	
-//	-----------------------
+	
+	
+//	----------------------------------------------------------
 	
 	
 
@@ -247,11 +291,7 @@ public class Movie_Mania_Controller {
 
 
 
-	@GetMapping(value="/getMovies")
-	public List<Movie> GetAllTopics()
-	{
-	return ser.getAllMovies();
-	}
+	
 	
 	
 

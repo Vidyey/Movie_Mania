@@ -20,6 +20,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * @author PDGadge
@@ -35,7 +36,7 @@ public class Show implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+//	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="show_id",length = 8)
 	private Integer showId;
 	
@@ -55,16 +56,14 @@ public class Show implements Serializable{
 	
 	private String showName;
 	@JoinColumn(name="movie_name")
-
 	@OneToOne(targetEntity=Movie.class,cascade=CascadeType.ALL) 
-	
-	
 	private Movie movieName;
+	
 	@Column(name="screen_id")
 	private Integer screenId;
 	@Column(name="theater_id")
 	private Integer theaterId;
-	
+	@JsonIgnore
 	@ManyToOne
 	Screen screen;
 	

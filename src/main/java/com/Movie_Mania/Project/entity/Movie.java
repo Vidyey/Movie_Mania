@@ -30,8 +30,8 @@ public class Movie implements Serializable{
 
 	@Id
 
-	
-	@GeneratedValue(strategy=GenerationType.AUTO)
+
+//	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="movie_id",length = 4)
 	private Integer movieId;
 	
@@ -44,7 +44,7 @@ public class Movie implements Serializable{
 	@Column(name="movie_Length")
 	private Integer movieLength;
 	@Column(name="movie_langauges")
-	private String[] languages;
+	private String languages;
 	
 @Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
 	
@@ -60,7 +60,7 @@ public class Movie implements Serializable{
 	Theater theatre;
 	
 	public Movie(Integer movieId, String movieName, String movieGenre, String movieDirector,
-			Integer movieLength, String[] languages, Date movieReleaseDate) {
+			Integer movieLength, String languages, Date movieReleaseDate) {
 		super();
 		this.movieId = movieId;
 		this.movieName = movieName;
@@ -142,13 +142,13 @@ public class Movie implements Serializable{
 	/**
 	 * @return the languages
 	 */
-	public String[] getLanguages() {
+	public String getLanguages() {
 		return languages;
 	}
 	/**
 	 * @param languages the languages to set
 	 */
-	public void setLanguages(String[] languages) {
+	public void setLanguages(String languages) {
 		this.languages = languages;
 	}
 	/**
@@ -182,12 +182,16 @@ public class Movie implements Serializable{
 	public String toString() {
 		return "Movie [movieId=" + movieId + ", movieName=" + movieName + ", movieGenre=" + movieGenre
 				+ ", movieDirector=" + movieDirector + ", movieLength=" + movieLength + ", languages="
-				+ Arrays.toString(languages) + ", movieReleaseDate=" + movieReleaseDate + ", show=" + show
+				+ languages + ", movieReleaseDate=" + movieReleaseDate + ", show=" + show
 				+ ", theatre=" + theatre + "]";
 	}
 
 	
-	
+//	public void addShow(Show show) {
+//		movie.setTheatre(this);
+//		show.setM
+//		this.getMovies().add(movie);
+//	}
 	
 
 }

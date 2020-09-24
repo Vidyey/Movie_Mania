@@ -1,6 +1,7 @@
 package com.Movie_Mania.Project.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -87,18 +88,17 @@ public class MovieServiceImpl implements MovieService
 	
 
 	
-	
+//-----------------------------Movie-------------------------------------
 	@Override
-	public void addMovie(Movie movie) {
-		// TODO Auto-generated method stub
-		dao.addMovie(movie);
+	public String addMovie(Movie movie) {
+		return dao.addMovie(movie);
+		
 
 	}
 
 	@Override
-	public void deleteMovie(int movieId) {
-		// TODO Auto-generated method stub
-        dao.deleteMovie(movieId);
+	public String deleteMovie(int movieId) {
+		return dao.deleteMovie(movieId);
 	}
 
 	@Override
@@ -109,7 +109,7 @@ public class MovieServiceImpl implements MovieService
 	}
 
 
-	
+//	-------------------------------------------------------------------------
 
 	public List<Show> showShows(Integer screenId) {
 		// TODO Auto-generated method stub
@@ -120,17 +120,18 @@ public class MovieServiceImpl implements MovieService
 	
 	
 
-
+//----------------------------Theater---------------------------------
 	@Override
-	public void addTheater(Theater theater) {
-		// TODO Auto-generated method stub
-		dao.addTheater(theater);
+	public String addTheater(Theater theater) {
+		 return dao.addTheater(theater);
+		
 	}
 
 	@Override
-	public void deleteTheater(int theater_id) {
+	public String deleteTheater(int theater_id) {
 		// TODO Auto-generated method stub
-		dao.deleteTheater(theater_id);
+		return dao.deleteTheater(theater_id);
+	
 		
 	}
 
@@ -140,17 +141,18 @@ public class MovieServiceImpl implements MovieService
 		return dao.getAllTheater();
 	}
 
+
+	
+//	---------------------------Screen---------------------------------
 	@Override
-	public void addScreen(Screen screen) {
-		// TODO Auto-generated method stub
-		dao.addScreen(screen);
+	public String addScreen(Screen screen) {
+		return dao.addScreen(screen);
 		
 	}
 
 	@Override
-	public void deleteScreen(int screen_id) {
-		// TODO Auto-generated method stub
-dao.deleteScreen(screen_id);
+	public String deleteScreen(int screen_id) {
+		return dao.deleteScreen(screen_id);
 		
 	}
 
@@ -159,18 +161,22 @@ dao.deleteScreen(screen_id);
 		// TODO Auto-generated method stub
 		return dao.getAllScreen();
 	}
-
 	@Override
-	public void addShow(Show show) {
+	public List<Screen> getAllScreenById(int theater_id) {
 		// TODO Auto-generated method stub
-		dao.addShow(show);
+		return null;
+	}
+//	--------------------------Show---------------------------------
+	@Override
+	public String addShow(Show show) {
+		return dao.addShow(show);
+		 
 		
 	}
 
 	@Override
-	public void deleteShow(int show_id) {
-		// TODO Auto-generated method stub
-		dao.deleteShow(show_id);
+	public String deleteShow(int show_id) {
+		return dao.deleteShow(show_id);
 		
 	}
 
@@ -179,5 +185,34 @@ dao.deleteScreen(screen_id);
 		// TODO Auto-generated method stub
 		return dao.getAllShow();
 	}
+//-------------------------------------------------------------
+	//not required
+@Override
+	public Theater getTheater(int theater_id) {
+		// TODO Auto-generated method stub
+		return dao.getTheater(theater_id);
+	}
+
+
+
+	@Override
+	public Theater grtTheaterById(int theater_id) {
+		// TODO Auto-generated method stub
+		return dao.grtTheaterById(theater_id);
+	}
+
+	@Override
+	public Screen getScreen(int screen_id) {
+		// TODO Auto-generated method stub
+		return dao.getScreen(screen_id);
+	}
+
+	
+
+//	@Override
+//	public Optional<Screen> getAllScreensByTherateid(int theater_id) {
+//		// TODO Auto-generated method stub
+//		return dao.getAllScreensByTherateid(theater_id);
+//	}
 
 }
