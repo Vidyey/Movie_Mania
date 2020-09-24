@@ -7,7 +7,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.Movie_Mania.Project.service.MovieService;
+import com.Capgemini.Movie_Mania.Project.service.MovieService;
+
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 class AdminTesting {

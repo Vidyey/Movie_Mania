@@ -13,8 +13,7 @@ target/
 .springBeans
 .sts4-cache
 *.class
-*.properties
-pom.xml
+
 derby.log
 src/main/resources/application.properties
 
