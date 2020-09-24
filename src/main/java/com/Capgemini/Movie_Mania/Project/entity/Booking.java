@@ -1,4 +1,3 @@
-
 package com.Capgemini.Movie_Mania.Project.entity;
 
 import java.io.Serializable;

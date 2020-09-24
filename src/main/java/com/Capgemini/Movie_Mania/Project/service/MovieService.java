@@ -8,6 +8,7 @@ import com.Capgemini.Movie_Mania.Project.entity.Admin;
 import com.Capgemini.Movie_Mania.Project.entity.Booking;
 import com.Capgemini.Movie_Mania.Project.entity.Customer;
 import com.Capgemini.Movie_Mania.Project.entity.Movie;
+import com.Capgemini.Movie_Mania.Project.entity.Screen;
 import com.Capgemini.Movie_Mania.Project.entity.Seat;
 import com.Capgemini.Movie_Mania.Project.entity.SelectedSeatArray;
 import com.Capgemini.Movie_Mania.Project.entity.Show;
@@ -16,47 +17,78 @@ import com.Capgemini.Movie_Mania.Project.entity.Ticket;
 
 @Service
 public interface MovieService {
-	/*
-	 * public List<Movie> searchMovie(String movieName); public List<Theater>
-	 * searchTheatre(String theatreName) ; public List<Show> searchShow(String
-	 * movieName); public List<Show> showShows(Integer screenId);
-	 */
 	
-	public Customer registerCustomer(Customer customer);
-	public Admin registerAdmin(Admin admin);
-
+	
+	//Dhiraj
+	public String registerCustomer(Customer customer);
+	public String registerAdmin(Admin admin);
+	public boolean custLogin(String userId,String password);
+	public boolean adminLogin(String userId,String password);
+	public String changePassword(String userId,String currentPassword,String newPassword);
+	public String changePasswordAdmin(String userId, String currentPassword, String newPassword);
+	public String editCustomer(Customer customer);
+	public String editAdmin(Admin admin);
+	public String forgotPassword(String userId,String securityQuestion,String answer);
+	public String forgotPasswordAdmin(String userId,String securityQuestion,String answer);
+	public List<Ticket> showTickets(String customerId);
 	public List<Movie> searchMovie(String movieName);
 	public List<Theater> searchTheatre(String theatreName) ;
+	public Customer getCustById(String userId);
+	public Admin getAdminById(String userId);
 	
-	
-	public List<Show> showShows(Integer screenId);
-	
-	List<Ticket> showTickets(int customerId);
-	Boolean cancelSeat();
-	
-	Ticket bookSeat();
-	
-	Boolean bloackSeat();
+// Prajakta
 	public void addMovie(Movie movie);
 	public void deleteMovie(int movieId);
 	public List<Movie> getAllMovies();
-	public List<Show> searchShow(String showName);
+	public void addTheater(Theater theater);
+	public void deleteTheater(int theater_id);
+	public List<Theater> getAllTheater();
+	public void addScreen(Screen screen);
+	public void deleteScreen(int screen_id);
+	public List<Screen> getAllScreen();
+	
+	public void addShow(Show screen, int movieId);
+	public void deleteShow(int show_id);
+	public List<Show> getAllShow();
+	
+	
 //	mahesh module
+	
+	
 	public  double calculateTotalCost(List<Seat> seat);
 	public Booking makePayment(int Booking_id);
-	public Booking   cancelticket(Ticket t);
+	public Booking   cancelticket(Ticket ticket);
+	public Booking choosePaymentmethod(Integer showId, SelectedSeatArray seatLocation,int buttonid);
+	public List<Show> searchShow(String showName);
+	public List<Show> showShows(Integer screenId);
+
 	
-	public Booking choosePaymentmethod(Integer showId, SelectedSeatArray seatLocation, int buttonid);
+//	pratik
+
+//	public List<Seat> SelectSeat(Integer showId, SelectedSeatArray seatLocation);   //  function to select seat
 //	
+//	public Booking UpdateSeatStatus(Booking BookingObj);
+//	
+//	
+//	public Booking unblockSeat (int Bookingobj);
+//	
+//	public Booking cancelBooking (int cancelBooking_id);
+//	
+//	public Seat blockUnblock(Integer seat_id);
+	
 	public List<Seat> SelectSeat(Integer showId, SelectedSeatArray seatLocation);   //  function to select seat
 	
 	public Booking UpdateSeatStatus(Booking BookingObj);
 	
-	
+	public Booking initiateBooking (Booking BookingObj);
+ 
+	public Seat blockUnblock (Integer markseat);
+
 	public Booking unblockSeat (int Bookingobj);
-	
+
 	public Booking cancelBooking (int cancelBooking_id);
-	public Seat blockUnblock(Integer seat_id);
+
+	
 	
 }
 

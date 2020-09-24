@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.Capgemini.Movie_Mania.Project.entity;
 
 import java.io.Serializable;
@@ -19,9 +16,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 /**
  * @author PDGadge
@@ -224,7 +223,4 @@ public class Show implements Serializable{
 //	}
 //	
 	
-	
-	
-
 }

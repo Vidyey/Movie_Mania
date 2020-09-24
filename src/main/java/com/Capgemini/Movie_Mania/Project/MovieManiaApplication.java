@@ -1,47 +1,29 @@
 package com.Capgemini.Movie_Mania.Project;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.tomcat.jni.Time;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-
-import com.Capgemini.Movie_Mania.Project.entity.Booking;
-
-
 import com.Capgemini.Movie_Mania.Project.entity.Customer;
-
 import com.Capgemini.Movie_Mania.Project.entity.Movie;
-import com.Capgemini.Movie_Mania.Project.entity.Screen;
 import com.Capgemini.Movie_Mania.Project.entity.Seat;
 import com.Capgemini.Movie_Mania.Project.entity.Show;
 import com.Capgemini.Movie_Mania.Project.entity.Theater;
 import com.Capgemini.Movie_Mania.Project.entity.Ticket;
 import com.Capgemini.Movie_Mania.Project.repo.BookingRepository;
-
-import com.Capgemini.Movie_Mania.Project.repo.MovieRepo;
-import com.Capgemini.Movie_Mania.Project.repo.ScreenRepo;
-
-
 import com.Capgemini.Movie_Mania.Project.repo.CustomerRepository;
 import com.Capgemini.Movie_Mania.Project.repo.MovieRepository;
 import com.Capgemini.Movie_Mania.Project.repo.ScreenRepo;
-
-import com.Capgemini.Movie_Mania.Project.repo.Seatrepo;
+import com.Capgemini.Movie_Mania.Project.repo.SeatRepo;
 import com.Capgemini.Movie_Mania.Project.repo.ShowRepo;
 import com.Capgemini.Movie_Mania.Project.repo.TheatreRepo;
 import com.Capgemini.Movie_Mania.Project.repo.TicketRepository;
 
-
-
 @EnableJpaRepositories(basePackages = "com.Capgemini.Movie_Mania.Project.repo")
-
 @SpringBootApplication
 
 public class MovieManiaApplication implements CommandLineRunner {
@@ -50,24 +32,19 @@ public class MovieManiaApplication implements CommandLineRunner {
 	private ScreenRepo screpo;
 
 	@Autowired
-
-	private MovieRepo mrepo;
-
-	
+	private MovieRepository mrepo;
 
 	@Autowired
 	CustomerRepository custRepo;
 	
 	@Autowired
-
 	private TheatreRepo trepo;
 
 	@Autowired
 	private ShowRepo srepo;
 	
 	@Autowired
-
-	Seatrepo seatrepo;
+	SeatRepo seatrepo;
 	
 	@Autowired
 	private TicketRepository ticketrepo;
@@ -81,21 +58,46 @@ public class MovieManiaApplication implements CommandLineRunner {
 	BookingRepository bookrepo;
 
 
+
+
+
 	public static void main(String[] args) {
 		
 		SpringApplication.run(MovieManiaApplication.class, args);
 		System.out.println("lets start");
-
-		System.out.println("yash");
-		System.out.println("Pratik");
-		
-
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
+//
+//		Theater t2 = new Theater(101,"INOX", "Pune", "Akshay", "9875566776");
+//		Theater t1 = new Theater(102,"PVR", "Pune", "Danny", "9075566776");
+//		
+//		trepo.save(t1);
+//		trepo.save(t2);
+//		String[] language = {"Hindi","English"};
+//
+//		Movie m1=new Movie(1,"3 Idiots","Entertainment","Raju Hirani",170,language,LocalDate.of(2010, 01, 12));
+//		
+//		Movie m2=new Movie(2,"Tanhaji","Period","Om Raut",130,language,LocalDate.of(2020, 01, 12));
+//		
+//		
+//		t1.addMovie(m1);
+//		t1.addMovie(m2);
+//		t2.addMovie(m1);
+//		t2.addMovie(m2);
+//		trepo.save(t1);
+//		trepo.save(t2);
+//		
+//		Customer customer = new Customer("mahesh@gmail.com", "mahesh123","pet name", "maddy", "Mahesh", "21-09-1998", "8765677766");
+//		
+//		String[] seatsname = {"B1","B2","B3"};
+//		String[] seatsname1 = {"C7","C8"};
+//		customer.addTicket(new Ticket(125,3,seatsname,false,"Audi4"));
+//		customer.addTicket(new Ticket(126,2,seatsname1,true,"Audi1"));
+//		custRepo.save(customer);
 
-
+	
 //		String[] stringArray = {"t","s"};
 //		
 //		Movie m1=new Movie(1, "Ragnarok", "", "", 50, stringArray, LocalDate.now());
@@ -323,37 +325,38 @@ public class MovieManiaApplication implements CommandLineRunner {
 		
 		
 		// ----------------- Showw creation + choosedSeats function 
-	Show s1 = new Show(null,"12pm","3am", null, "Alpha", null, 501, 101);
-
-		srepo.save(s1);
-		Show showone = srepo.getOne(1);
-		
-		  List<Seat> seatlist = new ArrayList<Seat>(); 
-		  for (int i = 0; i < 5; i++) 
-		  { 
-			  for(int j = 0; j < 10; j++) 
-			  { 
-				  Seat seat = new Seat(); 
-				  int[] seatLocation ={i,j};
-				  seat.setSeatLocation(seatLocation); 
-				  seat.setShow(showone);
-				  
-				  seat.setSeatPrice(108.0);
-				  seatlist.add(seat);
-				  seatrepo.save(seat);
-				  System.out.println(seat);
-		  
-		  
-		  
-		  } }
-		 for (Seat seat : seatlist) {
-			System.out.println(seat);
-		}
-		  
-		 s1.setSeats(seatlist);
-		 srepo.save(s1);
-
-		  
+	
+//	Show s1 = new Show(null,"12pm","3am", null, "Alpha", null, 501, 101);
+//	
+//	//Show s2 = new Show(showId, showStartTime, showEndTime, seats, showName, movieName, screenId, theaterId);
+//
+//		srepo.save(s1);
+//		Show showone = srepo.getOne(1);
+//		
+//		  List<Seat> seatlist = new ArrayList<Seat>(); 
+//		  for (int i = 0; i < 5; i++) 
+//		  { 
+//			  for(int j = 0; j < 10; j++) 
+//			  { 
+//				  Seat seat = new Seat(); 
+//				  int[] seatLocation ={i,j};
+//				  seat.setSeatLocation(seatLocation); 
+//				  seat.setShow(showone);
+//				  
+//				  seat.setSeatPrice(108.0);
+//				  seatlist.add(seat);
+//				  seatrepo.save(seat);
+//				  System.out.println(seat);
+//			  } 
+//		}
+//		 for (Seat seat : seatlist) {
+//			System.out.println(seat);
+//		}
+//		  
+//		 s1.setSeats(seatlist);
+//		 srepo.save(s1);
+//
+//		  
 		
 		// select seat -----------------------------------------------------------------------------
 		
@@ -369,9 +372,6 @@ public class MovieManiaApplication implements CommandLineRunner {
 
 		
 		
-		
-		
-
 	}
 
 }

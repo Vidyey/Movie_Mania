@@ -15,11 +15,18 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name = "customer_details")
 public class Customer extends User {
+
+	
 	private static final long serialVersionUID = 1L;
+
 	@Column(name = "Customer_name",length = 30 , nullable = false)
 	private String customerName;
+	
+	
 	@Column(name = "date_Of_Birth",length = 15,nullable = false)
 	private String dateOfBirth;
+	
+	
 	@Column(name = "Customer_contact",length = 15,nullable = false)
 	private String customerContact;
 	
@@ -28,13 +35,15 @@ public class Customer extends User {
 	private List<Ticket> myTickets;
 	
 	
-	public Customer(Integer userId, String password, String securityQuestion, String answer, String customerName,
-			String dateOfBirth, String customerContact, List<Ticket> myTickets) {
-		super(userId, password, securityQuestion, answer);
+	
+	
+	public Customer(String username, String password, String securityQuestion, String answer, String customerName,
+			String dateOfBirth, String customerContact) {
+		super(username, password, securityQuestion, answer);
 		this.customerName = customerName;
 		this.dateOfBirth = dateOfBirth;
 		this.customerContact = customerContact;
-		this.myTickets = myTickets;
+		this.myTickets = new ArrayList<>();
 	}
 	public Customer() {
 		super();
@@ -63,8 +72,6 @@ public class Customer extends User {
 	public void setMyTickets(List<Ticket> myTickets) {
 		this.myTickets = myTickets;
 	}
-	
-	
 	@Override
 	public String toString() {
 		return "Customer [customerName=" + customerName + ", dateOfBirth=" + dateOfBirth + ", customerContact="
