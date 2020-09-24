@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.Capgemini.Movie_Mania.Project.entity;
 
 import java.io.Serializable;
@@ -19,7 +16,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * @author PDGadge
@@ -42,33 +38,36 @@ public class Show implements Serializable{
 	
 	@Column(name="show_StartTime")
 	private String showStartTime;
-	
-	
+
 	@Column(name="show_EndTime")
 	private String showEndTime;
 	
-	@OneToMany(mappedBy = "show",targetEntity = Seat.class,cascade=CascadeType.ALL)										//mappimg remaining
+	@OneToMany(targetEntity = Seat.class,cascade=CascadeType.ALL)		
 	private List<Seat> seats;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	Booking booking;
 	
 	private String showName;
 	@JoinColumn(name="movie_name")
 
 	@OneToOne(targetEntity=Movie.class,cascade=CascadeType.ALL) 
-	
-	
 	private Movie movieName;
+	
+	
 	@Column(name="screen_id")
 	private Integer screenId;
 	@Column(name="theater_id")
 	private Integer theaterId;
-	
+
+
 	@ManyToOne
 	Screen screen;
+
 	
-	private Seat SeatMatrix[][];
+//	@ManyToOne
+//	Screen screen;
+//	
+//	private Seat SeatMatrix[][];
+
 	/**
 	 * @param showId
 	 * @param showStartTime
@@ -90,12 +89,7 @@ public class Show implements Serializable{
 		this.movieName = movieName;
 		this.screenId = screenId;
 		this.theaterId = theaterId;
-		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 10; j++) {
-				this.SeatMatrix[i][j] = new Seat();
-				this.seats.add(this.SeatMatrix[i][j]);
-			}
-		}
+		this.seats = seats;
 		
 		
 	}
@@ -203,27 +197,24 @@ public class Show implements Serializable{
 	public void setTheaterId(Integer theaterId) {
 		this.theaterId = theaterId;
 	}
-	public Booking getBooking() {
-		return booking;
-	}
-	public void setBooking(Booking booking) {
-		this.booking = booking;
-	}
-	public Screen getScreen() {
-		return screen;
-	}
-	public void setScreen(Screen screen) {
-		this.screen = screen;
-	}
-	@Override
-	public String toString() {
-		return "Show [showId=" + showId + ", showStartTime=" + showStartTime + ", showEndTime=" + showEndTime
-				+ ", seats=" + seats + ", booking=" + booking + ", showName=" + showName + ", movieName=" + movieName
-				+ ", screenId=" + screenId + ", theaterId=" + theaterId + ", screen=" + screen + "]";
-	}
+//	public Booking getBooking() {
+//		return booking;
+//	}
+//	public void setBooking(Booking booking) {
+//		this.booking = booking;
+//	}
+//	public Screen getScreen() {
+//		return screen;
+//	}
+//	public void setScreen(Screen screen) {
+//		this.screen = screen;
+//	}
+//	@Override
+//	public String toString() {
+//		return "Show [showId=" + showId + ", showStartTime=" + showStartTime + ", showEndTime=" + showEndTime
+//				+ ", seats=" + seats + ", showName=" + showName + ", movieName=" + movieName
+//				+ ", screenId=" + screenId + ", theaterId=" + theaterId + ", screen=" + screen + "]";
+//	}
+//	
 	
-	
-	
-	
-
 }

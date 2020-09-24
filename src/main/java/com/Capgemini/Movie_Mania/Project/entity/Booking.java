@@ -1,4 +1,3 @@
-
 package com.Capgemini.Movie_Mania.Project.entity;
 
 import java.io.Serializable;
@@ -22,8 +21,10 @@ public class Booking implements Serializable{
 	@Column(name="show_id")
 	private Integer	showId;
 	
-	@OneToOne(mappedBy = "booking",targetEntity=Show.class,cascade=CascadeType.ALL)
+	@OneToOne(targetEntity=Show.class,cascade=CascadeType.ALL)
 	private Show showRef;
+	
+	
 	@Column(name="booking_date")
 	private LocalDate bookingDate;
 	@Column(name="transaction_id")
@@ -31,7 +32,7 @@ public class Booking implements Serializable{
 	@Column(name="Total_Cost")
 	private Double totalCost;
 	
-	@OneToMany(mappedBy = "booking",targetEntity = Seat.class,cascade=CascadeType.ALL)
+	@OneToMany(targetEntity = Seat.class,cascade=CascadeType.ALL)
 	private List<Seat> seatList;
 	
 	@OneToOne(targetEntity=Ticket.class) 

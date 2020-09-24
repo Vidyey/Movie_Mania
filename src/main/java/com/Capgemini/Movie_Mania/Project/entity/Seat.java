@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.Capgemini.Movie_Mania.Project.entity;
 
 import java.io.Serializable;
@@ -13,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * @author Administrator
@@ -28,27 +27,28 @@ public class Seat implements Serializable{
 	@Column(name="seat_id",length = 6)
 	private Integer seatId; 
 	@Column(name="seat_Status")
-	private  Enum<BookingState> seatStatus;
+	private  String seatStatus;
 	@Column(name="seat_Price")
 	private  Double seatPrice;
 	
-	@ManyToOne
-	@JoinColumn(name="booking_id")
-	private Booking booking;
+//	@ManyToOne
+//	@JoinColumn(name="booking_id")
+//	private Booking booking;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="show_id")
 	private Show show;
 	
 	private int seatLocation[];
 
-	public Booking getBooking() {
-		return booking;
-	}
-
-	public void setBooking(Booking booking) {
-		this.booking = booking;
-	}
+//	public Booking getBooking() {
+//		return booking;
+//	}
+//
+//	public void setBooking(Booking booking) {
+//		this.booking = booking;
+//	}
 
 	
 	
@@ -60,13 +60,6 @@ public class Seat implements Serializable{
 		this.show = show;
 	}
 
-	public Enum<BookingState> getSeatStatus() {
-		return seatStatus;
-	}
-
-	public void setSeatStatus(Enum<BookingState> seatStatus) {
-		this.seatStatus = seatStatus;
-	}
 
 	
 
@@ -78,14 +71,18 @@ public class Seat implements Serializable{
 	 * @param show
 	 * @param seatLocation
 	 */
-	public Seat(Integer seatId, Enum<BookingState> seatStatus, Double seatPrice, Booking booking, Show show,
+	public Seat(Integer seatId,  Double seatPrice, Booking booking, Show show,
 			int[] seatLocation) {
 		super();
 		this.seatId = seatId;
-		this.seatStatus = seatStatus;
+
+		
+
+		this.seatStatus = "Available";
+
 		this.seatPrice = seatPrice;
-		this.booking = booking;
-		this.show = show;
+		
+		//this.show = show;
 		this.seatLocation = seatLocation;
 	}
 
@@ -95,7 +92,7 @@ public class Seat implements Serializable{
 	public Seat() {
 		super();
 		
-		this.seatStatus = BookingState.Available;
+		this.seatStatus = "Available";
 		// TODO Auto-generated constructor stub
 	}
 
@@ -130,17 +127,45 @@ public class Seat implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Seat [seatId=" + seatId + ", seatStatus=" + seatStatus + ", seatPrice=" + seatPrice + ", booking="
-				+ booking + "]";
+		return "Seat [seatId=" + seatId + ", seatStatus=" + seatStatus + ", seatPrice=" + seatPrice + "]";
 	}
+
 
 	public int[] getSeatLocation() {
 		return seatLocation;
 	}
 
+
+	/**
+	 * @param seatLocation the seatLocation to set
+	 */
 	public void setSeatLocation(int[] seatLocation) {
 		this.seatLocation = seatLocation;
 	}
+
+	/**
+	 * @return the serialversionuid
+	 */
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	/**
+	 * @return the seatStatus
+	 */
+	public String getSeatStatus() {
+		return seatStatus;
+	}
+
+	/**
+	 * @param seatStatus the seatStatus to set
+	 */
+	public void setSeatStatus(String seatStatus) {
+		this.seatStatus = seatStatus;
+	}
+
+	
+
 	
 	
 

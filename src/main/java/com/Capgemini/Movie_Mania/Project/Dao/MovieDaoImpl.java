@@ -2,6 +2,7 @@ package com.Capgemini.Movie_Mania.Project.Dao;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -10,11 +11,11 @@ import org.springframework.stereotype.Repository;
 
 import com.Capgemini.Movie_Mania.Project.entity.Admin;
 import com.Capgemini.Movie_Mania.Project.entity.Booking;
-import com.Capgemini.Movie_Mania.Project.entity.BookingState;
 import com.Capgemini.Movie_Mania.Project.entity.Customer;
 import com.Capgemini.Movie_Mania.Project.entity.Movie;
 import com.Capgemini.Movie_Mania.Project.entity.Screen;
 import com.Capgemini.Movie_Mania.Project.entity.Seat;
+import com.Capgemini.Movie_Mania.Project.entity.SelectedSeatArray;
 import com.Capgemini.Movie_Mania.Project.entity.Show;
 import com.Capgemini.Movie_Mania.Project.entity.Theater;
 import com.Capgemini.Movie_Mania.Project.entity.Ticket;
@@ -23,6 +24,7 @@ import com.Capgemini.Movie_Mania.Project.repo.BookingRepository;
 import com.Capgemini.Movie_Mania.Project.repo.CustomerRepository;
 import com.Capgemini.Movie_Mania.Project.repo.MovieRepository;
 import com.Capgemini.Movie_Mania.Project.repo.ScreenRepo;
+import com.Capgemini.Movie_Mania.Project.repo.SeatRepo;
 import com.Capgemini.Movie_Mania.Project.repo.ShowRepo;
 import com.Capgemini.Movie_Mania.Project.repo.TheatreRepo;
 import com.Capgemini.Movie_Mania.Project.repo.TicketRepository;
@@ -65,6 +67,9 @@ public class MovieDaoImpl implements IMovieDao {
 	@Autowired
 	ShowRepo showRepo;
 	
+	@Autowired
+	SeatRepo seatrepo;
+	
 	
 //	private Theater theaterobj ;
 
@@ -72,6 +77,8 @@ public class MovieDaoImpl implements IMovieDao {
 	TheatreRepo trepo;
 	
 	private Customer customer;
+	
+	
 	
 	//Dhiraj Modules
 	
@@ -376,7 +383,7 @@ public class MovieDaoImpl implements IMovieDao {
      
 		repo.deleteById(movieId);
 
-      //repo.deleteById(movieId);
+    
 		
 
 	}
@@ -386,7 +393,7 @@ public class MovieDaoImpl implements IMovieDao {
 		// TODO Auto-generated method stub
 
 
-//       return repo.findAll();
+
 
        return movieRepo.findAll();
 
@@ -433,11 +440,7 @@ public class MovieDaoImpl implements IMovieDao {
 		return screenRepo.findAll();
 	}
 
-	@Override
-	public void addShow(Show show) {
-		// TODO Auto-generated method stub
-		showRepo.save(show);
-	}
+	
 
 	@Override
 	public void deleteShow(int show_id) {
@@ -455,58 +458,242 @@ public class MovieDaoImpl implements IMovieDao {
 
 	
 
+	
+	@SuppressWarnings("null")
 	@Override
-	public List<Seat> SelectSeat(Show show, int[] seatLocation) {
+	public List<Seat> SelectSeat(Integer showId, SelectedSeatArray seatLocation) { //1,1,1,2,1,2
 		// TODO Auto-generated method stub
+		System.out.println(seatLocation);
+		Show show = showRepo.getOne(showId);
 		List<Seat> SeatList = show.getSeats();
-		List<Seat> ChoosedSeat = null;
-		int size = seatLocation.length;
+		System.out.println("-----------------------------------------------------------------------seats checked in dao-----------------------------------------------------------------------------------");
+		for (Seat seat : SeatList) {
+			System.out.println(seat);
+		}
+		List<Seat> ChoosedSeat = new ArrayList<Seat>();
+		int size = seatLocation.getSeatLocation().length;
+		Integer[] seatLoc = seatLocation.getSeatLocation();
 		for (int i =0 ; i<size; i=i+2) {
-		int row = seatLocation[i];
-		int col = seatLocation[i+1];
+		int row = seatLoc[i];
+		int col = seatLoc[i+1]; //(1,1),(1,2),
 		
-		int loc = (row*10)+(col+1);
-		;
-		ChoosedSeat.add(SeatList.get(loc));
+		int loc = (row*10)+(col);
+		Seat blockedseat = SeatList.get(loc);
+		
+		ChoosedSeat.add(blockedseat);
 		}
 		
 		return ChoosedSeat;
 		
 	}
 	@Override
-	public Boolean UpdateSeatStatus(Booking BookingObj) {
+	public  Booking UpdateSeatStatus(Booking BookingObj) {
 		
-		List<Seat>List =BookingObj.getSeatList();
-		for (Seat seat : List) {
-			if(seat.getSeatStatus().equals(BookingState.Blocked))
+		List<Seat> list =BookingObj.getSeatList();
+		for (Seat seat : list) {
+			if(seat.getSeatStatus().equals("Blocked"))
 					{
-				       seat.setSeatStatus(BookingState.booked);
+				       seat.setSeatStatus("booked");
 					}
-			else {
-				return false;
-			}
+			
 		}
-		return true;
+		Ticket confirmTicket = BookingObj.getTicket();
 		
+		
+		confirmTicket.setTicketStatus(true);
+		ticketRepository.save(confirmTicket);
+		
+		System.out.print("payment success :- Ticket status :-     ");
+		System.out.println( BookingObj.getTicket().getTicketStatus());
+		seatrepo.saveAll(list);
+		
+		BookingObj.setTicket(confirmTicket);
+		BookingObj.setSeatList(list);
+		bookRepository.save(BookingObj);		
+		return BookingObj ;
 		
 		
 	}
 
 	@Override
-	public Booking initiateBooking(Booking BookingObj) {
+	public Seat blockUnblock(Seat markseat) {
 		// TODO Auto-generated method stub
 		
+		if(markseat.getSeatStatus().equals("Available"))
+		{
+	       markseat.setSeatStatus("Blocked");
+		}
+		else if(markseat.getSeatStatus().equals("Blocked"))
+		{
+			markseat.setSeatStatus("Available");
+		}
 		
+		Seat marked= seatrepo.save(markseat);
+		return marked;
+	}
+
+
+
+	@Override
+	public Booking cancelBooking(Booking cancelBooking) {
+		// TODO Auto-generated method stub
+		List<Seat> list = cancelBooking.getSeatList();
+		for (Seat seat : list) {
+			if(seat.getSeatStatus().equals("booked"))
+					{
+				       seat.setSeatStatus("Available");
+					}
+			
+		}
+		Ticket confirmTicket = cancelBooking.getTicket();
+		confirmTicket.setTicketStatus(false);
+		ticketRepository.save(confirmTicket);
+		seatrepo.saveAll(list);
+		bookRepository.save(cancelBooking);		
+		return cancelBooking ;
+		
+	}
+
+	@Override
+	public Booking unblockSeat(Booking Bookingobj) {
+		// TODO Auto-generated method stub
+		List<Seat> list = Bookingobj.getSeatList();
+		for (Seat seat : list) {
+			if(seat.getSeatStatus().equals("Blocked"))
+					{
+				       seat.setSeatStatus("Available");
+					}
+			
+		}
+		
+		Ticket confirmTicket = Bookingobj.getTicket();
+		confirmTicket.setTicketStatus(false);
+		ticketRepository.save(confirmTicket);
+		seatrepo.saveAll(list);
+		bookRepository.save(Bookingobj);		
+		return Bookingobj ;
+	}
+
+	@Override
+	public void addShow(Show show , int movieId) {
+		// TODO Auto-generated method stub
+		Movie movieref = movieRepo.getOne(movieId);
+		show.setMovieName(movieref);
+		showRepo.save(show);
+		
+		
+		List<Seat> seatlist = new ArrayList<Seat>(); 
+		  for (int i = 0; i < 5; i++) 
+		  { 
+			  for(int j = 0; j < 10; j++) 
+			  { 
+				  Seat seat = new Seat(); 
+				  int[] seatLocation ={i,j};
+				  seat.setSeatLocation(seatLocation); 
+				  seat.setShow(show);
+				  seatrepo.save(seat);
+				  System.out.println(seat);
+		  
+		  seatlist.add(seat);
+		  
+		  } }
+		  
+		  show.setSeats(seatlist);
+			 showRepo.save(show);
+	}
+
+	@Override
+	public Booking initiateBooking(Booking BookingObj) {
+		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	
+//	mahesh module
+	
+	
+//	@Autowired
+//	Seatrepo seatrepository;
+	
+	double sum=0;
+	
+	
+	@Override
+	public double calculateTotalCost(List<Seat> seat) {
+		
+		for(int i=0; i<seat.size();i++) {
+//			sum=sum+seat.get(i).getSeatPrice();
+		}
+
+			return 200.0;
+	}
+
+	@Override
+	public Booking makePayment(Booking booking) {
+//		 Booking b1= new Booking(bookingId,movieId,showId,showRef,)
+		booking.getTransactionId();
+		Ticket printTicket = booking.getTicket();
+		printTicket.setNoOfSeats(booking.getSeatList().size());
+		printTicket.setScreenName(booking.getShowRef().getShowName());
+		printTicket.setBookingRef(booking);
+		UpdateSeatStatus(booking);
+		return booking;
 	}
 
 	
-
+	@Override
+	public Booking   cancelticket(Ticket ticket) {
+		
+		Booking cancelBooking=ticket.getBookingRef();
+		List<Seat> list = cancelBooking.getSeatList();
+		for (Seat seat : list) {
+			if(seat.getSeatStatus().equals("booked"))
+					{
+				       seat.setSeatStatus("Available");
+					}
+			
+		}
+		Ticket confirmTicket = cancelBooking.getTicket();
+		confirmTicket.setTicketStatus(false);
+		ticketRepository.save(confirmTicket);
+		seatrepo.saveAll(list);
+		bookRepository.save(cancelBooking);		
+		return cancelBooking ;
+		
 	
-
+	}
 	
+	@Override
+	public Booking choosePaymentmethod(List<Seat> seat, int buttonid) {
+		Booking b = new Booking(); 
+		Ticket tk =new Ticket();
+		b.setTicket(tk);
+		Seat s1 =seat.get(0);		
+//		b.setShowId(s1.getShow().getShowId());		
+		b.setSeatList(seat);
+//		b.setMovieId(s1.getShow().getMovieName().getMovieId());
+		b.setTotalCost(calculateTotalCost( seat));
+		b.setBookingDate(java.time.LocalDate.now());
+			
+		b.setTransactionId(buttonid);
+//		b.setShowRef(s1.getShow());
+	    ticketRepository.save(tk);
+		bookRepository.save(b);	
+		return b;
+	}
 
-	
+	@Override
+	public List<Show> searchShow(String showName) {
+//		logger.info("At DAO - Search movie");
+		return showRepository.findByShowName(showName);
+	}
+
 
 
 }
+	
+
+	
+
+
+

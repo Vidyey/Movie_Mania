@@ -8,9 +8,12 @@ import org.springframework.stereotype.Service;
 
 import com.Capgemini.Movie_Mania.Project.Dao.IMovieDao;
 import com.Capgemini.Movie_Mania.Project.entity.Admin;
+import com.Capgemini.Movie_Mania.Project.entity.Booking;
 import com.Capgemini.Movie_Mania.Project.entity.Customer;
 import com.Capgemini.Movie_Mania.Project.entity.Movie;
 import com.Capgemini.Movie_Mania.Project.entity.Screen;
+import com.Capgemini.Movie_Mania.Project.entity.Seat;
+import com.Capgemini.Movie_Mania.Project.entity.SelectedSeatArray;
 import com.Capgemini.Movie_Mania.Project.entity.Show;
 import com.Capgemini.Movie_Mania.Project.entity.Theater;
 import com.Capgemini.Movie_Mania.Project.entity.Ticket;
@@ -35,30 +38,7 @@ public class MovieServiceImpl implements MovieService
 	 */
 	@Override
 	public String registerCustomer(Customer customer) {
-//		if(customer.getUserId().toString().length()<6) {
-//			return "User Id should be minimum of 6 digits";
-//		}
-//		else if(customer.getCustomerName().isEmpty() || customer.getCustomerName().trim().length()==0) {
-//			return "Name should not be null";
-//		}
-//		else if(!Pattern.matches("[a-z A-Z]{1,30}", customer.getCustomerName())) {
-//			return "Name should not contains digits";
-//		}
-//		else if(!Pattern.matches("[6-9][0-9]{9}", customer.getCustomerContact())) {
-//			return "Enter valid mobile number (should start with 6-9)";
-//		}
-//		else if(customer.getPassword().length()<6) {
-//			return "Password should be minimum of length 6";
-//		}
-//		else if(customer.getSecurityQuestion().isEmpty() || customer.getSecurityQuestion().trim().length()==0) {
-//			return "Security question should not be null";
-//		}
-//		else if(customer.getAnswer().isEmpty() || customer.getAnswer().trim().length()==0) {
-//			return "Answer should not be null";
-//		}
-//		else if(customer.getDateOfBirth().isEmpty() || customer.getDateOfBirth().trim().length()==0) {
-//			return "DOB should not be null";
-//		}
+
 		return dao.registerCustomer(customer);
 	}
 
@@ -69,27 +49,7 @@ public class MovieServiceImpl implements MovieService
 	 */
 	@Override
 	public String registerAdmin(Admin admin) {
-//		if(!Pattern.matches("[1][0-8]{3}",admin.getUserId().toString())) {
-//			return "Admin Id should be 4 digits and should start with 1";
-//		}
-//		else if(admin.getAdminName().isEmpty() || admin.getAdminName().trim().length()==0) {
-//			return "Name should not be null";
-//		}
-//		else if(!Pattern.matches("[a-z A-Z]{1,30}", admin.getAdminName())) {
-//			return "Name should not contains digits";
-//		}
-//		else if(!Pattern.matches("[6-9][0-9]{9}", admin.getAdminContact())) {
-//			return "Enter valid mobile number";
-//		}
-//		else if(admin.getPassword().length()<6) {
-//			return "Password should be minimum of length 6";
-//		}
-//		else if(admin.getSecurityQuestion().isEmpty() || admin.getSecurityQuestion().trim().length()==0) {
-//			return "Security question should not be null";
-//		}
-//		else if(admin.getAnswer().isEmpty() || admin.getAnswer().trim().length()==0) {
-//			return "Answer should not be null";
-//		}
+
 		return dao.registerAdmin(admin);
 	}
 
@@ -115,56 +75,13 @@ public class MovieServiceImpl implements MovieService
 
 	@Override
 	public String editCustomer(Customer customer) {
-//		if(customer.getUserId().toString().length()<6) {
-//			return "User Id should be minimum of 6 digits";
-//		}
-//		else if(customer.getCustomerName().isEmpty() || customer.getCustomerName().trim().length()==0) {
-//			return "Name should not be null";
-//		}
-//		else if(!Pattern.matches("[a-z A-Z]{1,30}", customer.getCustomerName())) {
-//			return "Name should not contains digits";
-//		}
-//		else if(!Pattern.matches("[6-9][0-9]{9}", customer.getCustomerContact())) {
-//			return "Enter valid mobile number";
-//		}
-//		else if(customer.getPassword().length()<6) {
-//			return "Password should be minimum of length 6";
-//		}
-//		else if(customer.getSecurityQuestion().isEmpty() || customer.getSecurityQuestion().trim().length()==0) {
-//			return "Security question should not be null";
-//		}
-//		else if(customer.getAnswer().isEmpty() || customer.getAnswer().trim().length()==0) {
-//			return "Answer should not be null";
-//		}
-//		else if(customer.getDateOfBirth().isEmpty() || customer.getDateOfBirth().trim().length()==0) {
-//			return "DOB should not be null";
-//		}
+
 		return dao.editCustomer(customer);
 	}
 
 	@Override
 	public String editAdmin(Admin admin) {
-//		if(!Pattern.matches("[1][0-8]{3}",admin.getUserId().toString())) {
-//			return "Admin Id should be 4 digits and should start with 1";
-//		}
-//		else if(admin.getAdminName().isEmpty() || admin.getAdminName().trim().length()==0) {
-//			return "Name should not be null";
-//		}
-//		else if(!Pattern.matches("[a-z A-Z]{1,30}", admin.getAdminName())) {
-//			return "Name should not contains digits";
-//		}
-//		else if(!Pattern.matches("[6-9][0-9]{9}", admin.getAdminContact())) {
-//			return "Enter valid mobile number";
-//		}
-//		else if(admin.getPassword().length()<6) {
-//			return "Password should be minimum of length 6";
-//		}
-//		else if(admin.getSecurityQuestion().isEmpty() || admin.getSecurityQuestion().trim().length()==0) {
-//			return "Security question should not be null";
-//		}
-//		else if(admin.getAnswer().isEmpty() || admin.getAnswer().trim().length()==0) {
-//			return "Answer should not be null";
-//		}
+
 		return dao.editAdmin(admin);
 	}
 
@@ -204,7 +121,7 @@ public class MovieServiceImpl implements MovieService
 	
 	
 
-	
+	//Prajakta
 	
 	@Override
 	public void addMovie(Movie movie) {
@@ -229,16 +146,6 @@ public class MovieServiceImpl implements MovieService
 
 	
 
-	public List<Show> showShows(Integer screenId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
-
-
-	
-	
 
 
 	@Override
@@ -270,7 +177,7 @@ public class MovieServiceImpl implements MovieService
 	@Override
 	public void deleteScreen(int screen_id) {
 		// TODO Auto-generated method stub
-dao.deleteScreen(screen_id);
+			dao.deleteScreen(screen_id);
 		
 	}
 
@@ -281,10 +188,8 @@ dao.deleteScreen(screen_id);
 	}
 
 	@Override
-	public void addShow(Show show) {
-		// TODO Auto-generated method stub
-		dao.addShow(show);
-		
+	public void addShow(Show screen, int movieId) {
+		dao.addShow(screen, movieId);
 	}
 
 	@Override
@@ -301,8 +206,73 @@ dao.deleteScreen(screen_id);
 	}
 
 
+
+	public List<Show> showShows(Integer screenId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
+//	mahesh module
+	@Override
+	public double calculateTotalCost(List<Seat> seat) {
+		return dao.calculateTotalCost(seat);	
+	}
 
+	@Override
+	public Booking makePayment(Booking booking) {
+		// TODO Auto-generated method stub
+		return dao.makePayment(booking);
+	}
+
+	@Override
+	public Booking   cancelticket(Ticket ticket) {
+		// TODO Auto-generated method stub
+		return dao.cancelticket(ticket);
+	}
+
+	@Override
+	public Booking choosePaymentmethod(List<Seat> seat, int buttonid) {
+		// TODO Auto-generated method stub
+		return dao.choosePaymentmethod(seat, buttonid);
+	
+}
+	
+	
+	//Pratik
+
+		@Override
+		public List<Seat> SelectSeat(Integer showId, SelectedSeatArray seatLocation) {
+			// TODO Auto-generated method stub
+			return dao.SelectSeat(showId, seatLocation);
+		}
+		
+		@Override
+		public Booking UpdateSeatStatus(Booking BookingObj) {
+			// TODO Auto-generated method stub
+			return dao.UpdateSeatStatus(BookingObj);
+		}
+		
+		@Override
+		public Seat blockUnblock(Seat markseat) {
+			// TODO Auto-generated method stub
+			return dao.blockUnblock(markseat);
+		}
+		
+		@Override
+		public Booking unblockSeat(Booking Bookingobj) {
+			// TODO Auto-generated method stub
+			return dao.unblockSeat(Bookingobj);
+		}
+		
+		@Override
+		public Booking cancelBooking(Booking cancelBooking) {
+			// TODO Auto-generated method stub
+			return dao.cancelBooking(cancelBooking);
+		}
+
+
+
+	
 	
 }

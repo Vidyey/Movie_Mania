@@ -5,9 +5,12 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.Capgemini.Movie_Mania.Project.entity.Admin;
+import com.Capgemini.Movie_Mania.Project.entity.Booking;
 import com.Capgemini.Movie_Mania.Project.entity.Customer;
 import com.Capgemini.Movie_Mania.Project.entity.Movie;
 import com.Capgemini.Movie_Mania.Project.entity.Screen;
+import com.Capgemini.Movie_Mania.Project.entity.Seat;
+import com.Capgemini.Movie_Mania.Project.entity.SelectedSeatArray;
 import com.Capgemini.Movie_Mania.Project.entity.Show;
 import com.Capgemini.Movie_Mania.Project.entity.Theater;
 import com.Capgemini.Movie_Mania.Project.entity.Ticket;
@@ -16,7 +19,7 @@ import com.Capgemini.Movie_Mania.Project.entity.Ticket;
 public interface MovieService {
 	
 	
-	
+	//Dhiraj
 	public String registerCustomer(Customer customer);
 	public String registerAdmin(Admin admin);
 	public boolean custLogin(String userId,String password);
@@ -35,9 +38,9 @@ public interface MovieService {
 	
 	
 	
-	public List<Show> showShows(Integer screenId);
 	
-
+	
+// Prajakta
 	public void addMovie(Movie movie);
 	public void deleteMovie(int movieId);
 	public List<Movie> getAllMovies();
@@ -53,10 +56,36 @@ public interface MovieService {
 	public void deleteScreen(int screen_id);
 	public List<Screen> getAllScreen();
 	
-	public void addShow(Show screen);
+	public void addShow(Show screen, int movieId);
 	public void deleteShow(int show_id);
 	public List<Show> getAllShow();
 	
+	
+//	mahesh module
+	public  double calculateTotalCost(List<Seat> seat);
+	public Booking makePayment(Booking b);
+	public Booking   cancelticket(Ticket t);
+	public Booking choosePaymentmethod(List<Seat> seat,int buttonid);
+	
+	public List<Show> showShows(Integer screenId);
+	
+	
+//	pratik
+	public List<Seat> SelectSeat(Integer showId, SelectedSeatArray seatLocation);   //  function to select seat
+	
+	public Booking UpdateSeatStatus(Booking BookingObj);
+	
+	
+	
+	
+	
+	
+	
+	public Seat blockUnblock (Seat markseat);
+	
+	public Booking unblockSeat (Booking Bookingobj);
+	
+	public Booking cancelBooking (Booking  cancelBooking);
 	
 	
 }
