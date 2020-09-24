@@ -32,8 +32,8 @@ import com.Capgemini.Movie_Mania.Project.repo.ScreenRepo;
 import com.Capgemini.Movie_Mania.Project.repo.CustomerRepository;
 import com.Capgemini.Movie_Mania.Project.repo.MovieRepository;
 import com.Capgemini.Movie_Mania.Project.repo.ScreenRepo;
-import com.Capgemini.Movie_Mania.Project.repo.SeatRepo;
 
+import com.Capgemini.Movie_Mania.Project.repo.Seatrepo;
 import com.Capgemini.Movie_Mania.Project.repo.ShowRepo;
 import com.Capgemini.Movie_Mania.Project.repo.TheatreRepo;
 import com.Capgemini.Movie_Mania.Project.repo.TicketRepository;
@@ -67,7 +67,7 @@ public class MovieManiaApplication implements CommandLineRunner {
 	
 	@Autowired
 
-	SeatRepo seatrepo;
+	Seatrepo seatrepo;
 	
 	@Autowired
 	private TicketRepository ticketrepo;
@@ -325,9 +325,8 @@ public class MovieManiaApplication implements CommandLineRunner {
 		// ----------------- Showw creation + choosedSeats function 
 	Show s1 = new Show(null,"12pm","3am", null, "Alpha", null, 501, 101);
 
-		
-		
 		srepo.save(s1);
+		Show showone = srepo.getOne(1);
 		
 		  List<Seat> seatlist = new ArrayList<Seat>(); 
 		  for (int i = 0; i < 5; i++) 
@@ -337,11 +336,14 @@ public class MovieManiaApplication implements CommandLineRunner {
 				  Seat seat = new Seat(); 
 				  int[] seatLocation ={i,j};
 				  seat.setSeatLocation(seatLocation); 
-				  seat.setShow(s1);
+				  seat.setShow(showone);
+				  
+				  seat.setSeatPrice(108.0);
+				  seatlist.add(seat);
 				  seatrepo.save(seat);
 				  System.out.println(seat);
 		  
-		  seatlist.add(seat);
+		  
 		  
 		  } }
 		 for (Seat seat : seatlist) {

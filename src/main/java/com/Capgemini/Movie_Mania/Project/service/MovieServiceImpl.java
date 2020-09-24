@@ -127,9 +127,9 @@ public List<Show> searchShow(String showName) {
 	}
 
 	@Override
-	public Booking makePayment(Booking booking) {
+	public Booking makePayment(int Booking_id) {
 		// TODO Auto-generated method stub
-		return dao.makePayment(booking);
+		return dao.makePayment(Booking_id);
 	}
 
 	@Override
@@ -139,9 +139,9 @@ public List<Show> searchShow(String showName) {
 	}
 
 	@Override
-	public Booking choosePaymentmethod(List<Seat> seat, int buttonid) {
+	public Booking choosePaymentmethod(Integer showId, SelectedSeatArray seatLocation, int buttonid) {
 		// TODO Auto-generated method stub
-		return dao.choosePaymentmethod(seat, buttonid);
+		return dao.choosePaymentmethod(showId, seatLocation, buttonid);
 	
 }
 
@@ -158,21 +158,21 @@ public Booking UpdateSeatStatus(Booking BookingObj) {
 }
 
 @Override
-public Seat blockUnblock(Seat markseat) {
+public Seat blockUnblock(Integer markseat) {
 	// TODO Auto-generated method stub
 	return dao.blockUnblock(markseat);
 }
 
 @Override
-public Booking unblockSeat(Booking Bookingobj) {
+public Booking unblockSeat(int Bookingobj) {
 	// TODO Auto-generated method stub
 	return dao.unblockSeat(Bookingobj);
 }
 
 @Override
-public Booking cancelBooking(Booking cancelBooking) {
+public Booking cancelBooking(int cancelBooking_id) {
 	// TODO Auto-generated method stub
-	return dao.cancelBooking(cancelBooking);
+	return dao.cancelBooking( cancelBooking_id);
 }
 	
 	

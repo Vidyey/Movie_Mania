@@ -43,25 +43,20 @@ public interface MovieService {
 	public List<Show> searchShow(String showName);
 //	mahesh module
 	public  double calculateTotalCost(List<Seat> seat);
-	public Booking makePayment(Booking b);
+	public Booking makePayment(int Booking_id);
 	public Booking   cancelticket(Ticket t);
-	public Booking choosePaymentmethod(List<Seat> seat,int buttonid);
+	
+	public Booking choosePaymentmethod(Integer showId, SelectedSeatArray seatLocation, int buttonid);
 //	
 	public List<Seat> SelectSeat(Integer showId, SelectedSeatArray seatLocation);   //  function to select seat
 	
 	public Booking UpdateSeatStatus(Booking BookingObj);
 	
 	
+	public Booking unblockSeat (int Bookingobj);
 	
-	
-	
-	
-	
-	public Seat blockUnblock (Seat markseat);
-	
-	public Booking unblockSeat (Booking Bookingobj);
-	
-	public Booking cancelBooking (Booking  cancelBooking);
+	public Booking cancelBooking (int cancelBooking_id);
+	public Seat blockUnblock(Integer seat_id);
 	
 }
 

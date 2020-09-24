@@ -36,9 +36,9 @@ public interface IMovieDao {
 	
 //	mahesh module
 	public  double calculateTotalCost(List<Seat> seat);
-	public Booking makePayment(Booking booking);
+	public Booking makePayment(int Booking_id);
 	public Booking   cancelticket(Ticket ticket);
-	public Booking choosePaymentmethod(List<Seat> seat,int buttonid);
+	public Booking choosePaymentmethod(Integer showId, SelectedSeatArray seatLocation,int buttonid);
 
 	
 	public void addTheater(Theater theater);
@@ -79,11 +79,11 @@ public interface IMovieDao {
 	
 	
 	
-	public Seat blockUnblock (Seat markseat);
+	public Seat blockUnblock (Integer markseat);
 	
-	public Booking unblockSeat (Booking Bookingobj);
+	public Booking unblockSeat (int Bookingobj);
 	
-	public Booking cancelBooking (Booking  cancelBooking);
+	public Booking cancelBooking (int cancelBooking_id);
 	
 
 	public Booking initiateBooking (Booking BookingObj);

@@ -19,7 +19,7 @@ import com.Capgemini.Movie_Mania.Project.repo.BookingRepository;
 import com.Capgemini.Movie_Mania.Project.repo.CustomerRepository;
 import com.Capgemini.Movie_Mania.Project.repo.MovieRepository;
 import com.Capgemini.Movie_Mania.Project.repo.ScreenRepo;
-import com.Capgemini.Movie_Mania.Project.repo.SeatRepo;
+import com.Capgemini.Movie_Mania.Project.repo.Seatrepo;
 import com.Capgemini.Movie_Mania.Project.repo.ShowRepo;
 import com.Capgemini.Movie_Mania.Project.repo.TheatreRepo;
 import com.Capgemini.Movie_Mania.Project.repo.TicketRepository;
@@ -27,7 +27,7 @@ import com.Capgemini.Movie_Mania.Project.repo.TicketRepository;
 @Repository
 public class MovieDaoImpl implements IMovieDao {
 
-	private static final Booking Bookingobj = null;
+	//private static final Booking Bookingobj = null;
 
 	@Autowired
 	CustomerRepository custRepository;
@@ -65,7 +65,7 @@ public class MovieDaoImpl implements IMovieDao {
 	TheatreRepo trepo;
 	
 	@Autowired
-	SeatRepo seatrepo;
+	Seatrepo seatrepo;
 	
 	private Customer customer;
 	
@@ -271,6 +271,7 @@ public class MovieDaoImpl implements IMovieDao {
 	public List<Theater> searchTheatre(String theatreName) {
 //		logger.info("At DAO - Search Theatre");
 		return trepo.findByTheaterName(theatreName);
+		
 	}
 		
 	@Override
@@ -386,7 +387,7 @@ public class MovieDaoImpl implements IMovieDao {
 		}
 		List<Seat> ChoosedSeat = new ArrayList<Seat>();
 		int size = seatLocation.getSeatLocation().length;
-		Integer[] seatLoc = seatLocation.getSeatLocation();
+		int[] seatLoc = seatLocation.getSeatLocation();
 		for (int i =0 ; i<size; i=i+2) {
 		int row = seatLoc[i];
 		int col = seatLoc[i+1]; //(1,1),(1,2),
@@ -430,8 +431,11 @@ public class MovieDaoImpl implements IMovieDao {
 	}
 
 	@Override
-	public Seat blockUnblock(Seat markseat) {
+	public Seat blockUnblock(Integer seat_id ) {
 		// TODO Auto-generated method stub
+		
+		Seat markseat = seatrepo.getOne(seat_id);
+		System.out.println(markseat);
 		
 		if(markseat.getSeatStatus().equals("Available"))
 		{
@@ -442,6 +446,8 @@ public class MovieDaoImpl implements IMovieDao {
 			markseat.setSeatStatus("Available");
 		}
 		
+		
+		
 		Seat marked= seatrepo.save(markseat);
 		return marked;
 	}
@@ -449,8 +455,9 @@ public class MovieDaoImpl implements IMovieDao {
 
 
 	@Override
-	public Booking cancelBooking(Booking cancelBooking) {
+	public Booking cancelBooking(int cancelBooking_id) {
 		// TODO Auto-generated method stub
+		Booking cancelBooking = bookRepository.getOne(cancelBooking_id);
 		List<Seat> list = cancelBooking.getSeatList();
 		for (Seat seat : list) {
 			if(seat.getSeatStatus().equals("booked"))
@@ -469,8 +476,9 @@ public class MovieDaoImpl implements IMovieDao {
 	}
 
 	@Override
-	public Booking unblockSeat(Booking Bookingobj) {
+	public Booking unblockSeat(int Bookingobj_id) {
 		// TODO Auto-generated method stub
+		Booking Bookingobj = bookRepository.getOne(Bookingobj_id);
 		List<Seat> list = Bookingobj.getSeatList();
 		for (Seat seat : list) {
 			if(seat.getSeatStatus().equals("Blocked"))
@@ -536,22 +544,29 @@ public class MovieDaoImpl implements IMovieDao {
 	public double calculateTotalCost(List<Seat> seat) {
 		
 		for(int i=0; i<seat.size();i++) {
-//			sum=sum+seat.get(i).getSeatPrice();
+			sum=sum+seat.get(i).getSeatPrice();
 		}
 
-			return 200.0;
+			return sum;
 	}
 
 	@Override
-	public Booking makePayment(Booking booking) {
-//		 Booking b1= new Booking(bookingId,movieId,showId,showRef,)
+	public Booking makePayment(int Booking_id) {
+		System.out.println(Booking_id);
+		Booking booking= bookRepository.getOne(Booking_id);
+		 
+		 System.out.println(" here choose payment method :-----------c");
+		 System.out.println(booking);
 		booking.getTransactionId();
 		Ticket printTicket = booking.getTicket();
 		printTicket.setNoOfSeats(booking.getSeatList().size());
 		printTicket.setScreenName(booking.getShowRef().getShowName());
 		printTicket.setBookingRef(booking);
-		UpdateSeatStatus(booking);
-		return booking;
+		
+		Ticket paid = ticketRepository.save(printTicket);
+		booking.setTicket(paid);
+		booking= UpdateSeatStatus(booking);
+	return booking;
 	}
 
 	
@@ -571,6 +586,7 @@ public class MovieDaoImpl implements IMovieDao {
 		confirmTicket.setTicketStatus(false);
 		ticketRepository.save(confirmTicket);
 		seatrepo.saveAll(list);
+		
 		bookRepository.save(cancelBooking);		
 		return cancelBooking ;
 		
@@ -578,20 +594,48 @@ public class MovieDaoImpl implements IMovieDao {
 	}
 	
 	@Override
-	public Booking choosePaymentmethod(List<Seat> seat, int buttonid) {
+	public Booking choosePaymentmethod(Integer showId, SelectedSeatArray seatLocation, int buttonid) {
+		
+		List<Seat> seat = SelectSeat(showId, seatLocation);
 		Booking b = new Booking(); 
-		Ticket tk =new Ticket();
+		Ticket tk =new Ticket(); /// 2,4,2,5,2,6
 		b.setTicket(tk);
-		Seat s1 =seat.get(0);		
-//		b.setShowId(s1.getShow().getShowId());		
+		Seat s1 =seat.get(0);
+		
+		System.out.println(seat);
+		System.out.println(s1);
+		
+		b.setShowId(s1.getShow().getShowId());		
 		b.setSeatList(seat);
 //		b.setMovieId(s1.getShow().getMovieName().getMovieId());
-		b.setTotalCost(calculateTotalCost( seat));
+		b.setTotalCost(calculateTotalCost(seat));
 		b.setBookingDate(java.time.LocalDate.now());
-			
-		b.setTransactionId(buttonid);
-//		b.setShowRef(s1.getShow());
+		
+		
+		//to generate unique transaction id
+		
+				int[] locArray = seatLocation.getSeatLocation(); 
+				
+				StringBuilder s = new StringBuilder(); 
+				s.append(buttonid);
+		
+			    for (int i : locArray)
+			    {
+			         s.append(i); //add all the ints to a string
+			    }
+		
+			     int id = Integer.parseInt(s.toString());
+
+		
+		b.setTransactionId(id);
+		
+		System.out.println(" here choose payment method :-----------a");
+		System.out.println(b);
+		b.setShowRef(s1.getShow());
 	    ticketRepository.save(tk);
+	    
+	    System.out.println(" here choose payment method :-----------b");
+	    System.out.println(b);
 		bookRepository.save(b);	
 		return b;
 	}

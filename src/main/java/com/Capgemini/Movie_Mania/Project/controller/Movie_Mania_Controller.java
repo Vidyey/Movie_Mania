@@ -87,22 +87,22 @@ public class Movie_Mania_Controller {
 	return new ResponseEntity<Object>("Hello Customer..", HttpStatus.OK);
 	}
 
-	@GetMapping("myTickets/{customerId}")
+	@GetMapping("/myTickets/{customerId}")
 	public ResponseEntity<List<Ticket>> showMyTickets(@PathVariable("customerId") int customerId ){
 	return new ResponseEntity<List<Ticket>>(mserv.showTickets(customerId), HttpStatus.OK);
 	}
 
-	@GetMapping("bookSeat")
+	@GetMapping("/bookSeat")
 	public ResponseEntity<Ticket> bookSeat(@PathVariable("customerId") int customerId ){
 	return new ResponseEntity<Ticket>(mserv.bookSeat(), HttpStatus.OK);
 	}
 
-	@GetMapping("cancelSeat")
+	@GetMapping("/cancelSeat")
 	public ResponseEntity<Boolean> cancelSeat(@PathVariable("customerId") int customerId ){
 	return new ResponseEntity<Boolean>(mserv.cancelSeat(), HttpStatus.OK);
 	}
 
-	@GetMapping("blockSeat")
+	@GetMapping("/blockSeat")
 	public ResponseEntity<Boolean> blockSeat(@PathVariable("customerId") int customerId ){
 	return new ResponseEntity<Boolean>(mserv.bloackSeat(), HttpStatus.OK);
 	}
@@ -117,27 +117,32 @@ public class Movie_Mania_Controller {
 		return mserv.registerAdmin(admin);
 	}
 	
-	@PostMapping("cancelticket")
+	@PostMapping("/cancelticket")
 	public ResponseEntity<Booking> cancelticket(@RequestBody Ticket ticket){
 	return new ResponseEntity<Booking>(mserv.cancelticket(ticket),HttpStatus.OK);
 		
 	}
 	
-	@PostMapping("makePayment")
-	public ResponseEntity<Booking> makePayment(@RequestBody Booking booking){
-	return new ResponseEntity<Booking>(mserv.makePayment(booking),HttpStatus.OK);
+	@GetMapping("/makePayment/{BookingId}")
+	public ResponseEntity<Booking> makePayment(@PathVariable("BookingId") int BookingId){
+		
+		System.out.print("controller:- ");
+		System.out.println(BookingId);
+	return new ResponseEntity<Booking>(mserv.makePayment(BookingId),HttpStatus.OK);
 	}	
 	
-	@PostMapping("calculateTotalCost")
+	@PutMapping("/calculateTotalCost")
 	public ResponseEntity<Double> calculateTotalCost(@RequestBody List<Seat> seat){
     return new ResponseEntity<Double>(mserv.calculateTotalCost(seat), HttpStatus.OK);
 	}
-	@PutMapping(value="/choosePaymentmethod/{buttonid}")
-	public Booking choosePaymentmethod(@RequestBody List<Seat> seat, @PathVariable("buttonid") int buttonid) {
-		return mserv.choosePaymentmethod(seat, buttonid);
+	@PutMapping(value="/choosePaymentmethod/{showId}/{buttonid}")
+	public Booking choosePaymentmethod(@PathVariable("showId") Integer showId,@RequestBody SelectedSeatArray seatLocation, @PathVariable("buttonid") int buttonid) {
+		return mserv.choosePaymentmethod(showId, seatLocation, buttonid);
 		
 	} 
 	
+	
+	//Pratik module 
 
 	@PostMapping(path ="/ConfirmedSeat/{showId}")
 	public List<Seat> SelectSeat(@PathVariable("showId") Integer showId,@RequestBody SelectedSeatArray seatLocation) {
@@ -153,23 +158,23 @@ public class Movie_Mania_Controller {
 	}
 
 	//tested on postman
-	@PutMapping(path="/selectSeat")
-	public Seat blockUnblock(@RequestBody Seat markseat) {
+	@GetMapping(path="/selectSeat/{seat_id}")
+	public Seat blockUnblock(@PathVariable("seat_id") Integer seat_id) {
 		// TODO Auto-generated method stub
-		return mserv.blockUnblock(markseat);
+		return mserv.blockUnblock(seat_id);
 	}
 
-	//tested on postmanstatus
-	@PutMapping(path="/CancelPayment")
-	public Booking unblockSeat(@RequestBody Booking Bookingobj) {
+	//tested on postman status
+	@PutMapping(path="/CancelPayment/{BookingId}")
+	public Booking unblockSeat(@PathVariable("BookingId") int BookingId) {
 		// TODO Auto-generated method stub
-		return mserv.unblockSeat(Bookingobj);
+		return mserv.unblockSeat(BookingId);
 	}
 
-	@GetMapping(path="/cancelBooking")
-	public Booking cancelBooking(Booking cancelBooking) {
+	@GetMapping(path="/cancelBooking/{BookingId}")
+	public Booking cancelBooking(@PathVariable("BookingId") int BookingId) {
 		// TODO Auto-generated method stub
-		return mserv.cancelBooking(cancelBooking);
+		return mserv.cancelBooking(BookingId);
 	}
 	
 	

@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.Capgemini.Movie_Mania.Project.entity.Seat;
 
-public interface SeatRepo extends JpaRepository<Seat, Integer>{
+public interface Seatrepo extends JpaRepository<Seat, Integer>{
 
 }

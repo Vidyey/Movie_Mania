@@ -4,19 +4,19 @@ import java.util.Arrays;
 
 public class SelectedSeatArray {
 	
-	Integer[] seatLocation;
+	int[] seatLocation;
 
 	/**
 	 * @return the seatLocation
 	 */
-	public Integer[] getSeatLocation() {
+	public int[] getSeatLocation() {
 		return seatLocation;
 	}
 
 	/**
 	 * @param seatLocation the seatLocation to set
 	 */
-	public void setSeatLocation(Integer[] seatLocation) {
+	public void setSeatLocation(int[] seatLocation) {
 		this.seatLocation = seatLocation;
 	}
 

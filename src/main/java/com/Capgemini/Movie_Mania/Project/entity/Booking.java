@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "Booking_Details")
 public class Booking implements Serializable{
@@ -22,6 +24,7 @@ public class Booking implements Serializable{
 	@Column(name="show_id")
 	private Integer	showId;
 	
+	@JsonIgnore
 	@OneToOne(targetEntity=Show.class,cascade=CascadeType.ALL)
 	private Show showRef;
 	
@@ -170,9 +173,7 @@ public class Booking implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "Booking [bookingId=" + bookingId + ", movieId=" + movieId + ", showId=" + showId + ", showRef="
-				+ showRef + ", bookingDate=" + bookingDate + ", transactionId=" + transactionId + ", totalCost="
-				+ totalCost + ", seatList=" + seatList + ", ticket=" + ticket + "]";
+		return "Booking [bookingId=" + bookingId +"]";
 	}
 	
 	
